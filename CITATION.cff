@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "Cite the exact commit you used. This foundation has no research results yet."
+title: "ContinuumBench: Independent research foundation"
+type: software
+authors:
+  - family-names: Annigeri
+    given-names: Samarth
+version: 0.0.1
+license: Apache-2.0

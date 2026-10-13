@@ -1,0 +1,13 @@
+site_name: "ContinuumBench (independent foundation)"
+theme:
+  name: material
+nav:
+  - Overview: index.md
+  - Research questions: research-questions.md
+  - Method: method.md
+  - Results: results.md
+  - Architecture: architecture.md
+  - Reproduce: reproduce.md
+  - Limitations: limitations.md
+  - Related work: related-work.md
+  - How this was built: how-this-was-built.md
