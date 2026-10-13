@@ -11,3 +11,5 @@
 2026-10-13: We cannot truthfully state that Samarth reviewed the code or ran annotations yet. The AI disclosure distinguishes completed assistant work from pending human review.
 
 2026-10-13: CI uses ubuntu-24.04 and mocks. Private-runner sizing is based on the opened GitHub documentation, not a claim that CI has run. Pages deployment and releases remain disabled pending explicit approval.
+
+2026-10-13: Both initial hosted verification jobs passed. The gitleaks Action wrapper failed on its PR-metadata API call because the workflow token has contents-read permission only. We replace the wrapper with gitleaks CLI 8.30.1 and pin the Linux archive SHA-256 verified from the official release. It scans full checked-out git history and keeps the existing token permissions. Hosted secret-check validation is rerun before accepting the milestone.
