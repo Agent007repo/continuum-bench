@@ -1,0 +1,14 @@
+status: proposed-not-measured
+tiers:
+  device:
+    hardware: user-reported Apple M1 Max, 64 GB unified memory
+    measurement: pending macOS power adapter validation
+    energy_provenance: pending
+  edge-emulated:
+    hardware: Linux container on same host, resource cap not yet frozen
+    energy_provenance: estimated:cpu-linear
+    network_emulation: unverified on macOS Docker
+  cloud:
+    provider: unselected
+    hosting_and_retention: unverified
+    energy_provenance: pending-literature-band
