@@ -1,0 +1,322 @@
+[
+  {
+    "name": "annotated-doc",
+    "version": "0.0.5",
+    "license": "MIT"
+  },
+  {
+    "name": "annotated-types",
+    "version": "0.8.0",
+    "license": "MIT"
+  },
+  {
+    "name": "anyio",
+    "version": "4.15.1",
+    "license": "MIT"
+  },
+  {
+    "name": "ast_serialize",
+    "version": "0.13.0",
+    "license": "MIT"
+  },
+  {
+    "name": "babel",
+    "version": "2.18.0",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "name": "backrefs",
+    "version": "8.1",
+    "license": "MIT"
+  },
+  {
+    "name": "certifi",
+    "version": "2026.7.22",
+    "license": "MPL-2.0"
+  },
+  {
+    "name": "cfgv",
+    "version": "3.5.0",
+    "license": "MIT"
+  },
+  {
+    "name": "charset-normalizer",
+    "version": "3.5.2",
+    "license": "MIT"
+  },
+  {
+    "name": "click",
+    "version": "8.5.0",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "name": "colorama",
+    "version": "0.4.6",
+    "license": "UNVERIFIED"
+  },
+  {
+    "name": "continuum-bench",
+    "version": "0.0.1",
+    "license": "UNVERIFIED"
+  },
+  {
+    "name": "coverage",
+    "version": "7.16.2",
+    "license": "Apache-2.0"
+  },
+  {
+    "name": "distlib",
+    "version": "0.4.3",
+    "license": "PSF-2.0"
+  },
+  {
+    "name": "filelock",
+    "version": "4.1.1",
+    "license": "MIT"
+  },
+  {
+    "name": "ghp-import",
+    "version": "2.1.0",
+    "license": "Apache Software License"
+  },
+  {
+    "name": "h11",
+    "version": "0.16.0",
+    "license": "MIT"
+  },
+  {
+    "name": "httpcore",
+    "version": "1.0.9",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "name": "httpx",
+    "version": "0.28.1",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "name": "identify",
+    "version": "2.6.20",
+    "license": "MIT"
+  },
+  {
+    "name": "idna",
+    "version": "3.20",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "name": "iniconfig",
+    "version": "2.3.1",
+    "license": "MIT"
+  },
+  {
+    "name": "Jinja2",
+    "version": "3.1.6",
+    "license": "UNVERIFIED"
+  },
+  {
+    "name": "librt",
+    "version": "0.16.0",
+    "license": "MIT"
+  },
+  {
+    "name": "Markdown",
+    "version": "3.11",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "name": "markdown-it-py",
+    "version": "4.2.0",
+    "license": "UNVERIFIED"
+  },
+  {
+    "name": "MarkupSafe",
+    "version": "3.0.4",
+    "license": "BSD-3-Clause"
+  },
+  {
+    "name": "mdurl",
+    "version": "0.1.2",
+    "license": "UNVERIFIED"
+  },
+  {
+    "name": "mergedeep",
+    "version": "1.3.4",
+    "license": "UNKNOWN"
+  },
+  {
+    "name": "mkdocs",
+    "version": "1.6.1",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "name": "mkdocs-get-deps",
+    "version": "0.2.2",
+    "license": "MIT"
+  },
+  {
+    "name": "mkdocs-material",
+    "version": "9.7.7",
+    "license": "MIT"
+  },
+  {
+    "name": "mkdocs-material-extensions",
+    "version": "1.3.1",
+    "license": "MIT"
+  },
+  {
+    "name": "mypy",
+    "version": "2.4.0",
+    "license": "MIT"
+  },
+  {
+    "name": "mypy_extensions",
+    "version": "1.1.0",
+    "license": "MIT"
+  },
+  {
+    "name": "nodeenv",
+    "version": "1.11.0",
+    "license": "BSD"
+  },
+  {
+    "name": "packaging",
+    "version": "26.3",
+    "license": "Apache-2.0 OR BSD-2-Clause"
+  },
+  {
+    "name": "paginate",
+    "version": "0.5.7",
+    "license": "MIT"
+  },
+  {
+    "name": "pathspec",
+    "version": "1.1.1",
+    "license": "UNVERIFIED"
+  },
+  {
+    "name": "platformdirs",
+    "version": "4.13.0",
+    "license": "MIT"
+  },
+  {
+    "name": "pluggy",
+    "version": "1.6.0",
+    "license": "MIT"
+  },
+  {
+    "name": "pre_commit",
+    "version": "4.7.0",
+    "license": "MIT"
+  },
+  {
+    "name": "pydantic",
+    "version": "2.14.1",
+    "license": "MIT"
+  },
+  {
+    "name": "pydantic_core",
+    "version": "2.50.1",
+    "license": "MIT"
+  },
+  {
+    "name": "Pygments",
+    "version": "2.21.0",
+    "license": "BSD-2-Clause"
+  },
+  {
+    "name": "pymdown-extensions",
+    "version": "12.2",
+    "license": "MIT"
+  },
+  {
+    "name": "pytest",
+    "version": "9.1.1",
+    "license": "MIT"
+  },
+  {
+    "name": "pytest-cov",
+    "version": "7.1.0",
+    "license": "MIT"
+  },
+  {
+    "name": "python-dateutil",
+    "version": "2.9.0.post0",
+    "license": "Dual License"
+  },
+  {
+    "name": "python-discovery",
+    "version": "1.6.2",
+    "license": "Permission is hereby granted, free of charge, to any person obtaining a\ncopy of this software and associated documentation files (the\n\"Software\"), to deal in the Software without restriction, including\nwithout limitation the rights to use, copy, modify, merge, publish,\ndistribute, sublicense, and/or sell copies of the Software, and to\npermit persons to whom the Software is furnished to do so, subject to\nthe following conditions:\n\nThe above copyright notice and this permission notice shall be included\nin all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS\nOR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.\nIN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY\nCLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,\nTORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE\nSOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE."
+  },
+  {
+    "name": "PyYAML",
+    "version": "6.0.3",
+    "license": "MIT"
+  },
+  {
+    "name": "pyyaml_env_tag",
+    "version": "1.1",
+    "license": "MIT"
+  },
+  {
+    "name": "requests",
+    "version": "2.34.2",
+    "license": "Apache-2.0"
+  },
+  {
+    "name": "rich",
+    "version": "15.0.0",
+    "license": "MIT"
+  },
+  {
+    "name": "ruff",
+    "version": "0.17.0",
+    "license": "MIT"
+  },
+  {
+    "name": "shellingham",
+    "version": "1.5.4",
+    "license": "ISC License"
+  },
+  {
+    "name": "six",
+    "version": "1.17.0",
+    "license": "MIT"
+  },
+  {
+    "name": "typer",
+    "version": "0.27.3",
+    "license": "MIT"
+  },
+  {
+    "name": "types-PyYAML",
+    "version": "6.0.12.20260906",
+    "license": "Apache-2.0"
+  },
+  {
+    "name": "typing-inspection",
+    "version": "0.4.4",
+    "license": "MIT"
+  },
+  {
+    "name": "typing_extensions",
+    "version": "4.16.0",
+    "license": "PSF-2.0"
+  },
+  {
+    "name": "urllib3",
+    "version": "2.8.0",
+    "license": "MIT"
+  },
+  {
+    "name": "virtualenv",
+    "version": "21.14.7",
+    "license": "MIT"
+  },
+  {
+    "name": "watchdog",
+    "version": "6.0.0",
+    "license": "Apache-2.0"
+  }
+]
