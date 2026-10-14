@@ -9,6 +9,8 @@ nav:
   - Architecture: architecture.md
   - Candidate shortlist: protocols/2026-10-14-shortlist.md
   - Pre-pilot decisions: protocols/2026-10-14-pre-pilot-decisions.md
+  - Streaming and preflight: protocols/2026-10-14-streaming-preflight-v0.2.md
+  - Mac runbook: RUNBOOK_full_benchmark.md
   - Reproduce: reproduce.md
   - Limitations: limitations.md
   - Related work: related-work.md

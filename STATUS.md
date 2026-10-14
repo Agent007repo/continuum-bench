@@ -1,4 +1,4 @@
-# Milestone 2 preparation status, 14 October 2026
+# Milestone 3 tooling status, 14 October 2026
 
 State: local foundation, not public-ready. Both vacancy pages and relevant supervisor abstracts were opened on 13 October 2026. No research experiment, paid API call, human annotation or Mac benchmark has occurred.
 
@@ -18,10 +18,14 @@ Private GitHub repositories were created on 13 October 2026 after browser sign-i
 
 Verify the Mac configuration and working-set limit, model and dataset licences/revisions, power adapters, clock alignment, Docker/network emulation and idle-baseline handling. Run a separate pilot, select practical hypothesis thresholds and freeze a new v1 protocol before confirmatory data.
 
-Current energy, sovereignty and routing functions are tested with synthetic inputs only. Complete streaming/native adapters, trial manifests, resumption and swapping detection. Replace provisional baseline size ordering with explicit model inventory, and add cascade, learned routing, proper train/validation/test splits, paired effects and weight-sensitivity analysis. Validate domain scorers and the human judge-calibration protocol before the full run.
+Current energy, sovereignty and routing functions are tested with synthetic inputs only. A loopback SSE client now has fixture-tested timing and failure handling; native backend compatibility is unverified. Complete metering/clock adapters, trial manifests, resumption and swapping detection. Replace provisional baseline size ordering with explicit model inventory, and add cascade, learned routing, proper train/validation/test splits, paired effects and weight-sensitivity analysis. Validate domain scorers and the human judge-calibration protocol before the full run.
 
 Empirical characterisation, Pareto figures, offline policy comparison, live validation and the client-side results explorer are pending. No sovereign API provider or carbon-intensity source is selected yet.
 
 ## Dated preparation
 
-The six-model owner-card shortlist, two dataset candidate decisions and pre-pilot decision table are prepared under `docs/protocols/`. All runtime suitability remains unverified; four model revisions and full dataset freezes are pending. SQuAD is a general-control candidate only; XSum is excluded pending rights verification. Target-sector corpora are not selected. No data or weights were imported. The initial draft and lockfile remain unchanged. Main is still bootstrap-only and PR #1 stays open; default-main operations require explicit approval. The 28 October public-ready target and 1 November application deadline remain planning dates, not completed outcomes.
+The six-model owner-card shortlist, two dataset candidate decisions and pre-pilot decision table are prepared under `docs/protocols/`. All runtime suitability remains unverified; four model revisions and full dataset freezes are pending. SQuAD is a general-control candidate only; XSum is excluded pending rights verification. Target-sector corpora are not selected. No data or weights were imported. The initial draft and lockfile remain unchanged. PR #1 has merged after explicit approval and main contains the foundation. PR #2 holds the shortlist/protocol work and PR #3 the README refresh. This tooling branch preserves both and targets PR #3; no additional merge or main write is included. The 28 October public-ready target and 1 November application deadline remain planning dates, not completed outcomes.
+
+## New tooling boundary
+
+`scripts/mac_preflight.py` is a read-only, Darwin-only capability inventory with no sudo, model downloads or power capture. It has not run on Samarth’s Mac. The new dated streaming/preflight supplement records client timing definitions and unsupported cases. All streaming tests use HTTP fixtures; their timings and completions are not model observations. Paid APIs stay disabled and full benchmark collection stays blocked.
