@@ -1,0 +1,236 @@
+[
+  {
+    "id": "tue-vacancy",
+    "url": "https://www.academictransfer.com/en/jobs/364211/phd-in-trustworthy-llm-enabled-ecosystems-from-requirements-to-architecture",
+    "claim": "TU/e vacancy: deadline 24 October 2026; requirements-to-architecture and empirical/design-oriented research.",
+    "status": "verified",
+    "checked_date": "2026-10-13",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "delft-vacancy",
+    "url": "https://www.academictransfer.com/en/jobs/364287/phd-position-sustainable-generative-ai-for-digital-sovereignty",
+    "claim": "TU Delft vacancy: deadline 1 November 2026; three named application domains; MSc thesis requested. Acceptance of a substitute is unconfirmed.",
+    "status": "verified",
+    "checked_date": "2026-10-13",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "f-inference",
+    "url": "https://cordis.europa.eu/project/id/101298393",
+    "claim": "Public project objective describes foundation-model deployment across cloud, edge and IoT tiers.",
+    "status": "verified",
+    "checked_date": "2026-10-13",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "razavian-profile",
+    "url": "https://research.tue.nl/en/persons/maryam-razavian/",
+    "claim": "Research profile includes information-system design reasoning and human aspects of design.",
+    "status": "verified",
+    "checked_date": "2026-10-13",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "decidarch",
+    "url": "https://research.tue.nl/en/publications/designing-ethics-aware-decidarch-game-to-promote-value-diversity-/",
+    "claim": "Abstract describes a card-based game supporting reflection on stakeholder values and decisions. Our reflection template is an adaptation, not a replication.",
+    "status": "verified",
+    "checked_date": "2026-10-13",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "ethical-values",
+    "url": "https://research.tue.nl/en/publications/exploring-ethical-values-in-software-systems-a-systematic-literat/",
+    "claim": "Abstract discusses stakeholder mapping, value relations and unresolved operationalisation challenges.",
+    "status": "verified",
+    "checked_date": "2026-10-13",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "ding-publications",
+    "url": "https://aaronyiding.github.io/publications.html",
+    "claim": "Author-maintained publication list includes edge-AI roadmap and approximate edge-AI survey.",
+    "status": "verified",
+    "checked_date": "2026-10-13",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "edge-roadmap",
+    "url": "https://arxiv.org/abs/2112.00616",
+    "claim": "Verified title: Roadmap for Edge AI: A Dagstuhl Perspective. Detailed synthesis pending full-text review.",
+    "status": "metadata_verified",
+    "checked_date": "2026-10-13",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "edge-survey",
+    "url": "https://arxiv.org/abs/2304.14271",
+    "claim": "Verified title: A Survey on Approximate Edge AI for Energy Efficient Autonomous Driving Services. Detailed synthesis pending full-text review.",
+    "status": "metadata_verified",
+    "checked_date": "2026-10-13",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "oliveira-profile",
+    "url": "https://research.tudelft.nl/en/persons/marcela-tuler-de-oliveira/",
+    "claim": "Profile concerns cross-organisational sharing, access control, traceability and accountability.",
+    "status": "verified",
+    "checked_date": "2026-10-13",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "industrial-abac",
+    "url": "https://research.tudelft.nl/en/publications/an-attribute-driven-access-control-framework-based-on-smart-contr/",
+    "claim": "Abstract describes contextual attribute-based access control for collaborative predictive maintenance. We do not reproduce its blockchain system.",
+    "status": "verified",
+    "checked_date": "2026-10-13",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "veriful",
+    "url": "https://research.tudelft.nl/en/publications/toward-verifiable-federated-unlearning-framework-challenges-and-t/",
+    "claim": "Abstract describes verifiable federated unlearning. We use verification as a research motivation, not as evidence of our implementation.",
+    "status": "verified",
+    "checked_date": "2026-10-13",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "hleg",
+    "url": "https://digital-strategy.ec.europa.eu/en/library/ethics-guidelines-trustworthy-ai",
+    "claim": "Public page enumerates seven trustworthy-AI requirements. These are design categories, not a certification.",
+    "status": "verified",
+    "checked_date": "2026-10-13",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "efti-overview",
+    "url": "https://transport.ec.europa.eu/transport-themes/logistics-and-multimodal-transport/efti-regulation_en",
+    "claim": "Commission overview describes selective partner access and full application on 9 July 2027. Article-level legal mappings remain pending.",
+    "status": "verified",
+    "checked_date": "2026-10-13",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "ai-act-overview",
+    "url": "https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai",
+    "claim": "Commission page reports a 2026 AI Omnibus amendment and revised high-risk dates. Final operative legal text was not retrieved; we assert no case risk classification or binding deadline.",
+    "status": "verified_overview_only",
+    "checked_date": "2026-10-13",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "iso25010",
+    "url": "https://www.iso.org/standard/78176.html",
+    "claim": "Official abstract verifies the 2023 edition and nine product-quality characteristics. Specific characteristic mappings remain UNVERIFIED pending authoritative accessible definitions.",
+    "status": "metadata_verified",
+    "checked_date": "2026-10-13",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "gdpr",
+    "url": "https://eur-lex.europa.eu/eli/reg/2016/679/oj/eng",
+    "claim": "UNVERIFIED: browser retrieval returned a challenge page. No article-level claim or excerpt used.",
+    "status": "blocked",
+    "checked_date": "2026-10-13",
+    "access": "blocked",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "efti-legal",
+    "url": "https://eur-lex.europa.eu/eli/reg/2020/1056/oj/eng",
+    "claim": "UNVERIFIED: operative text was not retrieved. No excerpt used.",
+    "status": "blocked",
+    "checked_date": "2026-10-13",
+    "access": "blocked",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "eurlex-reuse",
+    "url": "https://eur-lex.europa.eu/content/legal-notice/legal-notice.html",
+    "claim": "UNVERIFIED: reuse terms were not retrieved. Do not import legal excerpts yet.",
+    "status": "blocked",
+    "checked_date": "2026-10-13",
+    "access": "blocked",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "wieringa",
+    "url": "https://link.springer.com/book/10.1007/978-3-662-43839-8",
+    "claim": "Publisher verifies Design Science Methodology for Information Systems and Software Engineering. Detailed cycle interpretation pending full-text review.",
+    "status": "metadata_verified",
+    "checked_date": "2026-10-13",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "hevner",
+    "url": "https://aisel.aisnet.org/misq/vol28/iss1/6/",
+    "claim": "Primary AIS abstract verifies that design science builds and applies artefacts to develop understanding. Detailed guideline review remains pending.",
+    "status": "abstract_verified",
+    "checked_date": "2026-10-13",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "github-runners",
+    "url": "https://docs.github.com/en/actions/reference/runners/github-hosted-runners",
+    "claim": "Official table: private ubuntu-24.04 has 2 CPU and 8 GB RAM. CI uses mocks and no model downloads; real runner runtime remains pending.",
+    "status": "verified",
+    "checked_date": "2026-10-13",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "uv",
+    "url": "https://docs.astral.sh/uv/guides/projects/",
+    "claim": "Official project workflow documentation consulted for locked sync and project structure.",
+    "status": "verified",
+    "checked_date": "2026-10-13",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "pydantic",
+    "url": "https://docs.pydantic.dev/latest/concepts/json_schema/",
+    "claim": "Official JSON Schema documentation consulted for model-derived schema generation.",
+    "status": "verified",
+    "checked_date": "2026-10-13",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "madr",
+    "url": "https://adr.github.io/madr/",
+    "claim": "MADR documentation consulted for decision context, options and consequences.",
+    "status": "verified",
+    "checked_date": "2026-10-13",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "sei-scenarios",
+    "url": "https://www.sei.cmu.edu/library/file_redirect/2013_018_101_60984.pdf/",
+    "claim": "SEI presentation, page 19, specifies six scenario parts: stimulus, source, environment, artefact, response and response measure. We use original case wording.",
+    "status": "verified",
+    "checked_date": "2026-10-13",
+    "access": "browser_open",
+    "rights": "linked; no copied slide or image"
+  }
+]

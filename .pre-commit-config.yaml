@@ -1,0 +1,23 @@
+repos:
+  - repo: local
+    hooks:
+      - id: ruff
+        name: ruff
+        entry: uv run ruff check --fix
+        language: system
+        types: [python]
+      - id: ruff-format
+        name: ruff format
+        entry: uv run ruff format
+        language: system
+        types: [python]
+      - id: gitleaks
+        name: gitleaks (install binary before committing)
+        entry: gitleaks git --pre-commit --staged --redact
+        language: system
+        pass_filenames: false
+      - id: research-integrity
+        name: immutable protocol and punctuation
+        entry: uv run python scripts/integrity.py
+        language: system
+        pass_filenames: false

@@ -1,0 +1,63 @@
+uv sync --frozen
+Checked 64 packages in 0.71ms
+uv run ruff check .
+All checks passed!
+uv run ruff format --check .
+31 files already formatted
+uv run mypy src
+Success: no issues found in 7 source files
+uv run pytest --cov=continuum_bench --cov-report=term-missing --cov-report=xml --junitxml=results/raw/software-checks/junit.xml
+============================= test session starts ==============================
+platform linux -- Python 3.12.14, pytest-9.1.1, pluggy-1.6.0
+rootdir: /workspace/scratch/f4a08880f5c0/research-portfolio/continuum-bench
+configfile: pyproject.toml
+testpaths: tests
+plugins: cov-7.1.0, anyio-4.15.1, platformdirs-4.13.0
+collected 33 items
+
+tests/scenarios/test_measurement.py .............................        [ 87%]
+tests/test_runners.py ....                                               [100%]
+
+- generated xml file: /workspace/scratch/f4a08880f5c0/research-portfolio/continuum-bench/results/raw/software-checks/junit.xml -
+================================ tests coverage ================================
+_______________ coverage: platform linux, python 3.12.14-final-0 _______________
+
+Name                                 Stmts   Miss Branch BrPart  Cover   Missing
+--------------------------------------------------------------------------------
+src/continuum_bench/__init__.py          0      0      0      0   100%
+src/continuum_bench/energy.py           50      0     26      0   100%
+src/continuum_bench/routing.py          57      0     28      0   100%
+src/continuum_bench/runners.py          48      0      4      0   100%
+src/continuum_bench/sovereignty.py      20      0     10      0   100%
+src/continuum_bench/statistics.py       25      0     10      0   100%
+--------------------------------------------------------------------------------
+TOTAL                                  200      0     78      0   100%
+Coverage XML written to file coverage.xml
+Required test coverage of 85.0% reached. Total coverage: 100.00%
+============================== 33 passed in 0.37s ==============================
+uv run python scripts/integrity.py
+Integrity checks passed; this is not a substitute for gitleaks.
+uv run python scripts/analyze.py
+uv run mkdocs build --strict
+
+[31m │  ⚠  Warning from the Material for MkDocs team[0m
+[31m │[0m
+[31m │[0m  MkDocs 2.0, the underlying framework of Material for MkDocs,
+[31m │[0m  will introduce backward-incompatible changes, including:
+[31m │[0m
+[31m │  × [0mAll plugins will stop working – the plugin system has been removed
+[31m │  × [0mAll theme overrides will break – the theming system has been rewritten
+[31m │  × [0mNo migration path exists – existing projects cannot be upgraded
+[31m │  × [0mClosed contribution model – community members can't report bugs
+[31m │  × [0mCurrently unlicensed – unsuitable for production use
+[31m │[0m
+[31m │[0m  Our full analysis:
+[31m │[0m
+[31m │[0m  [4mhttps://squidfunk.github.io/mkdocs-material/blog/2026/02/18/mkdocs-2.0/[0m
+[0m
+INFO    -  Cleaning site directory
+INFO    -  Building documentation to directory: /workspace/scratch/f4a08880f5c0/research-portfolio/continuum-bench/site
+INFO    -  The following pages exist in the docs directory, but are not included in the "nav" configuration:
+  - RUNBOOK_full_benchmark.md
+  - application/README.md
+INFO    -  Documentation built in 0.21 seconds
