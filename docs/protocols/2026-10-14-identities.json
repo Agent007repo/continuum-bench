@@ -1,0 +1,19 @@
+{
+  "project": "ContinuumBench",
+  "review_status": "pending",
+  "initial_protocol_sha256": "d9a157260a83abbf698f81f17a8281a2f22c59db14fbe66dab4fed28828286cf",
+  "documents": {
+    "docs/protocols/2026-10-14-shortlist.md": {
+      "version": "0.1",
+      "sha256": "ab1bd59cfdfdeee57355b454f02e9b48b8517033bbc881302d5b99a807788ac7"
+    },
+    "docs/protocols/2026-10-14-pre-pilot-decisions.md": {
+      "version": "0.1",
+      "sha256": "ec0999adb86df2e458741ad3a662f1b53b72eb08522cb32c20558bcd464d54fe"
+    },
+    "configs/2026-10-14-shortlist.json": {
+      "version": "0.1",
+      "sha256": "a43cf66ed5dd926138e203ca55f00582834a6ba783a1f04fd9b708979e9b66bf"
+    }
+  }
+}

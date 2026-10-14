@@ -7,6 +7,8 @@ nav:
   - Method: method.md
   - Results: results.md
   - Architecture: architecture.md
+  - Candidate shortlist: protocols/2026-10-14-shortlist.md
+  - Pre-pilot decisions: protocols/2026-10-14-pre-pilot-decisions.md
   - Reproduce: reproduce.md
   - Limitations: limitations.md
   - Related work: related-work.md

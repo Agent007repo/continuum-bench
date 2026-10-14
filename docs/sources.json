@@ -13,7 +13,7 @@
     "url": "https://www.academictransfer.com/en/jobs/364287/phd-position-sustainable-generative-ai-for-digital-sovereignty",
     "claim": "TU Delft vacancy: deadline 1 November 2026; three named application domains; MSc thesis requested. Acceptance of a substitute is unconfirmed.",
     "status": "verified",
-    "checked_date": "2026-10-13",
+    "checked_date": "2026-10-14",
     "access": "browser_open",
     "rights": "link-and-original-paraphrase-only; no full-text redistributed"
   },
@@ -232,5 +232,86 @@
     "checked_date": "2026-10-13",
     "access": "browser_open",
     "rights": "linked; no copied slide or image"
+  },
+  {
+    "id": "model-card-Qwen2.5-0.5B-Instruct",
+    "url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct",
+    "claim": "Owner card declares Apache-2.0; runtime and derived artifact unverified. Full terms verification status is recorded separately in the dated shortlist.",
+    "status": "card_metadata_verified",
+    "checked_date": "2026-10-14",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "model-card-Qwen2.5-1.5B-Instruct",
+    "url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct",
+    "claim": "Owner card declares Apache-2.0; runtime and derived artifact unverified. Full terms verification status is recorded separately in the dated shortlist.",
+    "status": "card_metadata_verified",
+    "checked_date": "2026-10-14",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "model-card-Qwen2.5-7B-Instruct",
+    "url": "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct",
+    "claim": "Owner card declares Apache-2.0; runtime and derived artifact unverified. Full terms verification status is recorded separately in the dated shortlist.",
+    "status": "card_metadata_verified",
+    "checked_date": "2026-10-14",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "model-card-Qwen2.5-14B-Instruct",
+    "url": "https://huggingface.co/Qwen/Qwen2.5-14B-Instruct",
+    "claim": "Owner card declares Apache-2.0; runtime and derived artifact unverified. Full terms verification status is recorded separately in the dated shortlist.",
+    "status": "card_metadata_verified",
+    "checked_date": "2026-10-14",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "model-card-Qwen2.5-32B-Instruct",
+    "url": "https://huggingface.co/Qwen/Qwen2.5-32B-Instruct",
+    "claim": "Owner card declares Apache-2.0; runtime and derived artifact unverified. Full terms verification status is recorded separately in the dated shortlist.",
+    "status": "card_metadata_verified",
+    "checked_date": "2026-10-14",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "model-card-Mistral-7B-Instruct-v0.3",
+    "url": "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3",
+    "claim": "Owner card declares Apache-2.0; runtime and derived artifact unverified. Full terms verification status is recorded separately in the dated shortlist.",
+    "status": "card_metadata_verified",
+    "checked_date": "2026-10-14",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "squad-card",
+    "url": "https://huggingface.co/datasets/rajpurkar/squad",
+    "claim": "Owner card declares CC BY-SA 4.0; complete reuse assessment and source freeze pending.",
+    "status": "metadata_verified_not_import_eligible",
+    "checked_date": "2026-10-14",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "squad-owner",
+    "url": "https://rajpurkar.github.io/SQuAD-explorer/",
+    "claim": "Original dataset owner website opened; no examples redistributed.",
+    "status": "metadata_verified_not_import_eligible",
+    "checked_date": "2026-10-14",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "xsum-card",
+    "url": "https://huggingface.co/datasets/EdinburghNLP/xsum",
+    "claim": "Owner card licence is unknown; candidate excluded pending rights verification.",
+    "status": "metadata_verified_not_import_eligible",
+    "checked_date": "2026-10-14",
+    "access": "browser_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
   }
 ]
