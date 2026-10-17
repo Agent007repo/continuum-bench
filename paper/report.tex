@@ -1,33 +1,103 @@
 \documentclass[10pt,twocolumn]{article}
-\usepackage[margin=0.75in]{geometry}
+\usepackage[margin=0.72in]{geometry}
 \usepackage[T1]{fontenc}
-\usepackage{hyperref}
-\title{ContinuumBench: Independent Research Foundation}
-\author{Samarth Annigeri}
-\date{13 October 2026}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage[hidelinks]{hyperref}
+\setlength{\parskip}{0.25em}
+\title{\textbf{ContinuumBench: Measuring Quality, Energy and Sovereignty Trade-offs for Local LLM Inference, and Routing Between Them}}
+\author{Samarth Annigeri\\Independent research portfolio, Montreal, Canada\\\small\texttt{Samarth.annigeri@mail.mcgill.ca}}
+\date{Technical report, October 2026}
 \begin{document}
 \maketitle
+
 \begin{abstract}
-This document is a report skeleton, prepared before research observations exist. It records the intended argument and evidence requirements. It is not a completed study, an MSc thesis, or a substitute approved by an admissions committee.
+Small and medium-sized enterprises that want generative AI face a three-way trade-off between answer quality, energy use and control over their data and dependencies. Where a request runs (a laptop GPU, a CPU-only server on site, or a hosted API) changes all three, and the trade-off is rarely measured. We present ContinuumBench, a measurement-first benchmark and routing study. We ran six open-weight model configurations (Qwen2.5 0.5B, 1.5B and 7B, Mistral 7B; 4-bit and 8-bit quantisation) on 450 automatically scored questions from healthcare, digital-industry and general-science sources, on a Metal GPU tier and an emulated CPU edge tier of one Apple M1 Max laptop, and measured component power with \texttt{powermetrics}. We propose a six-dimension, evidence-bearing sovereignty scorecard and test how its rankings move under random weightings. We then compare single-model baselines, a sensitivity rule, confidence cascades, a learned router and a constraint-aware optimiser on held-out items. \input{generated/abstract_results.tex} All results come from committed raw records and rebuild with one command. The study is a single-machine first step toward the computing-continuum placement problem.
 \end{abstract}
+
 \section{Introduction}
-We investigate how organisations can make generative-AI deployment choices auditable. The project-specific research questions are recorded in the repository protocol.
+Generative AI is moving from a few large clouds toward a continuum of places where inference can run: personal devices, on-premise edge servers and hosted services \cite{satya2017,shi2016,deng2020,ding2022roadmap}. For a small organisation the choice matters in three ways at once. A larger model answers more questions correctly. A smaller or more aggressively quantised model, or a request that never leaves the device, uses less energy and exposes less data. The deploying organisation keeps more control when weights, runtime and data stay in its hands, which is one practical meaning of digital sovereignty \cite{esposito2026}. These goals pull in different directions, and an organisation can only make the trade-off deliberately if it is measured.
+
+Two research lines meet here. Work on sustainable AI shows that inference, not only training, carries a material and growing energy cost, and calls for measured rather than assumed figures \cite{strubell2019,schwartz2020,henderson2020,wu2022,luccioni2024,samsi2023}. Work on LLM routing and cascades shows that sending easy requests to small models can preserve quality at lower cost \cite{frugalgpt,routellm,hybridllm}, but usually counts cost in money or API calls on cloud hardware, not in measured joules on hardware an SME owns, and rarely considers where data may go. Edge AI research has long argued that placement should follow resources and constraints \cite{varghese2021,ding2022roadmap}, including for energy-efficient automotive services \cite{katare2023} and under trustworthiness and sustainability goals together \cite{dingtrust2021}.
+
+We ask three questions, fixed in a protocol committed before any measurement:
+\begin{itemize}\setlength\itemsep{0pt}
+\item \textbf{RQ1.} How do open-weight models of different sizes and quantisation levels trade off accuracy, latency, energy per request and memory on device-class and CPU edge-class hardware, across three domains?
+\item \textbf{RQ2.} Can digital sovereignty of an inference option be operationalised as a transparent, evidence-bearing score, and how stable are its rankings to the choice of weights?
+\item \textbf{RQ3.} Can a constraint-aware routing policy reduce energy per request relative to always using the largest local model, at a bounded accuracy loss, on held-out items?
+\end{itemize}
+
+\textbf{Contributions.} (1) A reproducible measurement harness that records per-request timing, cell-level measured component power, swap and thermal state, with every number tagged by provenance. (2) A characterisation of six configurations on two tiers (Section~\ref{sec:rq1}). (3) A six-dimension sovereignty scorecard with a rubric, cited evidence and a weight-sensitivity analysis (Section~\ref{sec:rq2}). (4) A leakage-free comparison of seven routing policies with a pre-registered hypothesis (Section~\ref{sec:rq3}). (5) A frank account of what one laptop cannot show, framed as a research agenda (Section~\ref{sec:future}).
+
 \section{Background and related work}
-The primary-source register distinguishes abstract-level reading from full-text review. The final report requires at least 25 verified references. That review is unfinished; no filler citations are included here.
-\section{Method}
-We separate design assumptions, synthetic software fixtures, measured observations and estimates. A protocol must be frozen before research runs. Human annotations must be authored by a human and retained separately from generated artefacts.
-\section{Implementation}
-The repository contains an initial executable vertical slice and quality-gate configuration. Passing software checks establishes behaviour within tested conditions, not stakeholder acceptance or model quality.
+\textbf{Edge and continuum computing.} Edge computing moves computation toward data to cut latency and backhaul and to keep data local \cite{satya2017,shi2016}. Edge intelligence extends this to AI workloads \cite{deng2020}. The Dagstuhl roadmap for edge AI identifies resource-aware placement, energy and trust as open problems \cite{ding2022roadmap}, and the case for edge research has been restated in terms of where it gives measurable advantage \cite{varghese2021}. Approximate edge AI trades accuracy for energy in latency-critical settings such as autonomous driving \cite{katare2023}. Our tiers are a small, honest slice of this continuum: one laptop GPU and the same laptop's CPU standing in for a small server.
+
+\textbf{Energy of AI.} Early estimates focused on training \cite{strubell2019,patterson2021}. Green AI argued for reporting efficiency alongside accuracy \cite{schwartz2020}, and reporting frameworks followed \cite{henderson2020,lannelongue2021}. Inference now draws attention because it runs continuously at scale \cite{wu2022,luccioni2024}, and per-request LLM inference energy has been benchmarked on data-centre GPUs \cite{samsi2023}. We contribute measured figures for small models on a laptop-class accelerator, the hardware an SME is likely to own.
+
+\textbf{Compression.} Post-training quantisation shrinks memory and can speed inference \cite{dettmers2022,frantar2022,lin2023}. Inference efficiency also depends on batching, memory bandwidth and partitioning \cite{pope2022}. We compare 4-bit and 8-bit GGUF quantisations at two model sizes.
+
+\textbf{Routing and cascades.} FrugalGPT cascades models by a learned quality score \cite{frugalgpt}. RouteLLM learns routers from preference data \cite{routellm}, and Hybrid LLM routes by predicted query difficulty \cite{hybridllm}. Cascades depend on how well a model's confidence tracks its correctness, which is imperfect \cite{guo2017,kadavath2022}. We evaluate confidence cascades and a learned router with energy as the cost and sovereignty as a constraint.
+
+\textbf{Sovereignty.} Sovereignty-by-design treats control over data, models and dependencies as an architectural objective \cite{esposito2026}. We turn that idea into a scored instrument with explicit evidence and unknowns.
+
+\section{Method}\label{sec:method}
+\textbf{Protocol.} The design was frozen in a dated protocol before any Mac measurement, with a machine-readable copy. A pilot on 45 disjoint items sized the run and set the RQ3 thresholds, recorded in version 1.1 before confirmatory data. An earlier design for GitHub-hosted runners was drafted and abandoned before use: a probe showed two vCPUs and no readable energy counters, which would have forced estimated energy.\footnote{Runner probe, 17 Oct 2026: Intel Xeon Platinum 8370C, 2 vCPUs, 7.9 GB RAM, no powercap interface.}
+
+\textbf{Host and tiers.} One MacBook Pro 16-inch with an Apple M1 Max and 64 GB unified memory, on mains power with Low Power Mode off. The \emph{device} tier offloads every layer to the GPU through Metal. The \emph{edge} tier uses four CPU threads and no GPU, emulating a small CPU-only on-premise server on the same chip. A \emph{cloud} tier is characterised from provider documentation for the sovereignty scorecard but not executed.
+
+\textbf{Models.} Qwen2.5-Instruct at 0.5B, 1.5B and 7B \cite{qwen25} from the model owner's GGUF files, and Mistral-7B-Instruct-v0.3 \cite{mistral7b} from a third-party GGUF conversion. Each file is pinned by repository revision and SHA-256 and verified before loading. The 0.5B and 1.5B models run at 4-bit (Q4\_K\_M) and 8-bit (Q8\_0); the 7B models at 4-bit only. The edge tier runs the three smallest configurations. Runtime: llama-cpp-python 0.3.16 built for Metal, context 2048.
+
+\textbf{Tasks.} 450 confirmatory and 45 pilot items, sampled with a fixed seed from pinned dataset revisions: healthcare (PubMedQA \cite{pubmedqa} plus MMLU clinical, college and professional medicine \cite{mmlu}); digital industries (MMLU computer security, electrical engineering, college computer science); and a general-science control (ARC-Challenge \cite{arc}). All are scored automatically against published labels. We found no text-only, automatically scorable automotive dataset with clear reuse rights; CAN-QA \cite{canqa} is a candidate for future work. MMLU subjects are domain proxies, not workplace tasks.
+
+\textbf{Scoring.} Each item gets one forward pass over the model's own chat template. The prediction is the answer label with the most first-token probability mass among the top 20 tokens; no label in the top 20 counts as wrong. The normalised probability of the top label ($p_{\max}$) and the margin to the second label serve as confidence signals.
+
+\textbf{Measurement.} For each request we record wall time, process CPU time, prompt tokens and wall-clock start and end. \texttt{powermetrics} samples CPU, GPU and ANE power every 200\,ms for the whole run. A 60\,s idle baseline precedes the first cell. For each cell (configuration, tier, domain), incremental energy per request is the mean combined power inside the cell's main-pass window minus idle power, times the window length, divided by the number of requests. This is component energy apportioned evenly across a cell's requests; it excludes display, memory, storage and power-supply losses. Cells whose virtual-memory page-outs increase are excluded from latency and energy analysis. The first ten items of each confirmatory cell are replayed five times after three warm-up passes to measure timing stability.
+
+\textbf{Routing.} Items are split per domain into train (50\%), validation (20\%) and test (30\%) with a fixed seed. Policies: always using each configuration; a static sensitivity rule (special-category and confidential items stay on the EU-origin model, public items go to the 1.5B model); cascades from Qwen 1.5B to Qwen 7B on $p_{\max}$ and on margin, with the threshold tuned on validation; a logistic-regression router on the small model's signals, fitted on train and thresholded on validation; and a per-domain constraint-aware optimiser that picks the lowest-energy configuration whose validation accuracy is within $Y$ points of the 7B model. An oracle that uses test labels is shown only as an upper bound. All comparisons are paired on the same test items with 2000-resample bootstrap intervals.
+
+\textbf{Hypothesis.} H3: the best non-oracle policy reduces mean energy per request by at least $X$\% relative to always using Qwen 7B on the device tier, with a mean accuracy loss of at most $Y$ points. \input{generated/thresholds.tex}
+
 \section{Results}
-Pending. There are no inference, elicitation or practitioner-study results. Any research table must be generated from recorded raw data.
+\subsection{RQ1: configuration trade-offs}\label{sec:rq1}
+\input{generated/mac_table.tex}
+\input{generated/rq1_text.tex}
+
+\begin{figure}[t]\centering
+\includegraphics[width=\columnwidth]{../results/figures/pareto_energy_accuracy.png}
+\caption{Accuracy against measured incremental energy per request. Circles: device tier. Squares: emulated edge tier. Triangles: routing policies on the test split.}\label{fig:pareto}
+\end{figure}
+
+\subsection{RQ2: sovereignty scorecard}\label{sec:rq2}
+\input{generated/sovereignty_text.tex}
+
+\subsection{RQ3: routing}\label{sec:rq3}
+\input{generated/routing_table.tex}
+\input{generated/routing_text.tex}
+
 \section{Discussion}
-The design is intended to support later empirical work. Claims of benefit require comparison baselines, uncertainty estimates and evidence of generalisation.
+\input{generated/discussion.tex}
+
 \section{Threats to validity}
-Construct validity: synthetic cases may miss real stakeholder concerns. Internal validity: software verification cannot establish model quality. External validity: one candidate's hardware and authored scenarios cannot represent European organisations. Conclusion validity: no empirical comparison can be made before data collection.
-\section{Future work}
-We will refine the case with practitioners, validate instruments, compare alternatives and test transfer across organisations. This is a proposed research agenda, not evidence of execution.
-\section{Reproducibility statement}
-Use the exact commit and lockfile. Research results are absent. The repository documents which remaining steps require annotation, hardware access or source verification.
-\section{AI-assistance statement}
-AI coding assistants produced this foundation from Samarth's brief. His annotations, benchmark runs and final review are pending. The project has no institutional endorsement.
+\textbf{Construct.} Multiple-choice accuracy with first-token scoring measures recognition, not the open-ended generation many SME tasks need. MMLU subjects are proxies for sector tasks. Component power from \texttt{powermetrics} omits display, memory and supply losses, and even apportioning within a cell hides per-item variation. The sovereignty scores apply the author's rubric to cited evidence; the rubric itself is a normative choice, which is why we test weight sensitivity.
+
+\textbf{Internal.} The edge tier shares the chip, memory and thermal envelope with the device tier, so it is an emulation, not separate hardware. Thermal state and background activity can drift during a run; we log both and replay a timing subset, but cannot exclude all drift. The Mistral file is a third-party conversion whose source revision we did not verify.
+
+\textbf{External.} One machine, one runtime, small models and three domains. Results may not transfer to other accelerators, larger models, batching servers or real enterprise traffic.
+
+\textbf{Conclusion.} 135 test items per policy comparison give intervals of several points on accuracy. H3 is the single confirmatory test; all other comparisons are descriptive.
+
+\section{Future work}\label{sec:future}
+A PhD-scale version of this study would (i) meter real edge hardware and a hosted tier with wall-plug instruments, so device, edge and cloud energy share one method; (ii) move from multiple-choice probes to open-ended tasks with calibrated evaluation in the digital-industry, automotive and healthcare settings named in the f-inference project; (iii) treat placement as an online decision across many devices and providers, where routing must also respect data-sharing agreements between organisations; and (iv) test the sovereignty instrument with SMEs and policy experts, asking which dimensions they actually trade against energy and quality.
+
+\section*{Reproducibility}
+Items, protocol, model pins, raw per-request rows, cell manifests, the \texttt{powermetrics} log and analysis code are committed. \texttt{python scripts/analyze\_mac.py} regenerates every table, figure and number in this report from those records. The Mac run script and its log are included.
+
+\section*{AI-assistance statement}
+This project was built with AI coding assistants under the author's direction. The author set the research direction and scope and ran the benchmark on his own laptop. AI assistants wrote most of the code, documentation and this report's first draft, and ran the analysis. The author reviewed the outputs. The work is independent and not affiliated with or endorsed by TU Delft or the f-inference consortium.
+
+\small
+\input{generated/bib.tex}
 \end{document}
