@@ -11,3 +11,5 @@
 **Routing.** The H3 policy saved energy on point estimates within the tolerance, but the accuracy confidence interval crosses the 5-point tolerance, so support is tentative. The oracle is an unattainable bound that uses test labels.
 
 **Sovereignty.** The scorecard is a normative instrument. Its ranking follows from the rubric, which a different organisation could reasonably set differently. No score establishes GDPR compliance or legal independence.
+
+**Routing was evaluated offline.** Policies were replayed over the recorded per-item outputs and energy of each configuration. No live routed run was executed, so the overhead of loading or switching models at serving time is not measured.
