@@ -1,0 +1,240 @@
+{
+ "identity": "ContinuumBench/cloud-runner/2026-10-17/v1",
+ "status": "design frozen before pilot; RQ3 thresholds X and Y set from the pilot in v1.1 before confirmatory collection",
+ "host": {
+  "platform": "GitHub-hosted runner ubuntu-24.04",
+  "observed_2026-10-17": {
+   "vcpus": 2,
+   "cpu_model": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+   "threads_per_core": 2,
+   "mem_total_mb": 7937,
+   "energy_counters": "none readable (no /sys/class/powercap, perf power events unavailable)"
+  }
+ },
+ "tiers": {
+  "device": {
+   "threads": 1,
+   "memory_budget_gb": 3.0,
+   "memory_budget_enforced": false,
+   "represents": "an SME laptop or gateway class device: one hardware thread, models whose resident set fits 3 GB"
+  },
+  "edge": {
+   "threads": 2,
+   "memory_budget_gb": 7.9,
+   "memory_budget_enforced": false,
+   "represents": "a small on-premise edge server: the whole runner"
+  },
+  "cloud": {
+   "executed": false,
+   "represents": "hosted API tiers; characterised from provider documentation for the sovereignty scorecard only. GitHub Models returned HTTP 200 with a non-JSON body from the runner on 2026-10-17, so no cloud call was made."
+  }
+ },
+ "configurations": [
+  {
+   "id": "qwen0.5b-q4",
+   "model": "Qwen2.5-0.5B-Instruct",
+   "origin_jurisdiction": "CN",
+   "upstream_repo": "Qwen/Qwen2.5-0.5B-Instruct",
+   "artifact_repo": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+   "artifact_revision": "9217f5db79a29953eb74d5343926648285ec7e67",
+   "artifact_publisher": "model owner (Qwen)",
+   "files": [
+    "qwen2.5-0.5b-instruct-q4_k_m.gguf"
+   ],
+   "sha256": {
+    "qwen2.5-0.5b-instruct-q4_k_m.gguf": "74a4da8c9fdbcd15bd1f6d01d621410d31c6fc00986f5eb687824e7b93d7a9db"
+   },
+   "size_bytes": 491400032,
+   "quantization": "Q4_K_M",
+   "licence": "Apache-2.0 (declared on the model card; see THIRD_PARTY.md)",
+   "tiers": [
+    "device",
+    "edge"
+   ]
+  },
+  {
+   "id": "qwen0.5b-q8",
+   "model": "Qwen2.5-0.5B-Instruct",
+   "origin_jurisdiction": "CN",
+   "upstream_repo": "Qwen/Qwen2.5-0.5B-Instruct",
+   "artifact_repo": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+   "artifact_revision": "9217f5db79a29953eb74d5343926648285ec7e67",
+   "artifact_publisher": "model owner (Qwen)",
+   "files": [
+    "qwen2.5-0.5b-instruct-q8_0.gguf"
+   ],
+   "sha256": {
+    "qwen2.5-0.5b-instruct-q8_0.gguf": "ca59ca7f13d0e15a8cfa77bd17e65d24f6844b554a7b6c12e07a5f89ff76844e"
+   },
+   "size_bytes": 675710816,
+   "quantization": "Q8_0",
+   "licence": "Apache-2.0 (declared on the model card; see THIRD_PARTY.md)",
+   "tiers": [
+    "edge"
+   ]
+  },
+  {
+   "id": "qwen1.5b-q4",
+   "model": "Qwen2.5-1.5B-Instruct",
+   "origin_jurisdiction": "CN",
+   "upstream_repo": "Qwen/Qwen2.5-1.5B-Instruct",
+   "artifact_repo": "Qwen/Qwen2.5-1.5B-Instruct-GGUF",
+   "artifact_revision": "91cad51170dc346986eccefdc2dd33a9da36ead9",
+   "artifact_publisher": "model owner (Qwen)",
+   "files": [
+    "qwen2.5-1.5b-instruct-q4_k_m.gguf"
+   ],
+   "sha256": {
+    "qwen2.5-1.5b-instruct-q4_k_m.gguf": "6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e"
+   },
+   "size_bytes": 1117320736,
+   "quantization": "Q4_K_M",
+   "licence": "Apache-2.0 (declared on the model card; see THIRD_PARTY.md)",
+   "tiers": [
+    "device",
+    "edge"
+   ]
+  },
+  {
+   "id": "qwen1.5b-q8",
+   "model": "Qwen2.5-1.5B-Instruct",
+   "origin_jurisdiction": "CN",
+   "upstream_repo": "Qwen/Qwen2.5-1.5B-Instruct",
+   "artifact_repo": "Qwen/Qwen2.5-1.5B-Instruct-GGUF",
+   "artifact_revision": "91cad51170dc346986eccefdc2dd33a9da36ead9",
+   "artifact_publisher": "model owner (Qwen)",
+   "files": [
+    "qwen2.5-1.5b-instruct-q8_0.gguf"
+   ],
+   "sha256": {
+    "qwen2.5-1.5b-instruct-q8_0.gguf": "d7efb072e7724d25048a4fda0a3e10b04bdef5d06b1403a1c93bd9f1240a63c8"
+   },
+   "size_bytes": 1894532128,
+   "quantization": "Q8_0",
+   "licence": "Apache-2.0 (declared on the model card; see THIRD_PARTY.md)",
+   "tiers": [
+    "edge"
+   ]
+  },
+  {
+   "id": "qwen7b-q4",
+   "model": "Qwen2.5-7B-Instruct",
+   "origin_jurisdiction": "CN",
+   "upstream_repo": "Qwen/Qwen2.5-7B-Instruct",
+   "artifact_repo": "Qwen/Qwen2.5-7B-Instruct-GGUF",
+   "artifact_revision": "bb5d59e06d9551d752d08b292a50eb208b07ab1f",
+   "artifact_publisher": "model owner (Qwen)",
+   "files": [
+    "qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf",
+    "qwen2.5-7b-instruct-q4_k_m-00002-of-00002.gguf"
+   ],
+   "sha256": {
+    "qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf": "dfce12e3862a5283ccfb88221b48480e58745165de856439950d0f22590580db",
+    "qwen2.5-7b-instruct-q4_k_m-00002-of-00002.gguf": "539cf93f78e887edea1c04e2d7d8cdaca9d01dae9c9025bcb8accbe29df3d72a"
+   },
+   "size_bytes": 4683073632,
+   "quantization": "Q4_K_M",
+   "licence": "Apache-2.0 (declared on the model card; see THIRD_PARTY.md)",
+   "tiers": [
+    "edge"
+   ]
+  },
+  {
+   "id": "mistral7b-q4",
+   "model": "Mistral-7B-Instruct-v0.3",
+   "origin_jurisdiction": "FR",
+   "upstream_repo": "mistralai/Mistral-7B-Instruct-v0.3",
+   "artifact_repo": "bartowski/Mistral-7B-Instruct-v0.3-GGUF",
+   "artifact_revision": "61fd4167fff3ab01ee1cfe0da183fa27a944db48",
+   "artifact_publisher": "third party (bartowski); conversion from the upstream revision is declared by the converter, not independently verified",
+   "files": [
+    "Mistral-7B-Instruct-v0.3-Q4_K_M.gguf"
+   ],
+   "sha256": {
+    "Mistral-7B-Instruct-v0.3-Q4_K_M.gguf": "1270d22c0fbb3d092fb725d4d96c457b7b687a5f5a715abe1e818da303e562b6"
+   },
+   "size_bytes": 4372812000,
+   "quantization": "Q4_K_M",
+   "licence": "Apache-2.0 (declared on the model card; see THIRD_PARTY.md)",
+   "tiers": [
+    "edge"
+   ]
+  }
+ ],
+ "excluded_configurations": [
+  {
+   "id": "qwen7b-q8",
+   "reason": "8.1 GB of weights exceeds the runner's 7.9 GB of RAM"
+  },
+  {
+   "id": "mistral7b-q8",
+   "reason": "7.7 GB of weights leaves no room for context and runtime on a 7.9 GB runner; would swap"
+  },
+  {
+   "id": "qwen14b and larger",
+   "reason": "exceed runner memory"
+  },
+  {
+   "id": "qwen3b",
+   "reason": "model card declares a custom licence (Qwen research licence), not assessed"
+  }
+ ],
+ "runtime": {
+  "backend": "llama-cpp-python 0.3.16, CPU build with GGML_NATIVE=OFF and AVX2/FMA/F16C enabled",
+  "n_ctx": 2048,
+  "n_batch": 512,
+  "decoding": "chat completion, max_tokens 1, temperature 0, top_logprobs 20, seed 0",
+  "chat_template": "embedded in each GGUF"
+ },
+ "items": {
+  "path": "data/items/items-v1.jsonl",
+  "manifest": "data/items/manifest.json",
+  "phases": {
+   "pilot": "15 per domain, disjoint, used only to size the run and set thresholds",
+   "confirmatory": "150 per domain"
+  }
+ },
+ "scoring": "Predicted label = label with the highest summed first-token probability among the top-20 tokens (a token maps to a label when its stripped lower-case text is a prefix of exactly one label). No label in the top 20 = wrong. Accuracy against the dataset label.",
+ "timing": {
+  "per_item": "wall time and process CPU time (all threads) around the completion call",
+  "replay": "first 10 items of each cell: 3 warm-up passes discarded, then 5 measured repetitions",
+  "latency_note": "With max_tokens 1, latency is prompt processing plus one decoding step: a time-to-first-token measure."
+ },
+ "energy_model": {
+  "provenance": "estimated:cpu-time-tdp (Green Algorithms, Lannelongue et al. 2021)",
+  "formula": "E_J = cpu_s * P_thread + wall_s * mem_gb * 0.3725",
+  "P_thread_w": {
+   "central": 4.22,
+   "low": 2.11,
+   "high": 6.33,
+   "basis": "270 W rated power / 64 hardware threads for the Xeon Platinum 8370C (secondary source, retail listing); low and high are -50% and +50%"
+  },
+  "mem_gb": "peak resident set of the cell, from getrusage",
+  "pue": 1.0,
+  "pue_note": "component energy only; facility overhead excluded",
+  "unknown_cpu_rule": "cells that ran on a different CPU model are reported separately and use that CPU's documented TDP per thread, or are excluded from energy analysis if none is available"
+ },
+ "splits": {
+  "rule": "confirmatory items split per domain into train 50%, validation 20%, test 30% with random.Random(20261017)",
+  "use": "routers fit on train, thresholds tuned on validation, all reported comparisons on test"
+ },
+ "routing_policies": [
+  "always-<config> single-configuration baselines",
+  "static sensitivity rule",
+  "cascade on p_max",
+  "cascade on margin",
+  "learned router (logistic regression)",
+  "constraint-aware optimiser"
+ ],
+ "hypotheses": {
+  "H3": "On held-out test items, the best non-oracle routing policy reduces mean estimated energy per request by at least X percent versus always-largest-local-model (qwen7b-q4, edge) with a mean accuracy loss of no more than Y percentage points.",
+  "X": null,
+  "Y": null,
+  "set_from": "pilot, recorded in v1.1 before confirmatory data"
+ },
+ "analysis": {
+  "ci": "2000 bootstrap resamples over items, seed 20261017, 95 percent percentile",
+  "paired": "policies compared on the same test items",
+  "multiple_comparisons": "H3 is the single confirmatory test; all other comparisons are descriptive"
+ }
+}

@@ -1,0 +1,36 @@
+{
+ "identity": "ContinuumBench/items/v1",
+ "seed": 20261017,
+ "sha256": "278198b370d9fe20e094ba216cb9c028368e6d1069d1826e10a7bd9d76fa0d28",
+ "sources": {
+  "mmlu": {
+   "repo": "cais/mmlu",
+   "revision": "c30699e8356da336a370243923dbaf21066bb9fe",
+   "licence": "MIT"
+  },
+  "pubmedqa": {
+   "repo": "qiaojin/PubMedQA",
+   "revision": "9001f2853fb87cab8d220904e0de81ac6973b318",
+   "licence": "MIT"
+  },
+  "arc": {
+   "repo": "allenai/ai2_arc",
+   "revision": "210d026faf9955653af8916fad021475a3f00453",
+   "licence": "CC BY-SA 4.0"
+  }
+ },
+ "counts": {
+  "healthcare": {
+   "pilot": 15,
+   "confirmatory": 150
+  },
+  "digital_industries": {
+   "pilot": 15,
+   "confirmatory": 150
+  },
+  "general_control": {
+   "pilot": 15,
+   "confirmatory": 150
+  }
+ }
+}
