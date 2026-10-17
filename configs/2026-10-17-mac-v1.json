@@ -177,7 +177,7 @@
   }
  ],
  "runtime": {
-  "backend": "llama-cpp-python 0.3.16 built from source with CMAKE_ARGS=-DGGML_METAL=on",
+  "backend": "llama-cpp-python 0.3.16, official prebuilt Metal wheel from the project's v0.3.16-metal GitHub release (llama_cpp_python-0.3.16-cp312-cp312-macosx_11_0_arm64.whl, sha256 039e1fdef9301c5512c4b4108b4981c39ba54d75bb376b1ea95f9a569ca81228)",
   "n_ctx": 2048,
   "n_batch": 512,
   "scoring_pass": "one forward pass over the chat-template prompt (model's own GGUF template); next-token logits read through llama_get_logits_ith; top 20 tokens",
