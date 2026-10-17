@@ -1,7 +1,13 @@
 # Limitations
 
-No inference measurements exist. Software tests exercise synthetic fixtures on Linux, not the candidate's Mac. Real Apple Silicon memory limits, swapping detection, power-channel coverage, sample-clock alignment and thermal settings remain unverified. A sampled CPU/GPU/ANE quantity is component energy, not wall energy or full lifecycle emissions.
+**One machine, component power.** All measurements come from one Apple M1 Max. `powermetrics` reports CPU, GPU and ANE power; DRAM, display, fans and power-supply losses are not included, so these are component figures, not wall-plug or lifecycle energy. Energy in a cell is apportioned evenly across its requests.
 
-The emulated edge would share a host with device inference. That design limits causal claims and needs isolated execution windows. Cloud energy is unmeasurable from this client and cannot be compared as if directly observed. The model and dataset shortlist has not yet been verified. Healthcare questions are not automatically special-category personal data; corpus contents and intended deployment sensitivity must be distinguished.
+**Emulated and unexecuted tiers.** The edge tier is the same Mac's CPU with four threads. It says something about CPU versus GPU on this chip, not about real edge servers. The cloud tier was characterised from provider documentation for the sovereignty scorecard and never executed; its energy is unknown.
 
-The proposed sovereignty instrument is normative and weight-sensitive. No score establishes GDPR compliance or legal independence. A calibrated judge, domain representativeness, routing generalisation, live validation and a results explorer remain future work.
+**Task and scoring.** Items are multiple-choice and yes/no/maybe questions from MMLU, PubMedQA and ARC, scored by first-token label mass. That measures a model's ranked answer, not free-text quality. Automotive has no verified dataset and is a stated gap. Public benchmarks may overlap with training data.
+
+**Exclusions.** Two of 27 cells (qwen1.5b-q4 on the edge tier, two domains) recorded memory page-outs and are excluded from latency and energy, as pre-registered. Their accuracy is kept.
+
+**Routing.** The H3 policy saved energy on point estimates within the tolerance, but the accuracy confidence interval crosses the 5-point tolerance, so support is tentative. The oracle is an unattainable bound that uses test labels.
+
+**Sovereignty.** The scorecard is a normative instrument. Its ranking follows from the rubric, which a different organisation could reasonably set differently. No score establishes GDPR compliance or legal independence.

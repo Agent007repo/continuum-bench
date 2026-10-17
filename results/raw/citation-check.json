@@ -1,0 +1,188 @@
+[
+ {
+  "reference": "ding2022roadmap",
+  "id": "2112.00616",
+  "registered_title": "Roadmap for Edge AI: A Dagstuhl Perspective",
+  "status": "pass"
+ },
+ {
+  "reference": "katare2023",
+  "id": "2304.14271",
+  "registered_title": "A Survey on Approximate Edge AI for Energy Efficient Autonomous Driving Services",
+  "status": "pass"
+ },
+ {
+  "reference": "varghese2021",
+  "id": "10.1109/MIC.2021.3093924",
+  "registered_title": "Revisiting the Arguments for Edge Computing Research",
+  "status": "pass"
+ },
+ {
+  "reference": "satya2017",
+  "id": "10.1109/MC.2017.9",
+  "registered_title": "The Emergence of Edge Computing",
+  "status": "pass"
+ },
+ {
+  "reference": "shi2016",
+  "id": "10.1109/JIOT.2016.2579198",
+  "registered_title": "Edge Computing: Vision and Challenges",
+  "status": "pass"
+ },
+ {
+  "reference": "deng2020",
+  "id": "10.1109/JIOT.2020.2984887",
+  "registered_title": "Edge Intelligence: The Confluence of Edge Computing and Artificial Intelligence",
+  "status": "pass"
+ },
+ {
+  "reference": "frugalgpt",
+  "id": "2305.05176",
+  "registered_title": "FrugalGPT: How to Use Large Language Models While Reducing Cost and Improving Performance",
+  "status": "pass"
+ },
+ {
+  "reference": "routellm",
+  "id": "2406.18665",
+  "registered_title": "RouteLLM: Learning to Route LLMs with Preference Data",
+  "status": "pass"
+ },
+ {
+  "reference": "hybridllm",
+  "id": "2404.14618",
+  "registered_title": "Hybrid LLM: Cost-Efficient and Quality-Aware Query Routing",
+  "status": "pass"
+ },
+ {
+  "reference": "strubell2019",
+  "id": "10.18653/v1/P19-1355",
+  "registered_title": "Energy and Policy Considerations for Deep Learning in NLP",
+  "status": "pass"
+ },
+ {
+  "reference": "schwartz2020",
+  "id": "10.1145/3381831",
+  "registered_title": "Green AI",
+  "status": "pass"
+ },
+ {
+  "reference": "patterson2021",
+  "id": "2104.10350",
+  "registered_title": "Carbon Emissions and Large Neural Network Training",
+  "status": "pass"
+ },
+ {
+  "reference": "luccioni2024",
+  "id": "10.1145/3630106.3658542",
+  "registered_title": "Power Hungry Processing: Watts Driving the Cost of AI Deployment?",
+  "status": "pass"
+ },
+ {
+  "reference": "samsi2023",
+  "id": "2310.03003",
+  "registered_title": "From Words to Watts: Benchmarking the Energy Costs of Large Language Model Inference",
+  "status": "pass"
+ },
+ {
+  "reference": "lannelongue2021",
+  "id": "10.1002/advs.202100707",
+  "registered_title": "Green Algorithms: Quantifying the Carbon Footprint of Computation",
+  "status": "pass"
+ },
+ {
+  "reference": "henderson2020",
+  "id": "2002.05651",
+  "registered_title": "Towards the Systematic Reporting of the Energy and Carbon Footprints of Machine Learning",
+  "status": "pass"
+ },
+ {
+  "reference": "wu2022",
+  "id": "2111.00364",
+  "registered_title": "Sustainable AI: Environmental Implications, Challenges and Opportunities",
+  "status": "pass"
+ },
+ {
+  "reference": "dettmers2022",
+  "id": "2208.07339",
+  "registered_title": "LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale",
+  "status": "pass"
+ },
+ {
+  "reference": "frantar2022",
+  "id": "2210.17323",
+  "registered_title": "GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers",
+  "status": "pass"
+ },
+ {
+  "reference": "lin2023",
+  "id": "2306.00978",
+  "registered_title": "AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration",
+  "status": "pass"
+ },
+ {
+  "reference": "pope2022",
+  "id": "2211.05102",
+  "registered_title": "Efficiently Scaling Transformer Inference",
+  "status": "pass"
+ },
+ {
+  "reference": "kadavath2022",
+  "id": "2207.05221",
+  "registered_title": "Language Models (Mostly) Know What They Know",
+  "status": "pass"
+ },
+ {
+  "reference": "guo2017",
+  "id": "1706.04599",
+  "registered_title": "On Calibration of Modern Neural Networks",
+  "status": "pass"
+ },
+ {
+  "reference": "mmlu",
+  "id": "2009.03300",
+  "registered_title": "Measuring Massive Multitask Language Understanding",
+  "status": "pass"
+ },
+ {
+  "reference": "pubmedqa",
+  "id": "1909.06146",
+  "registered_title": "PubMedQA: A Dataset for Biomedical Research Question Answering",
+  "status": "pass"
+ },
+ {
+  "reference": "arc",
+  "id": "1803.05457",
+  "registered_title": "Think you have Solved Question Answering? Try ARC, the AI2 Reasoning Challenge",
+  "status": "pass"
+ },
+ {
+  "reference": "qwen25",
+  "id": "2412.15115",
+  "registered_title": "Qwen2.5 Technical Report",
+  "status": "pass"
+ },
+ {
+  "reference": "mistral7b",
+  "id": "2310.06825",
+  "registered_title": "Mistral 7B",
+  "status": "pass"
+ },
+ {
+  "reference": "esposito2026",
+  "id": "2602.05486",
+  "registered_title": "Sovereign-by-Design A Reference Architecture for AI and Blockchain Enabled Systems",
+  "status": "pass"
+ },
+ {
+  "reference": "canqa",
+  "id": "2604.24935",
+  "registered_title": "CAN-QA: A Question-Answering Benchmark for Reasoning over In-Vehicle CAN Traffic",
+  "status": "pass"
+ },
+ {
+  "reference": "dingtrust2021",
+  "id": "10.1109/TPSISA52974.2021.00019",
+  "registered_title": "Trustworthy and Sustainable Edge AI: A Research Agenda",
+  "status": "pass"
+ }
+]
