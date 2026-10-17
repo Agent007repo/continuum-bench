@@ -1,0 +1,56 @@
+run_start 1792252283
+downloads_start 1792252287
+build_start 1792252287
+run_start 1792255246
+downloads_start 1792255249
+build_start 1792255249
+run_start 1792255322
+downloads_start 1792255326
+build_start 1792255326
+build_end 1792255329
+tt_start 1792255344
+tt_end 1792255622
+downloads_end 1792255622
+idle_start 1792255625
+idle_end 1792255685
+pilot_start 1792255685
+cell_start qwen0.5b-q4__device__pilot 1792255685
+cell_end qwen0.5b-q4__device__pilot 1792255688
+cell_start qwen0.5b-q8__device__pilot 1792255688
+cell_end qwen0.5b-q8__device__pilot 1792255692
+cell_start qwen1.5b-q4__device__pilot 1792255692
+cell_end qwen1.5b-q4__device__pilot 1792255698
+cell_start qwen1.5b-q8__device__pilot 1792255698
+cell_end qwen1.5b-q8__device__pilot 1792255705
+cell_start qwen7b-q4__device__pilot 1792255705
+cell_end qwen7b-q4__device__pilot 1792255728
+cell_start mistral7b-q4__device__pilot 1792255728
+run_start 1792256010
+downloads_start 1792256013
+build_start 1792256013
+build_end 1792256014
+tt_start 1792256029
+tt_end 1792256032
+downloads_end 1792256057
+idle_start 1792256060
+idle_end 1792256120
+pilot_start 1792256120
+cell_start qwen0.5b-q4__device__pilot 1792256120
+cell_end qwen0.5b-q4__device__pilot 1792256123
+cell_start qwen0.5b-q8__device__pilot 1792256123
+cell_end qwen0.5b-q8__device__pilot 1792256126
+cell_start qwen1.5b-q4__device__pilot 1792256126
+cell_end qwen1.5b-q4__device__pilot 1792256133
+cell_start qwen1.5b-q8__device__pilot 1792256133
+cell_end qwen1.5b-q8__device__pilot 1792256140
+cell_start qwen7b-q4__device__pilot 1792256140
+cell_end qwen7b-q4__device__pilot 1792256164
+cell_start mistral7b-q4__device__pilot 1792256164
+cell_end mistral7b-q4__device__pilot 1792256189
+cell_start qwen0.5b-q4__edge__pilot 1792256189
+cell_end qwen0.5b-q4__edge__pilot 1792256199
+cell_start qwen0.5b-q8__edge__pilot 1792256199
+cell_end qwen0.5b-q8__edge__pilot 1792256209
+cell_start qwen1.5b-q4__edge__pilot 1792256209
+cell_end qwen1.5b-q4__edge__pilot 1792256239
+pilot_end 1792256239

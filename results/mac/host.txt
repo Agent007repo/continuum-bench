@@ -1,0 +1,12 @@
+ProductName:		macOS
+ProductVersion:		27.0.1
+BuildVersion:		26A434
+MacBookPro18,2
+Apple M1 Max
+68719476736
+10
+8
+2
+Note: No thermal warning level has been recorded
+Note: No performance warning level has been recorded
+Note: No CPU power status has been recorded

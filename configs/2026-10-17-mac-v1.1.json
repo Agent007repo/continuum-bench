@@ -1,0 +1,253 @@
+{
+ "identity": "ContinuumBench/mac/2026-10-17/v1.1",
+ "status": "frozen after the pilot and before any confirmatory data",
+ "host": {
+  "platform": "Samarth's MacBook Pro 16-inch, Apple M1 Max, 64 GB unified memory (from the brief; macOS version, chip and memory recorded per cell in each manifest)",
+  "runner_probe_2026-10-17": {
+   "vcpus": 2,
+   "cpu_model": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+   "threads_per_core": 2,
+   "mem_total_mb": 7937,
+   "energy_counters": "none readable (no /sys/class/powercap, perf power events unavailable)"
+  }
+ },
+ "tiers": {
+  "device": {
+   "threads": 8,
+   "n_gpu_layers": -1,
+   "represents": "an SME laptop with a capable integrated GPU: the whole Mac, Metal offload of every layer",
+   "energy": "measured"
+  },
+  "edge": {
+   "threads": 4,
+   "n_gpu_layers": 0,
+   "represents": "a small CPU-only on-premise server, emulated on the same Mac with 4 CPU threads and no GPU",
+   "energy": "measured on the Mac CPU rail; the tier itself is an emulation, not separate hardware"
+  },
+  "cloud": {
+   "executed": false,
+   "represents": "hosted API tiers; characterised from provider documentation for the sovereignty scorecard only. No calls are made (zero budget; GitHub Models returned a non-JSON body from runners on 2026-10-17)."
+  }
+ },
+ "configurations": [
+  {
+   "id": "qwen0.5b-q4",
+   "model": "Qwen2.5-0.5B-Instruct",
+   "origin_jurisdiction": "CN",
+   "upstream_repo": "Qwen/Qwen2.5-0.5B-Instruct",
+   "artifact_repo": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+   "artifact_revision": "9217f5db79a29953eb74d5343926648285ec7e67",
+   "artifact_publisher": "model owner (Qwen)",
+   "files": [
+    "qwen2.5-0.5b-instruct-q4_k_m.gguf"
+   ],
+   "sha256": {
+    "qwen2.5-0.5b-instruct-q4_k_m.gguf": "74a4da8c9fdbcd15bd1f6d01d621410d31c6fc00986f5eb687824e7b93d7a9db"
+   },
+   "size_bytes": 491400032,
+   "quantization": "Q4_K_M",
+   "licence": "Apache-2.0 (declared on the model card; see THIRD_PARTY.md)",
+   "tiers": [
+    "device",
+    "edge"
+   ]
+  },
+  {
+   "id": "qwen0.5b-q8",
+   "model": "Qwen2.5-0.5B-Instruct",
+   "origin_jurisdiction": "CN",
+   "upstream_repo": "Qwen/Qwen2.5-0.5B-Instruct",
+   "artifact_repo": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+   "artifact_revision": "9217f5db79a29953eb74d5343926648285ec7e67",
+   "artifact_publisher": "model owner (Qwen)",
+   "files": [
+    "qwen2.5-0.5b-instruct-q8_0.gguf"
+   ],
+   "sha256": {
+    "qwen2.5-0.5b-instruct-q8_0.gguf": "ca59ca7f13d0e15a8cfa77bd17e65d24f6844b554a7b6c12e07a5f89ff76844e"
+   },
+   "size_bytes": 675710816,
+   "quantization": "Q8_0",
+   "licence": "Apache-2.0 (declared on the model card; see THIRD_PARTY.md)",
+   "tiers": [
+    "device",
+    "edge"
+   ]
+  },
+  {
+   "id": "qwen1.5b-q4",
+   "model": "Qwen2.5-1.5B-Instruct",
+   "origin_jurisdiction": "CN",
+   "upstream_repo": "Qwen/Qwen2.5-1.5B-Instruct",
+   "artifact_repo": "Qwen/Qwen2.5-1.5B-Instruct-GGUF",
+   "artifact_revision": "91cad51170dc346986eccefdc2dd33a9da36ead9",
+   "artifact_publisher": "model owner (Qwen)",
+   "files": [
+    "qwen2.5-1.5b-instruct-q4_k_m.gguf"
+   ],
+   "sha256": {
+    "qwen2.5-1.5b-instruct-q4_k_m.gguf": "6a1a2eb6d15622bf3c96857206351ba97e1af16c30d7a74ee38970e434e9407e"
+   },
+   "size_bytes": 1117320736,
+   "quantization": "Q4_K_M",
+   "licence": "Apache-2.0 (declared on the model card; see THIRD_PARTY.md)",
+   "tiers": [
+    "device",
+    "edge"
+   ]
+  },
+  {
+   "id": "qwen1.5b-q8",
+   "model": "Qwen2.5-1.5B-Instruct",
+   "origin_jurisdiction": "CN",
+   "upstream_repo": "Qwen/Qwen2.5-1.5B-Instruct",
+   "artifact_repo": "Qwen/Qwen2.5-1.5B-Instruct-GGUF",
+   "artifact_revision": "91cad51170dc346986eccefdc2dd33a9da36ead9",
+   "artifact_publisher": "model owner (Qwen)",
+   "files": [
+    "qwen2.5-1.5b-instruct-q8_0.gguf"
+   ],
+   "sha256": {
+    "qwen2.5-1.5b-instruct-q8_0.gguf": "d7efb072e7724d25048a4fda0a3e10b04bdef5d06b1403a1c93bd9f1240a63c8"
+   },
+   "size_bytes": 1894532128,
+   "quantization": "Q8_0",
+   "licence": "Apache-2.0 (declared on the model card; see THIRD_PARTY.md)",
+   "tiers": [
+    "device"
+   ]
+  },
+  {
+   "id": "qwen7b-q4",
+   "model": "Qwen2.5-7B-Instruct",
+   "origin_jurisdiction": "CN",
+   "upstream_repo": "Qwen/Qwen2.5-7B-Instruct",
+   "artifact_repo": "Qwen/Qwen2.5-7B-Instruct-GGUF",
+   "artifact_revision": "bb5d59e06d9551d752d08b292a50eb208b07ab1f",
+   "artifact_publisher": "model owner (Qwen)",
+   "files": [
+    "qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf",
+    "qwen2.5-7b-instruct-q4_k_m-00002-of-00002.gguf"
+   ],
+   "sha256": {
+    "qwen2.5-7b-instruct-q4_k_m-00001-of-00002.gguf": "dfce12e3862a5283ccfb88221b48480e58745165de856439950d0f22590580db",
+    "qwen2.5-7b-instruct-q4_k_m-00002-of-00002.gguf": "539cf93f78e887edea1c04e2d7d8cdaca9d01dae9c9025bcb8accbe29df3d72a"
+   },
+   "size_bytes": 4683073632,
+   "quantization": "Q4_K_M",
+   "licence": "Apache-2.0 (declared on the model card; see THIRD_PARTY.md)",
+   "tiers": [
+    "device"
+   ]
+  },
+  {
+   "id": "mistral7b-q4",
+   "model": "Mistral-7B-Instruct-v0.3",
+   "origin_jurisdiction": "FR",
+   "upstream_repo": "mistralai/Mistral-7B-Instruct-v0.3",
+   "artifact_repo": "bartowski/Mistral-7B-Instruct-v0.3-GGUF",
+   "artifact_revision": "61fd4167fff3ab01ee1cfe0da183fa27a944db48",
+   "artifact_publisher": "third party (bartowski); conversion from the upstream revision is declared by the converter, not independently verified",
+   "files": [
+    "Mistral-7B-Instruct-v0.3-Q4_K_M.gguf"
+   ],
+   "sha256": {
+    "Mistral-7B-Instruct-v0.3-Q4_K_M.gguf": "1270d22c0fbb3d092fb725d4d96c457b7b687a5f5a715abe1e818da303e562b6"
+   },
+   "size_bytes": 4372812000,
+   "quantization": "Q4_K_M",
+   "licence": "Apache-2.0 (declared on the model card; see THIRD_PARTY.md)",
+   "tiers": [
+    "device"
+   ]
+  }
+ ],
+ "excluded_configurations": [
+  {
+   "id": "qwen7b-q8, mistral7b-q8",
+   "reason": "fit in 64 GB, excluded to keep total Mac compute under 60 minutes (8.1 and 7.7 GB of extra downloads). Quantisation is compared at 0.5B and 1.5B."
+  },
+  {
+   "id": "qwen14b and larger",
+   "reason": "time budget; listed as optional in the handoff memo and not run"
+  },
+  {
+   "id": "qwen3b",
+   "reason": "model card declares a custom licence, not assessed"
+  }
+ ],
+ "runtime": {
+  "backend": "llama-cpp-python 0.3.16, official prebuilt Metal wheel from the project's v0.3.16-metal GitHub release (llama_cpp_python-0.3.16-cp312-cp312-macosx_11_0_arm64.whl, sha256 039e1fdef9301c5512c4b4108b4981c39ba54d75bb376b1ea95f9a569ca81228)",
+  "n_ctx": 2048,
+  "n_batch": 512,
+  "scoring_pass": "one forward pass over the chat-template prompt (model's own GGUF template); next-token logits read through llama_get_logits_ith; top 20 tokens",
+  "seed": 0,
+  "message_layout": "one user message: instruction, blank line, question (amended 2026-10-17 22:25 IST after the pilot showed Mistral's template rejects a system role; applies to all models)"
+ },
+ "items": {
+  "path": "data/items/items-v1.jsonl",
+  "manifest": "data/items/manifest.json",
+  "phases": {
+   "pilot": "15 per domain, disjoint, used only to size the run and set thresholds",
+   "confirmatory": "150 per domain"
+  }
+ },
+ "scoring": "Predicted label = label with the highest summed first-token probability among the top-20 tokens (a token maps to a label when its stripped lower-case text is a prefix of exactly one label). No label in the top 20 = wrong. Accuracy against the dataset label.",
+ "timing": {
+  "per_item": "wall time (perf_counter), process CPU time, and wall-clock start/end in epoch seconds",
+  "replay": "confirmatory cells only: first 10 items of each cell, 3 warm-up passes discarded, then 5 measured repetitions",
+  "latency_note": "With max_tokens 1, latency is prompt processing plus one decoding step: a time-to-first-token measure."
+ },
+ "energy_model": {
+  "provenance": "measured (device and edge tiers, Mac component power)",
+  "instrument": "sudo powermetrics --samplers cpu_power,gpu_power,ane_power -i 200 (text output, started before the idle baseline, stopped after the last cell)",
+  "idle_baseline": "60 s with no benchmark process, immediately before the first cell; mean combined power P_idle",
+  "per_request": "For each cell, P_cell = mean combined (CPU+GPU+ANE) power over the samples whose window lies inside the cell's main-pass window; J_per_request = (P_cell - P_idle) * main_window_s / n_items. Incremental component energy, apportioned evenly across the cell's requests.",
+  "sensitivity": "repeat with P_idle from the first and last 30 s of the baseline; report the spread",
+  "excludes": "display, memory, SSD, fans and power-supply losses; no wall-plug meter",
+  "pue": 1.0,
+  "carbon": "not converted by default; any gCO2e figure must cite a dated grid-intensity source and show a range"
+ },
+ "splits": {
+  "rule": "confirmatory items split per domain into train 50%, validation 20%, test 30% with random.Random(20261017)",
+  "use": "routers fit on train, thresholds tuned on validation, all reported comparisons on test"
+ },
+ "routing_policies": [
+  "always-<config> single-configuration baselines",
+  "static sensitivity rule",
+  "cascade on p_max",
+  "cascade on margin",
+  "learned router (logistic regression)",
+  "constraint-aware optimiser"
+ ],
+ "hypotheses": {
+  "H3": "On held-out test items, the best non-oracle routing policy reduces mean estimated energy per request by at least X percent versus always-largest-local-model (qwen7b-q4, edge) with a mean accuracy loss of no more than Y percentage points.",
+  "X": 25,
+  "Y": 5,
+  "set_from": "Mac pilot, 45 disjoint items, 17 Oct 2026 22:27 IST",
+  "rationale": "Y = 5 accuracy points is the largest loss we treat as acceptable for an SME replacing its largest local model; X = 25 percent is the smallest saving we treat as worth the routing complexity. Both are practical tolerances, not values tuned to make H3 pass. Pilot observation: always qwen7b-q4 (device) scored 71.1 percent on 45 items at a mean 20.8 J per request; a p_max cascade from qwen1.5b-q4 saved 38 to 80 percent of energy but lost 15.6 to 20.0 points across thresholds 0.5 to 0.95, so H3 may well be rejected."
+ },
+ "analysis": {
+  "ci": "2000 bootstrap resamples over items, seed 20261017, 95 percent percentile",
+  "paired": "policies compared on the same test items",
+  "multiple_comparisons": "H3 is the single confirmatory test; all other comparisons are descriptive"
+ },
+ "supersedes": "configs/2026-10-17-cloud-v1.json (draft for GitHub runners, never run). The runner probe is reported only as a footnote.",
+ "exclusion_rules": {
+  "swap": "a cell whose vm_stat page-outs increase during the cell is excluded from latency and energy analysis (quality is kept)",
+  "thermal": "pmset -g therm recorded before each cell; any CPU speed limit below 100 is reported"
+ },
+ "pilot": {
+  "items": "15 per domain (phase=pilot), all configurations and tiers, no timing replay",
+  "outputs": "projected total minutes and per-item times; X and Y chosen and recorded in v1.1"
+ },
+ "pilot_observations": {
+  "idle_power_w": 1.48,
+  "energy_per_request_j_range_device": [
+   0.62,
+   43.99
+  ],
+  "swaps": 0,
+  "projected_confirmatory_minutes": 25.6
+ }
+}
