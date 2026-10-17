@@ -1,0 +1,42 @@
+{
+ "identity": "ContinuumBench/sovereignty-inputs/2026-10-17/v1",
+ "status": "proposed instrument; scores are the author's rubric applied to cited evidence, not a standard or legal finding",
+ "dimensions": ["data_residency_egress", "operator_jurisdiction", "model_openness", "operational_independence", "transparency_auditability", "supply_chain"],
+ "rubric": {
+  "data_residency_egress": "1 = prompts and outputs never leave the organisation's device; 0.75 = processed by default in the EU with documented possible transfers; 0.5 = EU with routine transfers; 0 = outside the EU or unknown",
+  "operator_jurisdiction": "1 = the organisation operates the inference itself; 0.75 = EU-headquartered operator under EU law; 0.25 = non-EU operator; 0 = unknown",
+  "model_openness": "1 = open weights, licence file opened at a pinned revision, self-hostable; 0.75 = open weights, licence declared on the model card only; 0.25 = API access only; 0 = unknown",
+  "operational_independence": "1 = runs offline from checksum-pinned files we hold; 0.75 = offline but from a third-party conversion we did not verify; 0.25 = depends on a network service and the vendor's model versioning",
+  "transparency_auditability": "1 = weights, training data and logs inspectable; 0.5 = weights plus a technical report, training data not released; 0.25 = technical report only; 0 = undisclosed",
+  "supply_chain": "1 = every layer from EU or self-controlled sources; 0.5 = mixed origin layers (model publisher, runtime, hardware), each identified; 0.25 = provider-controlled stack with listed subprocessors; 0 = unidentified"
+ },
+ "options": [
+  {"id": "qwen2.5 local (device)", "executed": true,
+   "scores": {"data_residency_egress": 1, "operator_jurisdiction": 1, "model_openness": 0.75, "operational_independence": 1, "transparency_auditability": 0.5, "supply_chain": 0.5},
+   "evidence": {
+    "data_residency_egress": "Inference runs in a local llama.cpp process with no network client (scripts/bench_run.py); the Mac benchmark made no network calls during inference.",
+    "operator_jurisdiction": "Self-operated by the deploying organisation in this design.",
+    "model_openness": "Owner GGUFs at pinned revisions; Apache-2.0 declared on the cards; licence file opened only for the 1.5B revision (docs/protocols/2026-10-14-shortlist.md).",
+    "operational_independence": "Checksum-pinned owner files (configs/2026-10-17-mac-v1.json).",
+    "transparency_auditability": "Qwen2.5 technical report (arXiv:2412.15115); training data not released.",
+    "supply_chain": "Model publisher Alibaba Qwen (CN), runtime llama.cpp (open source), hardware Apple (US)."}},
+  {"id": "mistral-7b local (device)", "executed": true,
+   "scores": {"data_residency_egress": 1, "operator_jurisdiction": 1, "model_openness": 0.75, "operational_independence": 0.75, "transparency_auditability": 0.5, "supply_chain": 0.5},
+   "evidence": {
+    "data_residency_egress": "Same local runtime as above.",
+    "operator_jurisdiction": "Self-operated by the deploying organisation in this design.",
+    "model_openness": "Apache-2.0 declared on the pinned upstream card (c170c708...); no standalone licence file in the listed tree.",
+    "operational_independence": "Runs offline, but from a third-party GGUF conversion (bartowski) whose source revision we did not verify.",
+    "transparency_auditability": "Mistral 7B paper (arXiv:2310.06825); training data not released.",
+    "supply_chain": "Model publisher Mistral AI (FR), third-party converter, runtime llama.cpp, hardware Apple (US)."}},
+  {"id": "mistral api, eu endpoint (characterised)", "executed": false,
+   "scores": {"data_residency_egress": 0.75, "operator_jurisdiction": 0.75, "model_openness": 0.25, "operational_independence": 0.25, "transparency_auditability": 0.25, "supply_chain": 0.25},
+   "evidence": {
+    "data_residency_egress": "Mistral Help Center, 'Where do you store my data or my Organization's data?' (page dated 12 Aug 2026, opened 17 Oct 2026): EU hosting by default; some features may transfer data outside the EU temporarily under GDPR Article 46 safeguards; a separate US endpoint exists. https://help.mistral.ai/en/articles/347629-where-do-you-store-my-data-or-my-organization-s-data",
+    "operator_jurisdiction": "Mistral AI is headquartered in France.",
+    "model_openness": "Scored as API access; served model versions vary and some are not open-weight.",
+    "operational_independence": "Requires network access and the vendor's model lifecycle.",
+    "transparency_auditability": "Provider documentation; no access to serving infrastructure or logs beyond the account.",
+    "supply_chain": "Provider-controlled stack with a published subprocessor list (Trust Center)."}}
+ ]
+}
