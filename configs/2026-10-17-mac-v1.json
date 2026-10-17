@@ -181,7 +181,8 @@
   "n_ctx": 2048,
   "n_batch": 512,
   "scoring_pass": "one forward pass over the chat-template prompt (model's own GGUF template); next-token logits read through llama_get_logits_ith; top 20 tokens",
-  "seed": 0
+  "seed": 0,
+  "message_layout": "one user message: instruction, blank line, question (amended 2026-10-17 22:25 IST after the pilot showed Mistral's template rejects a system role; applies to all models)"
  },
  "items": {
   "path": "data/items/items-v1.jsonl",

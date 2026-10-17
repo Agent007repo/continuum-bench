@@ -33,17 +33,18 @@ WARMUP, REPS = 3, 5
 
 
 def prompt_for(item: dict) -> tuple[list[dict], str]:
+    """One user message holding the instruction and the question, for every model.
+
+    Mistral-7B-Instruct-v0.3's embedded chat template rejects a separate system role
+    (observed in the Mac pilot), so all models get the same single-turn layout."""
     if item["source"] == "pubmedqa":
         user = f"Abstract: {item['context']}\n\nQuestion: {item['question']}\nAnswer (yes, no or maybe):"
-        return [
-            {"role": "system", "content": SYSTEM["ynm"]},
-            {"role": "user", "content": user},
-        ], "ynm"
+        return [{"role": "user", "content": SYSTEM["ynm"] + "\n\n" + user}], "ynm"
     opts = "\n".join(
         f"{lab}. {txt}" for lab, txt in zip(item["labels"], item["choices"], strict=True)
     )
     user = f"Question: {item['question']}\n{opts}\nAnswer:"
-    return [{"role": "system", "content": SYSTEM["mc"]}, {"role": "user", "content": user}], "mc"
+    return [{"role": "user", "content": SYSTEM["mc"] + "\n\n" + user}], "mc"
 
 
 def label_mass(top: list[dict], labels: list[str]) -> dict[str, float]:
