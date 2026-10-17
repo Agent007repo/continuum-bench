@@ -4,6 +4,6 @@
 
 **How numbers get into the text.** Every figure in the README, `docs/results.md` and the report is written by `scripts/analyze_mac.py` from the raw per-item records and the `powermetrics` log in `results/mac/`. Nothing is typed in by hand. Each number carries its provenance: measured (device tier), measured on an emulated tier (edge), or characterised from documentation (cloud, sovereignty evidence).
 
-**What changed along the way.** The study first targeted hosted CI runners, then moved to the Mac once a probe showed runners expose no energy counters. Every later change (prebuilt Metal wheel after a download timeout, single-turn prompts after a chat-template error, a discarded and repeated pilot) is dated in [`DEVIATIONS.md`](../DEVIATIONS.md). Thresholds for H3 were set from the pilot and committed before the confirmatory run.
+**What changed along the way.** The study first targeted hosted CI runners, then moved to the Mac once a probe showed runners expose no energy counters. Every later change (prebuilt Metal wheel after a download timeout, single-turn prompts after a chat-template error, a discarded and repeated pilot) is dated in [`DEVIATIONS.md`](https://github.com/Agent007repo/continuum-bench/blob/main/DEVIATIONS.md). Thresholds for H3 were set from the pilot and committed before the confirmatory run.
 
 These are independent projects. They are not affiliated with, endorsed by, or built using internal material from TU Delft, TU/e, TNO or any consortium named in them. They use public models, public datasets and original code.
