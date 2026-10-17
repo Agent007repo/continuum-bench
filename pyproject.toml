@@ -20,6 +20,8 @@ dev = [
     "types-PyYAML>=6",
     "mkdocs-material>=9.6",
     "pre-commit>=4",
+    "numpy>=2",
+    "matplotlib>=3.9",
 ]
 [tool.ruff]
 line-length = 100

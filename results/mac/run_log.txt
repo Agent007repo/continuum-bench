@@ -1,0 +1,170 @@
+2026-10-17 21:21:23 | === start ===
+2026-10-17 21:21:23 | MARK run_start
+2026-10-17 21:21:23 | macOS 27.0.1, Apple M1 Max, 64 GB
+2026-10-17 21:21:23 | free disk: 492 GB (need about 20)
+2026-10-17 21:21:23 | Your Mac password is needed once for the power sampler (powermetrics).
+2026-10-17 21:21:27 | uv uv 0.13.0 (Homebrew 2026-10-09 aarch64-apple-darwin)
+2026-10-17 21:21:27 | MARK downloads_start
+2026-10-17 21:21:27 | MARK build_start
+Using CPython 3.12.2 interpreter at: /opt/anaconda3/bin/python
+Creating virtual environment at: .bench
+Activate with: source .bench/bin/activate
+Using Python 3.12.2 environment at: .bench
+error: Failed to download and build `llama-cpp-python==0.3.16`
+  cause: Failed to extract archive: llama-cpp-python==0.3.16
+  cause: Invalid tar file
+  cause: at byte 6387825: failed to read tar data
+  cause: failed to read tar data
+  cause: error decoding response body
+  cause: request or response body error
+  cause: operation timed out
+2026-10-17 22:04:31 | STOPPED: llama-cpp-python build failed
+2026-10-17 22:10:46 | === start ===
+2026-10-17 22:10:46 | MARK run_start
+2026-10-17 22:10:46 | macOS 27.0.1, Apple M1 Max, 64 GB
+2026-10-17 22:10:46 | free disk: 479 GB (need about 20)
+2026-10-17 22:10:46 | Your Mac password is needed once for the power sampler (powermetrics).
+2026-10-17 22:10:49 | uv uv 0.13.0 (Homebrew 2026-10-09 aarch64-apple-darwin)
+2026-10-17 22:10:49 | MARK downloads_start
+2026-10-17 22:10:49 | MARK build_start
+Using CPython 3.12.2 interpreter at: /opt/anaconda3/bin/python
+Creating virtual environment at: .bench
+error: Failed to create virtual environment
+  cause: A virtual environment already exists at: .bench
+
+hint: Use the `--clear` flag or set `UV_VENV_CLEAR=1` to replace the existing virtual environment
+2026-10-17 22:10:49 | STOPPED: venv failed
+2026-10-17 22:12:02 | === start ===
+2026-10-17 22:12:02 | MARK run_start
+2026-10-17 22:12:02 | macOS 27.0.1, Apple M1 Max, 64 GB
+2026-10-17 22:12:02 | free disk: 479 GB (need about 20)
+2026-10-17 22:12:02 | Your Mac password is needed once for the power sampler (powermetrics).
+2026-10-17 22:12:06 | uv uv 0.13.0 (Homebrew 2026-10-09 aarch64-apple-darwin)
+2026-10-17 22:12:06 | MARK downloads_start
+2026-10-17 22:12:06 | MARK build_start
+Using CPython 3.12.2 interpreter at: /opt/anaconda3/bin/python
+Creating virtual environment at: .bench
+Activate with: source .bench/bin/activate
+Using Python 3.12.2 environment at: .bench
+Resolved 6 packages in 16ms
+Prepared 6 packages in 116ms
+Installed 6 packages in 13ms
+ + diskcache==5.6.3
+ + jinja2==3.1.6
+ + llama-cpp-python==0.3.16 (from file:///Users/samarthannigeri/phd/wheels/llama_cpp_python-0.3.16-cp312-cp312-macosx_11_0_arm64.whl)
+ + markupsafe==3.0.4
+ + numpy==2.5.4
+ + typing-extensions==4.16.0
+llama_cpp 0.3.16 gpu_offload True
+2026-10-17 22:12:09 | MARK build_end
+2026-10-17 22:12:24 | TrustTrace: Mistral rerun (60 generations)
+2026-10-17 22:12:24 | MARK tt_start
+2026-10-17 22:17:02 | MARK tt_end
+2026-10-17 22:17:02 | TrustTrace done:       60 runs
+2026-10-17 22:17:02 | MARK downloads_end
+2026-10-17 22:17:02 | starting powermetrics
+2026-10-17 22:17:05 | idle baseline: 60 s, please do not use the Mac
+2026-10-17 22:17:05 | MARK idle_start
+2026-10-17 22:18:05 | MARK idle_end
+2026-10-17 22:18:05 | MARK pilot_start
+2026-10-17 22:18:05 | cell qwen0.5b-q4 / device / pilot
+2026-10-17 22:18:05 | MARK cell_start qwen0.5b-q4__device__pilot
+2026-10-17 22:18:08 | MARK cell_end qwen0.5b-q4__device__pilot
+2026-10-17 22:18:08 | cell qwen0.5b-q8 / device / pilot
+2026-10-17 22:18:08 | MARK cell_start qwen0.5b-q8__device__pilot
+2026-10-17 22:18:12 | MARK cell_end qwen0.5b-q8__device__pilot
+2026-10-17 22:18:12 | cell qwen1.5b-q4 / device / pilot
+2026-10-17 22:18:12 | MARK cell_start qwen1.5b-q4__device__pilot
+2026-10-17 22:18:18 | MARK cell_end qwen1.5b-q4__device__pilot
+2026-10-17 22:18:18 | cell qwen1.5b-q8 / device / pilot
+2026-10-17 22:18:18 | MARK cell_start qwen1.5b-q8__device__pilot
+2026-10-17 22:18:25 | MARK cell_end qwen1.5b-q8__device__pilot
+2026-10-17 22:18:25 | cell qwen7b-q4 / device / pilot
+2026-10-17 22:18:25 | MARK cell_start qwen7b-q4__device__pilot
+2026-10-17 22:18:48 | MARK cell_end qwen7b-q4__device__pilot
+2026-10-17 22:18:48 | cell mistral7b-q4 / device / pilot
+2026-10-17 22:18:48 | MARK cell_start mistral7b-q4__device__pilot
+2026-10-17 22:18:50 | STOPPED: cell failed: mistral7b-q4 device pilot (see out/cb/pilot.log)
+/Users/samarthannigeri/phd/run_all.sh: line 15: 72948 Terminated: 15          ( while true; do
+    sudo -n true 2> /dev/null; sleep 50;
+done )
+2026-10-17 22:23:30 | === start ===
+2026-10-17 22:23:30 | MARK run_start
+2026-10-17 22:23:30 | macOS 27.0.1, Apple M1 Max, 64 GB
+2026-10-17 22:23:30 | free disk: 479 GB (need about 20)
+2026-10-17 22:23:30 | Your Mac password is needed once for the power sampler (powermetrics).
+2026-10-17 22:23:33 | uv uv 0.13.0 (Homebrew 2026-10-09 aarch64-apple-darwin)
+2026-10-17 22:23:33 | MARK downloads_start
+2026-10-17 22:23:33 | MARK build_start
+llama_cpp 0.3.16 gpu_offload True
+2026-10-17 22:23:34 | MARK build_end
+2026-10-17 22:23:49 | TrustTrace: Mistral rerun (60 generations)
+2026-10-17 22:23:49 | MARK tt_start
+2026-10-17 22:23:52 | MARK tt_end
+2026-10-17 22:23:52 | TrustTrace done:       60 runs
+2026-10-17 22:24:17 | MARK downloads_end
+2026-10-17 22:24:17 | starting powermetrics
+2026-10-17 22:24:20 | idle baseline: 60 s, please do not use the Mac
+2026-10-17 22:24:20 | MARK idle_start
+2026-10-17 22:25:20 | MARK idle_end
+2026-10-17 22:25:20 | MARK pilot_start
+2026-10-17 22:25:20 | cell qwen0.5b-q4 / device / pilot
+2026-10-17 22:25:20 | MARK cell_start qwen0.5b-q4__device__pilot
+2026-10-17 22:25:23 | MARK cell_end qwen0.5b-q4__device__pilot
+2026-10-17 22:25:23 | cell qwen0.5b-q8 / device / pilot
+2026-10-17 22:25:23 | MARK cell_start qwen0.5b-q8__device__pilot
+2026-10-17 22:25:26 | MARK cell_end qwen0.5b-q8__device__pilot
+2026-10-17 22:25:26 | cell qwen1.5b-q4 / device / pilot
+2026-10-17 22:25:26 | MARK cell_start qwen1.5b-q4__device__pilot
+2026-10-17 22:25:33 | MARK cell_end qwen1.5b-q4__device__pilot
+2026-10-17 22:25:33 | cell qwen1.5b-q8 / device / pilot
+2026-10-17 22:25:33 | MARK cell_start qwen1.5b-q8__device__pilot
+2026-10-17 22:25:40 | MARK cell_end qwen1.5b-q8__device__pilot
+2026-10-17 22:25:40 | cell qwen7b-q4 / device / pilot
+2026-10-17 22:25:40 | MARK cell_start qwen7b-q4__device__pilot
+2026-10-17 22:26:04 | MARK cell_end qwen7b-q4__device__pilot
+2026-10-17 22:26:04 | cell mistral7b-q4 / device / pilot
+2026-10-17 22:26:04 | MARK cell_start mistral7b-q4__device__pilot
+2026-10-17 22:26:29 | MARK cell_end mistral7b-q4__device__pilot
+2026-10-17 22:26:29 | cell qwen0.5b-q4 / edge / pilot
+2026-10-17 22:26:29 | MARK cell_start qwen0.5b-q4__edge__pilot
+2026-10-17 22:26:39 | MARK cell_end qwen0.5b-q4__edge__pilot
+2026-10-17 22:26:39 | cell qwen0.5b-q8 / edge / pilot
+2026-10-17 22:26:39 | MARK cell_start qwen0.5b-q8__edge__pilot
+2026-10-17 22:26:49 | MARK cell_end qwen0.5b-q8__edge__pilot
+2026-10-17 22:26:49 | cell qwen1.5b-q4 / edge / pilot
+2026-10-17 22:26:49 | MARK cell_start qwen1.5b-q4__edge__pilot
+2026-10-17 22:27:19 | MARK cell_end qwen1.5b-q4__edge__pilot
+2026-10-17 22:27:19 | MARK pilot_end
+2026-10-17 22:27:19 | PILOT DONE. Waiting for Claude to review the time projection (state/GO_FULL).
+2026-10-17 22:29:49 | MARK confirmatory_start
+2026-10-17 22:29:49 | cell qwen0.5b-q4 / device / confirmatory
+2026-10-17 22:29:49 | MARK cell_start qwen0.5b-q4__device__confirmatory
+2026-10-17 22:30:17 | MARK cell_end qwen0.5b-q4__device__confirmatory
+2026-10-17 22:30:17 | cell qwen0.5b-q8 / device / confirmatory
+2026-10-17 22:30:17 | MARK cell_start qwen0.5b-q8__device__confirmatory
+2026-10-17 22:30:42 | MARK cell_end qwen0.5b-q8__device__confirmatory
+2026-10-17 22:30:42 | cell qwen1.5b-q4 / device / confirmatory
+2026-10-17 22:30:42 | MARK cell_start qwen1.5b-q4__device__confirmatory
+2026-10-17 22:31:50 | MARK cell_end qwen1.5b-q4__device__confirmatory
+2026-10-17 22:31:50 | cell qwen1.5b-q8 / device / confirmatory
+2026-10-17 22:31:50 | MARK cell_start qwen1.5b-q8__device__confirmatory
+2026-10-17 22:32:51 | MARK cell_end qwen1.5b-q8__device__confirmatory
+2026-10-17 22:32:51 | cell qwen7b-q4 / device / confirmatory
+2026-10-17 22:32:51 | MARK cell_start qwen7b-q4__device__confirmatory
+2026-10-17 22:37:26 | MARK cell_end qwen7b-q4__device__confirmatory
+2026-10-17 22:37:26 | cell mistral7b-q4 / device / confirmatory
+2026-10-17 22:37:26 | MARK cell_start mistral7b-q4__device__confirmatory
+2026-10-17 22:42:10 | MARK cell_end mistral7b-q4__device__confirmatory
+2026-10-17 22:42:10 | cell qwen0.5b-q4 / edge / confirmatory
+2026-10-17 22:42:10 | MARK cell_start qwen0.5b-q4__edge__confirmatory
+2026-10-17 22:44:28 | MARK cell_end qwen0.5b-q4__edge__confirmatory
+2026-10-17 22:44:28 | cell qwen0.5b-q8 / edge / confirmatory
+2026-10-17 22:44:28 | MARK cell_start qwen0.5b-q8__edge__confirmatory
+2026-10-17 22:46:45 | MARK cell_end qwen0.5b-q8__edge__confirmatory
+2026-10-17 22:46:45 | cell qwen1.5b-q4 / edge / confirmatory
+2026-10-17 22:46:45 | MARK cell_start qwen1.5b-q4__edge__confirmatory
+2026-10-17 22:53:47 | MARK cell_end qwen1.5b-q4__edge__confirmatory
+2026-10-17 22:53:47 | MARK confirmatory_end
+2026-10-17 22:53:49 | MARK run_end
+2026-10-17 22:53:49 | === ALL DONE. You can close Terminal. ===

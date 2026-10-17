@@ -1,0 +1,1133 @@
+{
+ "status": "complete",
+ "confirmatory_rows": 4050,
+ "pilot_rows": 405,
+ "power_samples": 8338,
+ "idle": {
+  "w": 1.4798525014522461,
+  "n": 249,
+  "first30_w": 1.2495696750528513,
+  "last30_w": 1.7016787921625591
+ },
+ "cells": {
+  "mistral7b-q4__device__digital_industries__confirmatory": {
+   "config": "mistral7b-q4",
+   "tier": "device",
+   "domain": "digital_industries",
+   "swapped": false,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 4.5098114013671875,
+   "energy": {
+    "joules_per_request": 12.261300206555372,
+    "joules_per_request_idle_first30": 12.322249879278445,
+    "joules_per_request_idle_last30": 12.20258875146528,
+    "mean_power_w": 47.806054772069075,
+    "samples": 188,
+    "window_s": 39.70096707344055,
+    "provenance": "measured"
+   }
+  },
+  "mistral7b-q4__device__general_control__confirmatory": {
+   "config": "mistral7b-q4",
+   "tier": "device",
+   "domain": "general_control",
+   "swapped": false,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 4.5101470947265625,
+   "energy": {
+    "joules_per_request": 11.966255150549266,
+    "joules_per_request_idle_first30": 12.024800628861339,
+    "joules_per_request_idle_last30": 11.909859602106131,
+    "mean_power_w": 48.547929096471506,
+    "samples": 180,
+    "window_s": 38.13493990898132,
+    "provenance": "measured"
+   }
+  },
+  "mistral7b-q4__device__healthcare__confirmatory": {
+   "config": "mistral7b-q4",
+   "tier": "device",
+   "domain": "healthcare",
+   "swapped": false,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 4.5093536376953125,
+   "energy": {
+    "joules_per_request": 33.201238587985536,
+    "joules_per_request_idle_first30": 33.35535738203031,
+    "joules_per_request_idle_last30": 33.05277940435365,
+    "mean_power_w": 51.08882530317815,
+    "samples": 478,
+    "window_s": 100.38881087303162,
+    "provenance": "measured"
+   }
+  },
+  "qwen0.5b-q4__device__digital_industries__confirmatory": {
+   "config": "qwen0.5b-q4",
+   "tier": "device",
+   "domain": "digital_industries",
+   "swapped": false,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 0.6740875244140625,
+   "energy": {
+    "joules_per_request": 0.8363831639084508,
+    "joules_per_request_idle_first30": 0.8433034819127999,
+    "joules_per_request_idle_last30": 0.8297169765186101,
+    "mean_power_w": 29.31161959895641,
+    "samples": 21,
+    "window_s": 4.507707834243774,
+    "provenance": "measured"
+   }
+  },
+  "qwen0.5b-q4__device__general_control__confirmatory": {
+   "config": "qwen0.5b-q4",
+   "tier": "device",
+   "domain": "general_control",
+   "swapped": false,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 0.6743927001953125,
+   "energy": {
+    "joules_per_request": 0.7898851642451459,
+    "joules_per_request_idle_first30": 0.7966350809168004,
+    "joules_per_request_idle_last30": 0.7833831206438574,
+    "mean_power_w": 28.427887121965405,
+    "samples": 20,
+    "window_s": 4.396713018417358,
+    "provenance": "measured"
+   }
+  },
+  "qwen0.5b-q4__device__healthcare__confirmatory": {
+   "config": "qwen0.5b-q4",
+   "tier": "device",
+   "domain": "healthcare",
+   "swapped": false,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 0.668914794921875,
+   "energy": {
+    "joules_per_request": 1.7958190501667215,
+    "joules_per_request_idle_first30": 1.807751449369855,
+    "joules_per_request_idle_last30": 1.7843248371770164,
+    "mean_power_w": 36.137282204748175,
+    "samples": 36,
+    "window_s": 7.772441864013672,
+    "provenance": "measured"
+   }
+  },
+  "qwen0.5b-q4__edge__digital_industries__confirmatory": {
+   "config": "qwen0.5b-q4",
+   "tier": "edge",
+   "domain": "digital_industries",
+   "swapped": false,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 0.7775115966796875,
+   "energy": {
+    "joules_per_request": 1.8190614009332386,
+    "joules_per_request_idle_first30": 1.8557748608413331,
+    "joules_per_request_idle_last30": 1.7836961470066184,
+    "mean_power_w": 12.889798658790257,
+    "samples": 112,
+    "window_s": 23.914154052734375,
+    "provenance": "measured-emulated-tier"
+   }
+  },
+  "qwen0.5b-q4__edge__general_control__confirmatory": {
+   "config": "qwen0.5b-q4",
+   "tier": "edge",
+   "domain": "general_control",
+   "swapped": false,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 0.777801513671875,
+   "energy": {
+    "joules_per_request": 1.8871288237033332,
+    "joules_per_request_idle_first30": 1.923633912706989,
+    "joules_per_request_idle_last30": 1.8519642888035992,
+    "mean_power_w": 13.384312157985132,
+    "samples": 111,
+    "window_s": 23.77842688560486,
+    "provenance": "measured-emulated-tier"
+   }
+  },
+  "qwen0.5b-q4__edge__healthcare__confirmatory": {
+   "config": "qwen0.5b-q4",
+   "tier": "edge",
+   "domain": "healthcare",
+   "swapped": false,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 0.7771148681640625,
+   "energy": {
+    "joules_per_request": 3.7987538902858113,
+    "joules_per_request_idle_first30": 3.8616028819887798,
+    "joules_per_request_idle_last30": 3.738212863747546,
+    "mean_power_w": 15.398735827139712,
+    "samples": 193,
+    "window_s": 40.9381320476532,
+    "provenance": "measured-emulated-tier"
+   }
+  },
+  "qwen0.5b-q8__device__digital_industries__confirmatory": {
+   "config": "qwen0.5b-q8",
+   "tier": "device",
+   "domain": "digital_industries",
+   "swapped": false,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 0.83612060546875,
+   "energy": {
+    "joules_per_request": 0.7323928846138628,
+    "joules_per_request_idle_first30": 0.7385836162082298,
+    "joules_per_request_idle_last30": 0.7264294914775468,
+    "mean_power_w": 28.72340214220034,
+    "samples": 18,
+    "window_s": 4.032474994659424,
+    "provenance": "measured"
+   }
+  },
+  "qwen0.5b-q8__device__general_control__confirmatory": {
+   "config": "qwen0.5b-q8",
+   "tier": "device",
+   "domain": "general_control",
+   "swapped": false,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 0.8398590087890625,
+   "energy": {
+    "joules_per_request": 0.6697533667304537,
+    "joules_per_request_idle_first30": 0.6757833241736562,
+    "joules_per_request_idle_last30": 0.6639448437342719,
+    "mean_power_w": 27.057594920690505,
+    "samples": 18,
+    "window_s": 3.927751064300537,
+    "provenance": "measured"
+   }
+  },
+  "qwen0.5b-q8__device__healthcare__confirmatory": {
+   "config": "qwen0.5b-q8",
+   "tier": "device",
+   "domain": "healthcare",
+   "swapped": false,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 0.834197998046875,
+   "energy": {
+    "joules_per_request": 1.6645247261836609,
+    "joules_per_request_idle_first30": 1.6750941888777344,
+    "joules_per_request_idle_last30": 1.654343399417413,
+    "mean_power_w": 37.745788590349,
+    "samples": 32,
+    "window_s": 6.884661912918091,
+    "provenance": "measured"
+   }
+  },
+  "qwen0.5b-q8__edge__digital_industries__confirmatory": {
+   "config": "qwen0.5b-q8",
+   "tier": "edge",
+   "domain": "digital_industries",
+   "swapped": false,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 0.95770263671875,
+   "energy": {
+    "joules_per_request": 1.579075876120495,
+    "joules_per_request_idle_first30": 1.6141806937301686,
+    "joules_per_request_idle_last30": 1.5452601913029473,
+    "mean_power_w": 11.838375365616722,
+    "samples": 107,
+    "window_s": 22.86632800102234,
+    "provenance": "measured-emulated-tier"
+   }
+  },
+  "qwen0.5b-q8__edge__general_control__confirmatory": {
+   "config": "qwen0.5b-q8",
+   "tier": "edge",
+   "domain": "general_control",
+   "swapped": false,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 0.9580535888671875,
+   "energy": {
+    "joules_per_request": 1.6660084991110338,
+    "joules_per_request_idle_first30": 1.7014456605553931,
+    "joules_per_request_idle_last30": 1.6318726749186072,
+    "mean_power_w": 12.306146999759683,
+    "samples": 108,
+    "window_s": 23.082807779312134,
+    "provenance": "measured-emulated-tier"
+   }
+  },
+  "qwen0.5b-q8__edge__healthcare__confirmatory": {
+   "config": "qwen0.5b-q8",
+   "tier": "edge",
+   "domain": "healthcare",
+   "swapped": false,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 0.9573516845703125,
+   "energy": {
+    "joules_per_request": 3.731070805427579,
+    "joules_per_request_idle_first30": 3.7937074178896735,
+    "joules_per_request_idle_last30": 3.6707343590569432,
+    "mean_power_w": 15.197093852748129,
+    "samples": 192,
+    "window_s": 40.79979395866394,
+    "provenance": "measured-emulated-tier"
+   }
+  },
+  "qwen1.5b-q4__device__digital_industries__confirmatory": {
+   "config": "qwen1.5b-q4",
+   "tier": "device",
+   "domain": "digital_industries",
+   "swapped": false,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 1.2849578857421875,
+   "energy": {
+    "joules_per_request": 2.7209610053479776,
+    "joules_per_request_idle_first30": 2.737689673929431,
+    "joules_per_request_idle_last30": 2.7048466534531035,
+    "mean_power_w": 38.93594697682166,
+    "samples": 51,
+    "window_s": 10.896601915359497,
+    "provenance": "measured"
+   }
+  },
+  "qwen1.5b-q4__device__general_control__confirmatory": {
+   "config": "qwen1.5b-q4",
+   "tier": "device",
+   "domain": "general_control",
+   "swapped": false,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 1.2864532470703125,
+   "energy": {
+    "joules_per_request": 2.58872924873761,
+    "joules_per_request_idle_first30": 2.604798095581988,
+    "joules_per_request_idle_last30": 2.573250488348859,
+    "mean_power_w": 38.57896072965996,
+    "samples": 49,
+    "window_s": 10.466811895370483,
+    "provenance": "measured"
+   }
+  },
+  "qwen1.5b-q4__device__healthcare__confirmatory": {
+   "config": "qwen1.5b-q4",
+   "tier": "device",
+   "domain": "healthcare",
+   "swapped": false,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 1.28228759765625,
+   "energy": {
+    "joules_per_request": 6.1944492519662475,
+    "joules_per_request_idle_first30": 6.227338725606346,
+    "joules_per_request_idle_last30": 6.162767558393733,
+    "mean_power_w": 44.851640610314334,
+    "samples": 101,
+    "window_s": 21.42331290245056,
+    "provenance": "measured"
+   }
+  },
+  "qwen1.5b-q4__edge__digital_industries__confirmatory": {
+   "config": "qwen1.5b-q4",
+   "tier": "edge",
+   "domain": "digital_industries",
+   "swapped": true,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 1.514617919921875,
+   "energy": {
+    "joules_per_request": 6.658299737219128,
+    "joules_per_request_idle_first30": 6.774044741612119,
+    "joules_per_request_idle_last30": 6.546805165981689,
+    "mean_power_w": 14.72700809613474,
+    "samples": 355,
+    "window_s": 75.39316296577454,
+    "provenance": "measured-emulated-tier"
+   }
+  },
+  "qwen1.5b-q4__edge__general_control__confirmatory": {
+   "config": "qwen1.5b-q4",
+   "tier": "edge",
+   "domain": "general_control",
+   "swapped": false,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 1.5149078369140625,
+   "energy": {
+    "joules_per_request": 6.08852207024035,
+    "joules_per_request_idle_first30": 6.199608324027184,
+    "joules_per_request_idle_last30": 5.981515169153857,
+    "mean_power_w": 14.101414784221486,
+    "samples": 342,
+    "window_s": 72.35857892036438,
+    "provenance": "measured-emulated-tier"
+   }
+  },
+  "qwen1.5b-q4__edge__healthcare__confirmatory": {
+   "config": "qwen1.5b-q4",
+   "tier": "edge",
+   "domain": "healthcare",
+   "swapped": true,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 1.5142669677734375,
+   "energy": {
+    "joules_per_request": 12.314668211764747,
+    "joules_per_request_idle_first30": 12.50256348027009,
+    "joules_per_request_idle_last30": 12.133672906529654,
+    "mean_power_w": 16.572604035508668,
+    "samples": 578,
+    "window_s": 122.38989210128784,
+    "provenance": "measured-emulated-tier"
+   }
+  },
+  "qwen1.5b-q8__device__digital_industries__confirmatory": {
+   "config": "qwen1.5b-q8",
+   "tier": "device",
+   "domain": "digital_industries",
+   "swapped": false,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 2.010101318359375,
+   "energy": {
+    "joules_per_request": 2.3689888760313127,
+    "joules_per_request_idle_first30": 2.383710209549207,
+    "joules_per_request_idle_last30": 2.354808145059563,
+    "mean_power_w": 38.5374637170453,
+    "samples": 45,
+    "window_s": 9.589078187942505,
+    "provenance": "measured"
+   }
+  },
+  "qwen1.5b-q8__device__general_control__confirmatory": {
+   "config": "qwen1.5b-q8",
+   "tier": "device",
+   "domain": "general_control",
+   "swapped": false,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 2.01043701171875,
+   "energy": {
+    "joules_per_request": 2.2835511704594817,
+    "joules_per_request_idle_first30": 2.2976805648142253,
+    "joules_per_request_idle_last30": 2.2699406412302636,
+    "mean_power_w": 38.69748579544508,
+    "samples": 43,
+    "window_s": 9.203505039215088,
+    "provenance": "measured"
+   }
+  },
+  "qwen1.5b-q8__device__healthcare__confirmatory": {
+   "config": "qwen1.5b-q8",
+   "tier": "device",
+   "domain": "healthcare",
+   "swapped": false,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 2.0097808837890625,
+   "energy": {
+    "joules_per_request": 5.628233432933901,
+    "joules_per_request_idle_first30": 5.657089151553257,
+    "joules_per_request_idle_last30": 5.600437365258362,
+    "mean_power_w": 46.395923373525996,
+    "samples": 89,
+    "window_s": 18.795834064483643,
+    "provenance": "measured"
+   }
+  },
+  "qwen7b-q4__device__digital_industries__confirmatory": {
+   "config": "qwen7b-q4",
+   "tier": "device",
+   "domain": "digital_industries",
+   "swapped": false,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 4.6814727783203125,
+   "energy": {
+    "joules_per_request": 12.705804647624607,
+    "joules_per_request_idle_first30": 12.769825668336425,
+    "joules_per_request_idle_last30": 12.64413463178348,
+    "mean_power_w": 47.18247600544634,
+    "samples": 198,
+    "window_s": 41.70156002044678,
+    "provenance": "measured"
+   }
+  },
+  "qwen7b-q4__device__general_control__confirmatory": {
+   "config": "qwen7b-q4",
+   "tier": "device",
+   "domain": "general_control",
+   "swapped": false,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 4.6840972900390625,
+   "energy": {
+    "joules_per_request": 12.238520834150968,
+    "joules_per_request_idle_first30": 12.300133346850751,
+    "joules_per_request_idle_last30": 12.179170880152089,
+    "mean_power_w": 47.22252789547109,
+    "samples": 190,
+    "window_s": 40.13272309303284,
+    "provenance": "measured"
+   }
+  },
+  "qwen7b-q4__device__healthcare__confirmatory": {
+   "config": "qwen7b-q4",
+   "tier": "device",
+   "domain": "healthcare",
+   "swapped": false,
+   "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+   "peak_rss_gb": 4.6797332763671875,
+   "energy": {
+    "joules_per_request": 29.80666090457549,
+    "joules_per_request_idle_first30": 29.946429869919186,
+    "joules_per_request_idle_last30": 29.672024589643193,
+    "mean_power_w": 50.58919592225772,
+    "samples": 433,
+    "window_s": 91.04172086715698,
+    "provenance": "measured"
+   }
+  }
+ },
+ "summary": {
+  "mistral7b-q4|device": {
+   "n": 450,
+   "accuracy": 0.6533333333333333,
+   "accuracy_ci": [
+    0.6088888888888889,
+    0.6977777777777778
+   ],
+   "accuracy_by_domain": {
+    "digital_industries": 0.6,
+    "general_control": 0.7466666666666667,
+    "healthcare": 0.6133333333333333
+   },
+   "latency_median_s": 0.28325,
+   "latency_p95_s": 1.0208405999999999,
+   "no_label_rate": 0.0,
+   "joules_per_request_mean_over_domains": 19.142931315030058,
+   "energy_provenance": "measured",
+   "peak_rss_gb": 4.5101470947265625,
+   "any_swap": false
+  },
+  "qwen0.5b-q4|device": {
+   "n": 450,
+   "accuracy": 0.37333333333333335,
+   "accuracy_ci": [
+    0.3288888888888889,
+    0.4177777777777778
+   ],
+   "accuracy_by_domain": {
+    "digital_industries": 0.43333333333333335,
+    "general_control": 0.44666666666666666,
+    "healthcare": 0.24
+   },
+   "latency_median_s": 0.0287165,
+   "latency_p95_s": 0.07152334999999999,
+   "no_label_rate": 0.0,
+   "joules_per_request_mean_over_domains": 1.1406957927734394,
+   "energy_provenance": "measured",
+   "peak_rss_gb": 0.6743927001953125,
+   "any_swap": false
+  },
+  "qwen0.5b-q4|edge": {
+   "n": 450,
+   "accuracy": 0.37333333333333335,
+   "accuracy_ci": [
+    0.3288888888888889,
+    0.4177777777777778
+   ],
+   "accuracy_by_domain": {
+    "digital_industries": 0.43333333333333335,
+    "general_control": 0.44666666666666666,
+    "healthcare": 0.24
+   },
+   "latency_median_s": 0.1597045,
+   "latency_p95_s": 0.3838043999999995,
+   "no_label_rate": 0.0,
+   "joules_per_request_mean_over_domains": 2.501648038307461,
+   "energy_provenance": "measured-emulated-tier",
+   "peak_rss_gb": 0.777801513671875,
+   "any_swap": false
+  },
+  "qwen0.5b-q8|device": {
+   "n": 450,
+   "accuracy": 0.41333333333333333,
+   "accuracy_ci": [
+    0.3688888888888889,
+    0.46
+   ],
+   "accuracy_by_domain": {
+    "digital_industries": 0.5,
+    "general_control": 0.47333333333333333,
+    "healthcare": 0.26666666666666666
+   },
+   "latency_median_s": 0.0258235,
+   "latency_p95_s": 0.0637609,
+   "no_label_rate": 0.0,
+   "joules_per_request_mean_over_domains": 1.0222236591759923,
+   "energy_provenance": "measured",
+   "peak_rss_gb": 0.8398590087890625,
+   "any_swap": false
+  },
+  "qwen0.5b-q8|edge": {
+   "n": 450,
+   "accuracy": 0.40444444444444444,
+   "accuracy_ci": [
+    0.36,
+    0.4488888888888889
+   ],
+   "accuracy_by_domain": {
+    "digital_industries": 0.48,
+    "general_control": 0.46,
+    "healthcare": 0.2733333333333333
+   },
+   "latency_median_s": 0.155063,
+   "latency_p95_s": 0.3836035499999998,
+   "no_label_rate": 0.0,
+   "joules_per_request_mean_over_domains": 2.325385060219703,
+   "energy_provenance": "measured-emulated-tier",
+   "peak_rss_gb": 0.9580535888671875,
+   "any_swap": false
+  },
+  "qwen1.5b-q4|device": {
+   "n": 450,
+   "accuracy": 0.6577777777777778,
+   "accuracy_ci": [
+    0.6133333333333333,
+    0.7
+   ],
+   "accuracy_by_domain": {
+    "digital_industries": 0.5866666666666667,
+    "general_control": 0.76,
+    "healthcare": 0.6266666666666667
+   },
+   "latency_median_s": 0.06862850000000001,
+   "latency_p95_s": 0.20326434999999998,
+   "no_label_rate": 0.0,
+   "joules_per_request_mean_over_domains": 3.834713168683945,
+   "energy_provenance": "measured",
+   "peak_rss_gb": 1.2864532470703125,
+   "any_swap": false
+  },
+  "qwen1.5b-q4|edge": {
+   "n": 450,
+   "accuracy": 0.6577777777777778,
+   "accuracy_ci": [
+    0.6133333333333333,
+    0.7022222222222222
+   ],
+   "accuracy_by_domain": {
+    "digital_industries": 0.5866666666666667,
+    "general_control": 0.76,
+    "healthcare": 0.6266666666666667
+   },
+   "latency_median_s": 0.491686,
+   "latency_p95_s": 1.05416725,
+   "no_label_rate": 0.0,
+   "joules_per_request_mean_over_domains": null,
+   "energy_provenance": "measured-emulated-tier",
+   "peak_rss_gb": 1.5149078369140625,
+   "any_swap": true
+  },
+  "qwen1.5b-q8|device": {
+   "n": 450,
+   "accuracy": 0.6444444444444445,
+   "accuracy_ci": [
+    0.6022222222222222,
+    0.6888888888888889
+   ],
+   "accuracy_by_domain": {
+    "digital_industries": 0.56,
+    "general_control": 0.7533333333333333,
+    "healthcare": 0.62
+   },
+   "latency_median_s": 0.060707,
+   "latency_p95_s": 0.17852264999999995,
+   "no_label_rate": 0.0,
+   "joules_per_request_mean_over_domains": 3.426924493141565,
+   "energy_provenance": "measured",
+   "peak_rss_gb": 2.01043701171875,
+   "any_swap": false
+  },
+  "qwen7b-q4|device": {
+   "n": 450,
+   "accuracy": 0.7466666666666667,
+   "accuracy_ci": [
+    0.7066666666666667,
+    0.7866666666666666
+   ],
+   "accuracy_by_domain": {
+    "digital_industries": 0.74,
+    "general_control": 0.9133333333333333,
+    "healthcare": 0.5866666666666667
+   },
+   "latency_median_s": 0.26787,
+   "latency_p95_s": 0.9085979,
+   "no_label_rate": 0.0,
+   "joules_per_request_mean_over_domains": 18.250328795450354,
+   "energy_provenance": "measured",
+   "peak_rss_gb": 4.6840972900390625,
+   "any_swap": false
+  }
+ },
+ "replay": {
+  "mistral7b-q4__device__digital_industries__confirmatory": {
+   "median_cv": 0.0033669026545704566,
+   "reps": 5
+  },
+  "mistral7b-q4__device__general_control__confirmatory": {
+   "median_cv": 0.0024664689827083993,
+   "reps": 5
+  },
+  "mistral7b-q4__device__healthcare__confirmatory": {
+   "median_cv": 0.0019262383251174434,
+   "reps": 5
+  },
+  "qwen0.5b-q4__device__digital_industries__confirmatory": {
+   "median_cv": 0.011148507087146032,
+   "reps": 5
+  },
+  "qwen0.5b-q4__device__general_control__confirmatory": {
+   "median_cv": 0.007972980776403678,
+   "reps": 5
+  },
+  "qwen0.5b-q4__device__healthcare__confirmatory": {
+   "median_cv": 0.008481014535532494,
+   "reps": 5
+  },
+  "qwen0.5b-q4__edge__digital_industries__confirmatory": {
+   "median_cv": 0.02604695480876558,
+   "reps": 5
+  },
+  "qwen0.5b-q4__edge__general_control__confirmatory": {
+   "median_cv": 0.04687916182275971,
+   "reps": 5
+  },
+  "qwen0.5b-q4__edge__healthcare__confirmatory": {
+   "median_cv": 0.010971947031750452,
+   "reps": 5
+  },
+  "qwen0.5b-q8__device__digital_industries__confirmatory": {
+   "median_cv": 0.006927039671539849,
+   "reps": 5
+  },
+  "qwen0.5b-q8__device__general_control__confirmatory": {
+   "median_cv": 0.006526609273660196,
+   "reps": 5
+  },
+  "qwen0.5b-q8__device__healthcare__confirmatory": {
+   "median_cv": 0.007359051275729658,
+   "reps": 5
+  },
+  "qwen0.5b-q8__edge__digital_industries__confirmatory": {
+   "median_cv": 0.008244033774116548,
+   "reps": 5
+  },
+  "qwen0.5b-q8__edge__general_control__confirmatory": {
+   "median_cv": 0.025561960196764502,
+   "reps": 5
+  },
+  "qwen0.5b-q8__edge__healthcare__confirmatory": {
+   "median_cv": 0.015666591407116903,
+   "reps": 5
+  },
+  "qwen1.5b-q4__device__digital_industries__confirmatory": {
+   "median_cv": 0.004851529218163646,
+   "reps": 5
+  },
+  "qwen1.5b-q4__device__general_control__confirmatory": {
+   "median_cv": 0.002695408662526038,
+   "reps": 5
+  },
+  "qwen1.5b-q4__device__healthcare__confirmatory": {
+   "median_cv": 0.0036132095225094828,
+   "reps": 5
+  },
+  "qwen1.5b-q4__edge__digital_industries__confirmatory": {
+   "median_cv": 0.0016214099614112834,
+   "reps": 5
+  },
+  "qwen1.5b-q4__edge__general_control__confirmatory": {
+   "median_cv": 0.003288404880893282,
+   "reps": 5
+  },
+  "qwen1.5b-q4__edge__healthcare__confirmatory": {
+   "median_cv": 0.03459857621592065,
+   "reps": 5
+  },
+  "qwen1.5b-q8__device__digital_industries__confirmatory": {
+   "median_cv": 0.0036913774445031275,
+   "reps": 5
+  },
+  "qwen1.5b-q8__device__general_control__confirmatory": {
+   "median_cv": 0.004000169764511922,
+   "reps": 5
+  },
+  "qwen1.5b-q8__device__healthcare__confirmatory": {
+   "median_cv": 0.003565743425211998,
+   "reps": 5
+  },
+  "qwen7b-q4__device__digital_industries__confirmatory": {
+   "median_cv": 0.0020996515942617575,
+   "reps": 5
+  },
+  "qwen7b-q4__device__general_control__confirmatory": {
+   "median_cv": 0.0020493662389259723,
+   "reps": 5
+  },
+  "qwen7b-q4__device__healthcare__confirmatory": {
+   "median_cv": 0.0011757921698437113,
+   "reps": 5
+  }
+ },
+ "routing": {
+  "split_counts": {
+   "train": 225,
+   "val": 90,
+   "test": 135
+  },
+  "tuned": {
+   "cascade_p_max_tau": 0.99,
+   "cascade_margin_tau": 0.98,
+   "router_threshold": 0.6599999999999999,
+   "optimiser_choice": "cascade margin"
+  },
+  "policies": {
+   "always mistral7b-q4": {
+    "n": 135,
+    "accuracy": 0.6518518518518519,
+    "accuracy_ci": [
+     0.5703703703703704,
+     0.7333333333333333
+    ],
+    "latency_mean_s": 0.4154668444444444,
+    "joules_mean": 19.142931315030058,
+    "joules_ci": [
+     17.572155097857046,
+     20.862261630080194
+    ],
+    "energy_saving_vs_big_pct": -4.8908845949242385,
+    "saving_j_ci": [
+     -1.1952098774280864,
+     -0.6056743806187556
+    ],
+    "accuracy_diff_vs_big_pts": -11.11111111111111,
+    "accuracy_diff_ci_pts": [
+     -18.51851851851852,
+     -3.7037037037037033
+    ]
+   },
+   "always qwen0.5b-q4": {
+    "n": 135,
+    "accuracy": 0.3851851851851852,
+    "accuracy_ci": [
+     0.3037037037037037,
+     0.4666666666666667
+    ],
+    "latency_mean_s": 0.037978088888888886,
+    "joules_mean": 1.1406957927734394,
+    "joules_ci": [
+     1.0665266012211991,
+     1.220938627935075
+    ],
+    "energy_saving_vs_big_pct": 93.74972470053359,
+    "saving_j_ci": [
+     15.885919846890108,
+     18.443561439421217
+    ],
+    "accuracy_diff_vs_big_pts": -37.77777777777778,
+    "accuracy_diff_ci_pts": [
+     -47.40740740740741,
+     -28.14814814814815
+    ]
+   },
+   "always qwen0.5b-q8": {
+    "n": 135,
+    "accuracy": 0.4148148148148148,
+    "accuracy_ci": [
+     0.3333333333333333,
+     0.4962962962962963
+    ],
+    "latency_mean_s": 0.03387719259259259,
+    "joules_mean": 1.0222236591759923,
+    "joules_ci": [
+     0.9490008882378542,
+     1.100959121135757
+    ],
+    "energy_saving_vs_big_pct": 94.39887538118862,
+    "saving_j_ci": [
+     16.00344555987345,
+     18.563540946220538
+    ],
+    "accuracy_diff_vs_big_pts": -34.81481481481482,
+    "accuracy_diff_ci_pts": [
+     -44.44444444444444,
+     -25.185185185185183
+    ]
+   },
+   "always qwen1.5b-q4": {
+    "n": 135,
+    "accuracy": 0.7185185185185186,
+    "accuracy_ci": [
+     0.6444444444444445,
+     0.7925925925925926
+    ],
+    "latency_mean_s": 0.09917828148148149,
+    "joules_mean": 3.834713168683945,
+    "joules_ci": [
+     3.5686022925678262,
+     4.123615103887376
+    ],
+    "energy_saving_vs_big_pct": 78.98825159993882,
+    "saving_j_ci": [
+     13.383844155543478,
+     15.540884963468915
+    ],
+    "accuracy_diff_vs_big_pts": -4.444444444444445,
+    "accuracy_diff_ci_pts": [
+     -12.592592592592592,
+     2.9629629629629632
+    ]
+   },
+   "always qwen1.5b-q8": {
+    "n": 135,
+    "accuracy": 0.6962962962962963,
+    "accuracy_ci": [
+     0.6222222222222222,
+     0.7703703703703704
+    ],
+    "latency_mean_s": 0.08702235555555556,
+    "joules_mean": 3.426924493141565,
+    "joules_ci": [
+     3.179803123369918,
+     3.696289799507191
+    ],
+    "energy_saving_vs_big_pct": 81.22266984035998,
+    "saving_j_ci": [
+     13.772643324741388,
+     15.968210267849102
+    ],
+    "accuracy_diff_vs_big_pts": -6.666666666666667,
+    "accuracy_diff_ci_pts": [
+     -14.074074074074074,
+     0.0
+    ]
+   },
+   "always qwen7b-q4": {
+    "n": 135,
+    "accuracy": 0.762962962962963,
+    "accuracy_ci": [
+     0.6888888888888889,
+     0.837037037037037
+    ],
+    "latency_mean_s": 0.4035730518518518,
+    "joules_mean": 18.250328795450354,
+    "joules_ci": [
+     16.952446448111306,
+     19.664500067356293
+    ],
+    "energy_saving_vs_big_pct": 0.0,
+    "saving_j_ci": [
+     0.0,
+     0.0
+    ],
+    "accuracy_diff_vs_big_pts": 0.0,
+    "accuracy_diff_ci_pts": [
+     0.0,
+     0.0
+    ]
+   },
+   "static sensitivity rule": {
+    "n": 135,
+    "accuracy": 0.6814814814814815,
+    "accuracy_ci": [
+     0.6,
+     0.7555555555555555
+    ],
+    "latency_mean_s": 0.35447369629629627,
+    "joules_mean": 16.017089347759505,
+    "joules_ci": [
+     13.892793410893997,
+     18.213033958386628
+    ],
+    "energy_saving_vs_big_pct": 12.236708021652609,
+    "saving_j_ci": [
+     1.3067395390362624,
+     3.1426137324262227
+    ],
+    "accuracy_diff_vs_big_pts": -8.148148148148149,
+    "accuracy_diff_ci_pts": [
+     -15.555555555555555,
+     -0.7407407407407408
+    ]
+   },
+   "cascade p_max": {
+    "n": 135,
+    "accuracy": 0.7481481481481481,
+    "accuracy_ci": [
+     0.674074074074074,
+     0.8222222222222222
+    ],
+    "latency_mean_s": 0.3247187185185185,
+    "joules_mean": 13.2147581821798,
+    "joules_ci": [
+     11.035734813240083,
+     15.441321295375221
+    ],
+    "energy_saving_vs_big_pct": 27.591670647193368,
+    "saving_j_ci": [
+     3.432369187126113,
+     6.651653705786879
+    ],
+    "accuracy_diff_vs_big_pts": -1.4814814814814816,
+    "accuracy_diff_ci_pts": [
+     -5.185185185185185,
+     2.2222222222222223
+    ]
+   },
+   "cascade margin": {
+    "n": 135,
+    "accuracy": 0.7407407407407407,
+    "accuracy_ci": [
+     0.6666666666666666,
+     0.8148148148148148
+    ],
+    "latency_mean_s": 0.31702451851851854,
+    "joules_mean": 12.89985102994128,
+    "joules_ci": [
+     10.705330329237437,
+     15.158462917422654
+    ],
+    "energy_saving_vs_big_pct": 29.317158202886194,
+    "saving_j_ci": [
+     3.725574456098203,
+     7.003643031743921
+    ],
+    "accuracy_diff_vs_big_pts": -2.2222222222222223,
+    "accuracy_diff_ci_pts": [
+     -5.9259259259259265,
+     1.4814814814814816
+    ]
+   },
+   "learned router": {
+    "n": 135,
+    "accuracy": 0.7333333333333333,
+    "accuracy_ci": [
+     0.6592592592592592,
+     0.8074074074074075
+    ],
+    "latency_mean_s": 0.25926144444444443,
+    "joules_mean": 12.131397186803527,
+    "joules_ci": [
+     10.317555914439017,
+     14.08777045165775
+    ],
+    "energy_saving_vs_big_pct": 33.5277883331736,
+    "saving_j_ci": [
+     4.307486823573232,
+     7.88640632946774
+    ],
+    "accuracy_diff_vs_big_pts": -2.9629629629629632,
+    "accuracy_diff_ci_pts": [
+     -8.148148148148149,
+     1.4814814814814816
+    ]
+   },
+   "constraint-aware optimiser": {
+    "n": 135,
+    "accuracy": 0.762962962962963,
+    "accuracy_ci": [
+     0.6888888888888889,
+     0.837037037037037
+    ],
+    "latency_mean_s": 0.4035730518518518,
+    "joules_mean": 18.250328795450354,
+    "joules_ci": [
+     16.952446448111306,
+     19.664500067356293
+    ],
+    "energy_saving_vs_big_pct": 0.0,
+    "saving_j_ci": [
+     0.0,
+     0.0
+    ],
+    "accuracy_diff_vs_big_pts": 0.0,
+    "accuracy_diff_ci_pts": [
+     0.0,
+     0.0
+    ]
+   },
+   "oracle (upper bound, uses labels)": {
+    "n": 135,
+    "accuracy": 0.8814814814814815,
+    "accuracy_ci": [
+     0.8222222222222222,
+     0.9333333333333333
+    ],
+    "latency_mean_s": 0.14305643703703705,
+    "joules_mean": 5.791621681466317,
+    "joules_ci": [
+     4.400488322834876,
+     7.332840800303813
+    ],
+    "energy_saving_vs_big_pct": 68.2656584087947,
+    "saving_j_ci": [
+     11.062664637642305,
+     13.979444316293218
+    ],
+    "accuracy_diff_vs_big_pts": 11.851851851851853,
+    "accuracy_diff_ci_pts": [
+     6.666666666666667,
+     17.037037037037038
+    ]
+   }
+  },
+  "H3": {
+   "selected_on": "validation split",
+   "policy": "cascade margin",
+   "validation_saving_pct": 33.48731263340369,
+   "validation_accuracy_diff_pts": -4.444444444444451,
+   "test_saving_pct": 29.317158202886194,
+   "test_saving_j_ci": [
+    3.725574456098203,
+    7.003643031743921
+   ],
+   "test_accuracy_diff_pts": -2.2222222222222223,
+   "test_accuracy_diff_ci_pts": [
+    -5.9259259259259265,
+    1.4814814814814816
+   ],
+   "supported_on_point_estimates": true,
+   "accuracy_ci_within_tolerance": false
+  },
+  "energy_available": true
+ },
+ "sovereignty": {
+  "equal_weights": {
+   "qwen2.5 local (device)": 0.7916666666666666,
+   "mistral-7b local (device)": 0.75,
+   "mistral api, eu endpoint (characterised)": 0.4166666666666667
+  },
+  "top_rank_share": {
+   "qwen2.5 local (device)": 1.0,
+   "mistral-7b local (device)": 0.0,
+   "mistral api, eu endpoint (characterised)": 0.0
+  },
+  "median_rank": {
+   "qwen2.5 local (device)": 1.0,
+   "mistral-7b local (device)": 2.0,
+   "mistral api, eu endpoint (characterised)": 3.0
+  },
+  "rank_range": {
+   "qwen2.5 local (device)": [
+    1,
+    1
+   ],
+   "mistral-7b local (device)": [
+    2,
+    2
+   ],
+   "mistral api, eu endpoint (characterised)": [
+    3,
+    3
+   ]
+  },
+  "dimensions": [
+   "data_residency_egress",
+   "operator_jurisdiction",
+   "model_openness",
+   "operational_independence",
+   "transparency_auditability",
+   "supply_chain"
+  ]
+ },
+ "thresholds": {
+  "H3": "On held-out test items, the best non-oracle routing policy reduces mean estimated energy per request by at least X percent versus always-largest-local-model (qwen7b-q4, edge) with a mean accuracy loss of no more than Y percentage points.",
+  "X": 25,
+  "Y": 5,
+  "set_from": "Mac pilot, 45 disjoint items, 17 Oct 2026 22:27 IST",
+  "rationale": "Y = 5 accuracy points is the largest loss we treat as acceptable for an SME replacing its largest local model; X = 25 percent is the smallest saving we treat as worth the routing complexity. Both are practical tolerances, not values tuned to make H3 pass. Pilot observation: always qwen7b-q4 (device) scored 71.1 percent on 45 items at a mean 20.8 J per request; a p_max cascade from qwen1.5b-q4 saved 38 to 80 percent of energy but lost 15.6 to 20.0 points across thresholds 0.5 to 0.95, so H3 may well be rejected."
+ }
+}

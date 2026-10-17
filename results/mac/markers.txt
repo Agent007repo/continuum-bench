@@ -54,3 +54,24 @@ cell_end qwen0.5b-q8__edge__pilot 1792256209
 cell_start qwen1.5b-q4__edge__pilot 1792256209
 cell_end qwen1.5b-q4__edge__pilot 1792256239
 pilot_end 1792256239
+confirmatory_start 1792256389
+cell_start qwen0.5b-q4__device__confirmatory 1792256389
+cell_end qwen0.5b-q4__device__confirmatory 1792256417
+cell_start qwen0.5b-q8__device__confirmatory 1792256417
+cell_end qwen0.5b-q8__device__confirmatory 1792256442
+cell_start qwen1.5b-q4__device__confirmatory 1792256442
+cell_end qwen1.5b-q4__device__confirmatory 1792256510
+cell_start qwen1.5b-q8__device__confirmatory 1792256510
+cell_end qwen1.5b-q8__device__confirmatory 1792256571
+cell_start qwen7b-q4__device__confirmatory 1792256571
+cell_end qwen7b-q4__device__confirmatory 1792256846
+cell_start mistral7b-q4__device__confirmatory 1792256846
+cell_end mistral7b-q4__device__confirmatory 1792257130
+cell_start qwen0.5b-q4__edge__confirmatory 1792257130
+cell_end qwen0.5b-q4__edge__confirmatory 1792257268
+cell_start qwen0.5b-q8__edge__confirmatory 1792257268
+cell_end qwen0.5b-q8__edge__confirmatory 1792257405
+cell_start qwen1.5b-q4__edge__confirmatory 1792257405
+cell_end qwen1.5b-q4__edge__confirmatory 1792257827
+confirmatory_end 1792257827
+run_end 1792257829

@@ -1,6 +1,5 @@
 \documentclass[10pt,twocolumn]{article}
 \usepackage[margin=0.72in]{geometry}
-\usepackage[T1]{fontenc}
 \usepackage{microtype}
 \usepackage{booktabs}
 \usepackage{tabularx}
@@ -67,7 +66,7 @@ We ask three questions, fixed in a protocol committed before any measurement:
 
 \begin{figure}[t]\centering
 \includegraphics[width=\columnwidth]{../results/figures/pareto_energy_accuracy.png}
-\caption{Accuracy against measured incremental energy per request. Circles: device tier. Squares: emulated edge tier. Triangles: routing policies on the test split.}\label{fig:pareto}
+\caption{Accuracy against measured incremental energy per request (450 items; policies on the 135 test items). Circles: device tier (Q = Qwen2.5, M = Mistral, size/bits). Squares: emulated CPU edge tier. Triangles: routing policies (S static rule, Cp and Cm cascades on $p_{\max}$ and margin, R learned router, O optimiser).}\label{fig:pareto}
 \end{figure}
 
 \subsection{RQ2: sovereignty scorecard}\label{sec:rq2}

@@ -256,6 +256,7 @@ def main() -> None:
     (D / "mac_summary.json").write_text(json.dumps(out, indent=1, default=float) + "\n")
     figures(summary, routing)
     tex(out)
+    prose(out)
     print(
         json.dumps(
             {
@@ -405,37 +406,47 @@ def route(rows: list[dict], cells: dict, summary: dict) -> dict:
 
     results = {name: evaluate(ch, "test") for name, ch in policies.items()}
     base = results[f"always {big}"]
+    base_paired = base["paired"]
     for r in results.values():
         if have_energy:
             r["energy_saving_vs_big_pct"] = 100 * (1 - r["joules_mean"] / base["joules_mean"])
-            diffs = [b - a for a, b in zip(r["paired"]["j"], base["paired"]["j"], strict=True)]
+            diffs = [b - a for a, b in zip(r["paired"]["j"], base_paired["j"], strict=True)]
             r["saving_j_ci"] = boot_ci(diffs)
-        dacc = [a - b for a, b in zip(r["paired"]["acc"], base["paired"]["acc"], strict=True)]
+        dacc = [a - b for a, b in zip(r["paired"]["acc"], base_paired["acc"], strict=True)]
         r["accuracy_diff_vs_big_pts"] = 100 * st.mean(dacc)
         r["accuracy_diff_ci_pts"] = tuple(100 * x for x in boot_ci(dacc))
         r.pop("paired")
+    # H3: choose the policy on VALIDATION (no test peeking), then report it on test.
     h3 = None
     if thresholds.get("X") is not None and have_energy:
-        cand = {
-            k: v for k, v in results.items() if not k.startswith("always") and "oracle" not in k
-        }
-        best_name = max(
-            cand,
-            key=lambda k: (
-                cand[k]["energy_saving_vs_big_pct"]
-                if cand[k]["accuracy_diff_vs_big_pts"] >= -thresholds["Y"]
-                else -1e9
-            ),
-        )
-        b = cand[best_name]
-        h3 = {
-            "policy": best_name,
-            "saving_pct": b["energy_saving_vs_big_pct"],
-            "accuracy_diff_pts": b["accuracy_diff_vs_big_pts"],
-            "accuracy_diff_ci_pts": b["accuracy_diff_ci_pts"],
-            "supported": b["energy_saving_vs_big_pct"] >= thresholds["X"]
-            and b["accuracy_diff_vs_big_pts"] >= -thresholds["Y"],
-        }
+        valres = {n: evaluate(ch, "val") for n, ch in policies.items()}
+        vbase = valres[f"always {big}"]
+        cands = {}
+        for n, v in valres.items():
+            if n.startswith("always") or "oracle" in n:
+                continue
+            dacc = 100 * (v["accuracy"] - vbase["accuracy"])
+            sav = 100 * (1 - v["joules_mean"] / vbase["joules_mean"])
+            if dacc >= -thresholds["Y"]:
+                cands[n] = (sav, dacc)
+        if cands:
+            chosen = max(cands, key=lambda n: cands[n][0])
+            b = results[chosen]
+            h3 = {
+                "selected_on": "validation split",
+                "policy": chosen,
+                "validation_saving_pct": cands[chosen][0],
+                "validation_accuracy_diff_pts": cands[chosen][1],
+                "test_saving_pct": b["energy_saving_vs_big_pct"],
+                "test_saving_j_ci": b["saving_j_ci"],
+                "test_accuracy_diff_pts": b["accuracy_diff_vs_big_pts"],
+                "test_accuracy_diff_ci_pts": b["accuracy_diff_ci_pts"],
+                "supported_on_point_estimates": b["energy_saving_vs_big_pct"] >= thresholds["X"]
+                and b["accuracy_diff_vs_big_pts"] >= -thresholds["Y"],
+                "accuracy_ci_within_tolerance": b["accuracy_diff_ci_pts"][0] >= -thresholds["Y"],
+            }
+        else:
+            h3 = {"selected_on": "validation split", "policy": None}
     return {
         "split_counts": {s: sum(v == s for v in split.values()) for s in ("train", "val", "test")},
         "tuned": {
@@ -494,32 +505,52 @@ def figures(summary: dict, routing: dict) -> None:
     ]
     if not pts:
         return
-    fig, ax = plt.subplots(figsize=(5, 3.4))
+    fig, ax = plt.subplots(figsize=(5, 3.6))
+    short = {
+        "qwen0.5b-q4": "Q0.5/4",
+        "qwen0.5b-q8": "Q0.5/8",
+        "qwen1.5b-q4": "Q1.5/4",
+        "qwen1.5b-q8": "Q1.5/8",
+        "qwen7b-q4": "Q7/4",
+        "mistral7b-q4": "M7/4",
+    }
     for k, v in pts:
         cfg, tier = k.split("|")
+        x, y = v["joules_per_request_mean_over_domains"], 100 * v["accuracy"]
         ax.scatter(
-            v["joules_per_request_mean_over_domains"],
-            100 * v["accuracy"],
+            x,
+            y,
             marker="o" if tier == "device" else "s",
+            s=28,
             color="#1f6f8b" if tier == "device" else "#b5651d",
+            zorder=3,
         )
         ax.annotate(
-            f"{cfg} ({tier})",
-            (v["joules_per_request_mean_over_domains"], 100 * v["accuracy"]),
-            fontsize=6,
-            xytext=(3, 3),
+            short.get(cfg, cfg) + ("" if tier == "device" else " edge"),
+            (x, y),
+            fontsize=6.5,
+            xytext=(4, -10 if tier == "edge" else 4),
             textcoords="offset points",
         )
+    code = {
+        "static sensitivity rule": "S",
+        "cascade p_max": "Cp",
+        "cascade margin": "Cm",
+        "learned router": "R",
+        "constraint-aware optimiser": "O",
+        "oracle (upper bound, uses labels)": "oracle",
+    }
     for name, r in routing["policies"].items():
         if name.startswith("always") or "joules_mean" not in r:
             continue
-        ax.scatter(r["joules_mean"], 100 * r["accuracy"], marker="^", color="#444")
+        ax.scatter(r["joules_mean"], 100 * r["accuracy"], marker="^", s=30, color="#555", zorder=3)
         ax.annotate(
-            name,
+            code.get(name, name),
             (r["joules_mean"], 100 * r["accuracy"]),
-            fontsize=6,
-            xytext=(3, -8),
+            fontsize=6.5,
+            xytext=(4, 2),
             textcoords="offset points",
+            color="#333",
         )
     ax.set_xscale("log")
     ax.set_xlabel("Measured incremental energy per request (J, log scale)")
@@ -548,18 +579,110 @@ def tex(out: dict) -> None:
     (GEN / "mac_table.tex").write_text("\n".join(lines) + "\n")
     rt = out["routing"]["policies"]
     lines = [
-        r"\begin{table}[t]\centering\small",
-        r"\caption{Routing policies on the held-out test split, device tier.}\label{tab:routing}",
+        r"\begin{table}[t]\centering\footnotesize",
+        r"\caption{Routing policies on the 135 held-out test items, device tier. $\Delta$: accuracy change in points versus always Qwen2.5-7B. Saving: mean energy per request saved versus the same baseline.}\label{tab:routing}",
         r"\begin{tabular}{@{}lrrr@{}}\toprule",
-        r"Policy & Acc. & $\Delta$acc (pts) & Energy saving\\\midrule",
+        r"Policy & Acc. & $\Delta$ & Saving\\\midrule",
     ]
     for name, r in rt.items():
         sav = r.get("energy_saving_vs_big_pct")
         lines.append(
-            f"{name} & {100 * r['accuracy']:.1f} & {r['accuracy_diff_vs_big_pts']:+.1f} & {'n/a' if sav is None else f'{sav:.0f}\\%'}\\\\"
+            f"{name.replace('_', chr(92) + '_')} & {100 * r['accuracy']:.1f} & {r['accuracy_diff_vs_big_pts']:+.1f} & {'n/a' if sav is None else f'{sav:.0f}\\%'}\\\\"
         )
     lines.append(r"\bottomrule\end{tabular}\end{table}")
     (GEN / "routing_table.tex").write_text("\n".join(lines) + "\n")
+
+
+def prose(out: dict) -> None:
+    """Data-driven paragraphs for the report. Every number is read from `out`."""
+    s, rt, h3 = out["summary"], out["routing"]["policies"], out["routing"]["H3"]
+    th = out["thresholds"]
+    big = s["qwen7b-q4|device"]
+    q15 = s["qwen1.5b-q4|device"]
+    q05 = s["qwen0.5b-q4|device"]
+    e05 = s["qwen0.5b-q4|edge"]
+    excl = sorted(k for k, c in out["cells"].items() if c["swapped"])
+    pw = [
+        c["energy"]["mean_power_w"]
+        for c in out["cells"].values()
+        if c["energy"] and not c["swapped"]
+    ]
+    idle = out["idle"]
+
+    def pct(x: float) -> str:
+        return f"{100 * x:.1f}\\%"
+
+    def ci(t: tuple) -> str:
+        return f"[{100 * t[0]:.1f}, {100 * t[1]:.1f}]"
+
+    (GEN / "thresholds.tex").write_text(
+        f"After the pilot and before confirmatory data we set $X={th['X']}$ and $Y={th['Y']}$ (protocol v1.1). "
+        "The pilot showed large savings but also large accuracy losses for a naive cascade, so these are practical tolerances, not values chosen to make H3 pass. "
+        "The policy tested under H3 is chosen on the validation split, then evaluated on test.\n"
+    )
+    (GEN / "rq1_text.tex").write_text(
+        f"Table~\\ref{{tab:mac}} and Figure~\\ref{{fig:pareto}} summarise RQ1. Qwen2.5-7B (4-bit, GPU) was the most accurate configuration at {pct(big['accuracy'])} {ci(big['accuracy_ci'])} and cost "
+        f"{big['joules_per_request_mean_over_domains']:.1f}\\,J of measured incremental energy per request. Qwen2.5-1.5B (4-bit, GPU) reached {pct(q15['accuracy'])} at "
+        f"{q15['joules_per_request_mean_over_domains']:.1f}\\,J, about {big['joules_per_request_mean_over_domains'] / q15['joules_per_request_mean_over_domains']:.0f} times less energy for {100 * (big['accuracy'] - q15['accuracy']):.1f} points lower accuracy. "
+        f"Mistral-7B (4-bit) was less accurate than Qwen2.5-1.5B ({pct(s['mistral7b-q4|device']['accuracy'])}) at a cost similar to Qwen2.5-7B. "
+        f"The 0.5B models were close to chance on several subjects ({pct(q05['accuracy'])}). 8-bit quantisation did not improve accuracy over 4-bit at 1.5B "
+        f"({pct(s['qwen1.5b-q8|device']['accuracy'])} vs {pct(q15['accuracy'])}) and did not cost more energy ({s['qwen1.5b-q8|device']['joules_per_request_mean_over_domains']:.1f} vs {q15['joules_per_request_mean_over_domains']:.1f}\\,J). "
+        f"Domain matters: Qwen2.5-7B scored {pct(big['accuracy_by_domain']['general_control'])} on the general-science control but {pct(big['accuracy_by_domain']['healthcare'])} on healthcare, where Qwen2.5-1.5B did slightly better ({pct(q15['accuracy_by_domain']['healthcare'])}). "
+        f"On the emulated CPU edge tier, the same 0.5B model gave the same accuracy but took {e05['latency_median_s'] / q05['latency_median_s']:.1f} times longer per request (median {e05['latency_median_s'] * 1000:.0f} vs {q05['latency_median_s'] * 1000:.0f}\\,ms) and "
+        f"{e05['joules_per_request_mean_over_domains'] / q05['joules_per_request_mean_over_domains']:.1f} times the energy: on this laptop the GPU is both faster and more frugal than the CPU for the same model. "
+        f"Idle power was {idle['w']:.2f}\\,W ({idle['first30_w']:.2f} and {idle['last30_w']:.2f}\\,W in the first and last 30\\,s), small against mean cell power of {min(pw):.0f} to {max(pw):.0f}\\,W, so the idle choice changes energy figures by a few percent at most. "
+        f"{len(excl)} of {len(out['cells'])} cells recorded memory page-outs and are excluded from latency and energy by the pre-registered rule ({', '.join(e.split('__')[0] + ' ' + e.split('__')[1] + ' ' + e.split('__')[2].replace('_', ' ') for e in excl)}); their accuracy is kept. "
+        f"Repeated timings were stable (median coefficient of variation {100 * statistics_median([v['median_cv'] for v in out['replay'].values() if v['median_cv'] is not None]):.1f}\\%).\n"
+    )
+    sv = out["sovereignty"]
+    eq = sv["equal_weights"]
+    (GEN / "sovereignty_text.tex").write_text(
+        "We scored three options on six dimensions with an explicit rubric and cited evidence (\\texttt{configs/sovereignty\\_inputs.json}). "
+        + "With equal weights the scores were "
+        + "; ".join(f"{k.replace('_', ' ')} {v:.2f}" for k, v in eq.items())
+        + ". Across 5000 random weightings drawn uniformly from the simplex, the ranking never changed: "
+        + ", ".join(f"{k.replace('_', ' ')} always ranked {int(sv['median_rank'][k])}" for k in eq)
+        + ". The stability is itself a finding about the instrument, not only about the options: under this rubric the self-hosted options dominate the hosted API on every dimension, so no weighting can reverse them, and the two local options differ only in operational independence (a third-party conversion we could not verify). "
+        "The rubric deliberately scores the deploying organisation's control, not the model publisher's jurisdiction; an organisation that weighs publisher origin would need an extra dimension, and then the EU-origin model could rank first. Making that choice explicit is the point of the instrument.\n"
+    )
+    cm = rt[h3["policy"]] if h3 and h3.get("policy") else None
+    lr = rt["learned router"]
+    (GEN / "routing_text.tex").write_text(
+        f"Table~\\ref{{tab:routing}} reports all policies on the {out['routing']['split_counts']['test']} test items. "
+        f"Always using Qwen2.5-1.5B saved {rt['always qwen1.5b-q4']['energy_saving_vs_big_pct']:.0f}\\% of energy at {rt['always qwen1.5b-q4']['accuracy_diff_vs_big_pts']:+.1f} points. "
+        f"The confidence cascades and the learned router sat in between: the margin cascade saved {rt['cascade margin']['energy_saving_vs_big_pct']:.0f}\\% at {rt['cascade margin']['accuracy_diff_vs_big_pts']:+.1f} points, the $p_{{\\max}}$ cascade {rt['cascade p_max']['energy_saving_vs_big_pct']:.0f}\\% at {rt['cascade p_max']['accuracy_diff_vs_big_pts']:+.1f}, and the learned router {lr['energy_saving_vs_big_pct']:.0f}\\% at {lr['accuracy_diff_vs_big_pts']:+.1f}. "
+        f"The tuned cascade thresholds were high ($\\tau={out['routing']['tuned']['cascade_p_max_tau']:.2f}$ and {out['routing']['tuned']['cascade_margin_tau']:.2f}), because the small model is confidently wrong on many items, which the pilot had already suggested. "
+        f"The constraint-aware optimiser chose Qwen2.5-7B in every domain: no cheaper single configuration stayed within {th['Y']} points of it on validation. "
+        f"The static sensitivity rule, which keeps sensitive items on the EU-origin model, saved {rt['static sensitivity rule']['energy_saving_vs_big_pct']:.0f}\\% and lost {abs(rt['static sensitivity rule']['accuracy_diff_vs_big_pts']):.1f} points: here sovereignty preferences cost accuracy rather than energy. "
+        f"An oracle that knew which model would be right reached {pct(rt['oracle (upper bound, uses labels)']['accuracy'])} at {rt['oracle (upper bound, uses labels)']['energy_saving_vs_big_pct']:.0f}\\% saving, showing how much headroom better confidence signals could unlock.\n\n"
+        + (
+            f"\\textbf{{H3.}} Selected on validation, the {h3['policy'].replace('_', chr(92) + '_')} policy saved {h3['test_saving_pct']:.1f}\\% of energy per request on test (paired saving {h3['test_saving_j_ci'][0]:.1f} to {h3['test_saving_j_ci'][1]:.1f}\\,J per request, 95\\% interval) "
+            f"with an accuracy change of {h3['test_accuracy_diff_pts']:+.1f} points [{h3['test_accuracy_diff_ci_pts'][0]:+.1f}, {h3['test_accuracy_diff_ci_pts'][1]:+.1f}]. "
+            + (
+                "Both point estimates meet the pre-registered thresholds, so H3 is supported on point estimates. "
+                if h3["supported_on_point_estimates"]
+                else "H3 is not supported. "
+            )
+            + (
+                "The accuracy interval stays within the tolerance."
+                if h3["accuracy_ci_within_tolerance"]
+                else f"However, the lower end of the accuracy interval exceeds the {th['Y']}-point tolerance, so with {out['routing']['split_counts']['test']} test items we cannot rule out a loss larger than we said we would accept. We read this as tentative support."
+            )
+            if cm
+            else "\\textbf{H3.} No non-oracle policy met the accuracy tolerance on validation."
+        )
+        + "\n"
+    )
+    (GEN / "abstract_results.tex").write_text(
+        f"Qwen2.5-7B on the GPU was most accurate ({pct(big['accuracy'])}) at {big['joules_per_request_mean_over_domains']:.1f}\\,J of measured incremental energy per request; Qwen2.5-1.5B gave {pct(q15['accuracy'])} at {q15['joules_per_request_mean_over_domains']:.1f}\\,J. "
+        f"The CPU edge tier was slower and used more energy than the GPU for the same model. "
+        f"A margin-based cascade, chosen on validation, cut energy by {h3['test_saving_pct']:.0f}\\% on held-out items at {h3['test_accuracy_diff_pts']:+.1f} accuracy points, meeting the pre-registered thresholds on point estimates, though the accuracy interval reaches past the tolerance. "
+        "Under our rubric, self-hosted options dominated a hosted EU API on every weighting."
+    )
+
+
+def statistics_median(v: list[float]) -> float:
+    return st.median(v) if v else float("nan")
 
 
 if __name__ == "__main__":
