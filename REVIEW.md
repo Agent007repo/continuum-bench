@@ -28,4 +28,4 @@ Before release, a separate AI agent that had not seen the work being produced re
 ## Not changed, and why
 
 - Thresholds, splits and the selected policy are unchanged: changing them after seeing test results would be worse than reporting their limits.
-- A live routed run was not executed; the offline replay is disclosed.
+- A live routed run was added on 18 October after this review. It measured a 24% saving, below the threshold, and the write-up now says H3 is not supported on measured energy.

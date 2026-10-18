@@ -1,0 +1,90 @@
+{
+ "identity": "ContinuumBench/mac/live-routing/2026-10-18",
+ "tau": 0.98,
+ "n_test_items": 135,
+ "rounds": 3,
+ "blocks": [
+  {
+   "round": 0,
+   "block": "A",
+   "policy": "always qwen7b-q4",
+   "window_epoch": [
+    1792307144.925638,
+    1792307199.868517
+   ],
+   "n": 135,
+   "accuracy": 0.762962962962963,
+   "escalation_rate": 0.0,
+   "rows": "live_r0_A.jsonl"
+  },
+  {
+   "round": 0,
+   "block": "B",
+   "policy": "cascade margin",
+   "window_epoch": [
+    1792307199.869935,
+    1792307243.034794
+   ],
+   "n": 135,
+   "accuracy": 0.7407407407407407,
+   "escalation_rate": 0.43703703703703706,
+   "rows": "live_r0_B.jsonl"
+  },
+  {
+   "round": 1,
+   "block": "A",
+   "policy": "always qwen7b-q4",
+   "window_epoch": [
+    1792307243.036009,
+    1792307297.511615
+   ],
+   "n": 135,
+   "accuracy": 0.762962962962963,
+   "escalation_rate": 0.0,
+   "rows": "live_r1_A.jsonl"
+  },
+  {
+   "round": 1,
+   "block": "B",
+   "policy": "cascade margin",
+   "window_epoch": [
+    1792307297.512856,
+    1792307340.831585
+   ],
+   "n": 135,
+   "accuracy": 0.7407407407407407,
+   "escalation_rate": 0.43703703703703706,
+   "rows": "live_r1_B.jsonl"
+  },
+  {
+   "round": 2,
+   "block": "A",
+   "policy": "always qwen7b-q4",
+   "window_epoch": [
+    1792307340.832722,
+    1792307396.204598
+   ],
+   "n": 135,
+   "accuracy": 0.762962962962963,
+   "escalation_rate": 0.0,
+   "rows": "live_r2_A.jsonl"
+  },
+  {
+   "round": 2,
+   "block": "B",
+   "policy": "cascade margin",
+   "window_epoch": [
+    1792307396.206204,
+    1792307439.634598
+   ],
+   "n": 135,
+   "accuracy": 0.7407407407407407,
+   "escalation_rate": 0.43703703703703706,
+   "rows": "live_r2_B.jsonl"
+  }
+ ],
+ "pageouts_before": 1531,
+ "pageouts_after": 1532,
+ "swapped": true,
+ "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded"
+}

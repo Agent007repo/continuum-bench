@@ -16,4 +16,4 @@
 
 **Sovereignty.** The scorecard is a normative instrument. Its ranking follows from the rubric, which a different organisation could reasonably set differently. No score establishes GDPR compliance or legal independence.
 
-**Routing was evaluated offline.** Policies were replayed over the recorded per-item outputs and energy of each configuration. No live routed run was executed, so the overhead of loading or switching models at serving time is not measured.
+**Routing energy: offline estimate versus live measurement.** All policies were compared by replaying recorded per-item outputs and per-cell energy. Only the selected cascade was then run live (three rounds against always-7B, 18 October). Live, it saved a measured 24%, below both the 25% threshold and the 29% offline estimate, so the replay overstated the saving. The live run was added after the confirmatory analysis and is logged in `DEVIATIONS.md`.

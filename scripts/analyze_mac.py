@@ -65,12 +65,12 @@ PWR = re.compile(r"^(CPU|GPU|ANE) Power:\s*([\d.]+)\s*mW", re.M)
 COMB = re.compile(r"Combined Power \(CPU \+ GPU \+ ANE\):\s*([\d.]+)\s*mW")
 
 
-def power_samples(shift_s: float = 0.0) -> list[dict]:
+def power_samples(shift_s: float = 0.0, path: Path | None = None) -> list[dict]:
     """Parse powermetrics text into samples with reconstructed end times.
 
     Headers carry wall time at one-second resolution. We anchor the cumulative
     'elapsed' sum to the headers (median offset plus 0.5 s) to get sub-second end times."""
-    p = R / "powermetrics.txt"
+    p = path or R / "powermetrics.txt"
     if not p.exists():
         return []
     text = p.read_text(errors="ignore")
@@ -292,6 +292,7 @@ def main() -> None:
     }
 
     routing = route(rows, cells, summary)
+    routing["live"] = live()
     sov = sovereignty()
     out = {
         "status": "complete",
@@ -824,11 +825,39 @@ def prose(out: dict) -> None:
         )
         + "\n"
     )
+    lv = out["routing"].get("live")
+    if lv:
+        big_l, cas_l = lv["policies"]["always qwen7b-q4"], lv["policies"]["cascade margin"]
+        (GEN / "live_text.tex").write_text(
+            f"\\textbf{{Live validation.}} To check the offline replay, the H3 policy was run live on the Mac the next day: both models loaded on the GPU, the {cm['n'] if cm else 135} test items routed in real time with the validation-tuned $\\tau={lv['tau']:.2f}$, alternating with always-7B blocks over {lv['rounds']} rounds under a fresh {lv['idle_w']:.2f}\\,W idle baseline. "
+            f"Measured energy per request was {big_l['joules_per_request_mean']:.1f}\\,J for always-7B and {cas_l['joules_per_request_mean']:.1f}\\,J for the cascade, a measured saving of {lv['saving_pct_mean']:.1f}\\% "
+            f"(per round {', '.join(f'{x:.1f}' for x in lv['saving_pct_by_round'])}\\%), against {h3['test_saving_pct']:.1f}\\% estimated offline. "
+            f"The cascade escalated {100 * cas_l['escalation_rate']:.0f}\\% of items live and scored {100 * cas_l['accuracy']:.1f}\\% against {100 * big_l['accuracy']:.1f}\\% for always-7B. "
+            + (
+                f"Measured live, the saving falls below the {th['X']}\\% threshold in every round, so on measured energy H3 is not supported, and the offline replay overstated the saving. "
+                if max(lv["saving_pct_by_round"]) < th["X"]
+                else f"Measured live, the saving meets the {th['X']}\\% threshold. "
+            )
+            + (
+                f"The system recorded {lv['pageouts'][1] - lv['pageouts'][0]} memory page-out(s) over the whole live run; we report it but, with both models using a small fraction of 64\\,GB, do not treat it as material."
+                if lv["swapped"]
+                else ""
+            )
+            + "\n"
+        )
+    else:
+        (GEN / "live_text.tex").write_text("%\n")
     (GEN / "abstract_results.tex").write_text(
         f"Qwen2.5-7B on the GPU was most accurate ({pct(big['accuracy'])}) at {big['joules_per_request_mean_over_domains']:.1f}\\,J of measured incremental energy per request; Qwen2.5-1.5B gave {pct(q15['accuracy'])} at {q15['joules_per_request_mean_over_domains']:.1f}\\,J, and Mistral-7B matched the 1.5B model's accuracy at the 7B energy cost. "
         "On this laptop the CPU tier was slower and used more energy than the GPU for the same small model. "
-        f"A margin-based cascade, chosen on validation, saved an estimated {h3['test_saving_pct']:.0f}\\% of energy on held-out items at {h3['test_accuracy_diff_pts']:+.1f} accuracy points, meeting the thresholds on point estimates, but both intervals cross their thresholds, so support is tentative. "
-        "Under our rubric, self-hosted options dominated a hosted EU API on every weighting.%"
+        f"A margin-based cascade, chosen on validation, saved an estimated {h3['test_saving_pct']:.0f}\\% of energy on held-out items at {h3['test_accuracy_diff_pts']:+.1f} accuracy points, meeting the thresholds on point estimates, but both intervals cross their thresholds"
+        + (
+            f"; run live, it saved a measured {out['routing']['live']['saving_pct_mean']:.0f}\\%, below the threshold, so H3 is not supported on measured energy. "
+            if out["routing"].get("live")
+            and max(out["routing"]["live"]["saving_pct_by_round"]) < th["X"]
+            else ", so support is tentative. "
+        )
+        + "Under our rubric, self-hosted options dominated a hosted EU API on every weighting.%"
     )
     esc = 100 * rt["cascade margin"]["escalation_rate"]
     (GEN / "discussion.tex").write_text(
@@ -849,6 +878,66 @@ def prose(out: dict) -> None:
         "The figures say nothing about data-centre efficiency, batching servers or network energy, and the edge tier shares the chip with the device tier. "
         "The contribution is a method and a calibrated first data point that a larger study can extend to real edge hardware and hosted tiers.\n"
     )
+
+
+def live() -> dict | None:
+    """Live routing validation (results/mac/live): measured energy of each policy block."""
+    L = R / "live"
+    mpath = L / "live_manifest.json"
+    if not mpath.exists():
+        return None
+    man = json.loads(mpath.read_text())
+    ss = power_samples(path=L / "powermetrics.txt")
+    mk = {}
+    for line in (L / "markers.txt").read_text().splitlines():
+        name, t = line.split()
+        mk[name] = float(t)
+    idle_w, _ = mean_power(ss, mk["idle_start"] + 2, mk["idle_end"] - 2)
+    blocks = []
+    for b in man["blocks"]:
+        t0, t1 = b["window_epoch"]
+        p, n = mean_power(ss, t0, t1)
+        rows = [json.loads(x) for x in (L / b["rows"]).read_text().splitlines() if x]
+        blocks.append(
+            {
+                **{
+                    k: b[k]
+                    for k in ("round", "block", "policy", "n", "accuracy", "escalation_rate")
+                },
+                "window_s": t1 - t0,
+                "mean_power_w": p,
+                "samples": n,
+                "joules_per_request": (p - idle_w) * (t1 - t0) / b["n"],
+                "latency_mean_s": st.mean(r["wall_s"] for r in rows),
+            }
+        )
+    rounds = sorted({b["round"] for b in blocks})
+    savings = []
+    for r in rounds:
+        a_ = next(b for b in blocks if b["round"] == r and b["block"] == "A")
+        b_ = next(b for b in blocks if b["round"] == r and b["block"] == "B")
+        savings.append(100 * (1 - b_["joules_per_request"] / a_["joules_per_request"]))
+    pol = {}
+    for name in ("A", "B"):
+        bs = [b for b in blocks if b["block"] == name]
+        pol[bs[0]["policy"]] = {
+            "joules_per_request_mean": st.mean(b["joules_per_request"] for b in bs),
+            "accuracy": st.mean(b["accuracy"] for b in bs),
+            "escalation_rate": st.mean(b["escalation_rate"] for b in bs),
+            "latency_mean_s": st.mean(b["latency_mean_s"] for b in bs),
+        }
+    return {
+        "provenance": "measured (live routed runs, device tier)",
+        "tau": man["tau"],
+        "rounds": len(rounds),
+        "idle_w": idle_w,
+        "swapped": man["swapped"],
+        "pageouts": [man["pageouts_before"], man["pageouts_after"]],
+        "blocks": blocks,
+        "policies": pol,
+        "saving_pct_by_round": savings,
+        "saving_pct_mean": st.mean(savings),
+    }
 
 
 def appendix(out: dict) -> None:
@@ -957,11 +1046,20 @@ def readme_block(out: dict) -> None:
         "<!-- results:start (generated by scripts/analyze_mac.py; do not edit by hand) -->",
         f"**Routing (H3).** Chosen on validation, the `{h3['policy']}` policy saved an estimated **{h3['test_saving_pct']:.0f}%** of energy per request (95% CI {h3['test_saving_pct_ci'][0]:.0f} to {h3['test_saving_pct_ci'][1]:.0f}%) on {out['routing']['split_counts']['test']} held-out items at **{h3['test_accuracy_diff_pts']:+.1f} accuracy points** (95% CI {h3['test_accuracy_diff_ci_pts'][0]:+.1f} to {h3['test_accuracy_diff_ci_pts'][1]:+.1f}) versus always using Qwen2.5-7B. "
         + (
-            f"That meets the thresholds set before confirmatory data (at least {out['thresholds']['X']}% saved, at most {out['thresholds']['Y']} points lost) on point estimates, but both intervals cross their thresholds, the test split looks easier for the small model than validation, and apportioning energy by item time gives {out['routing']['h3_saving_pct_wall_time_apportioned']:.1f}%. Support is tentative at best."
+            f"That meets the thresholds set before confirmatory data (at least {out['thresholds']['X']}% saved, at most {out['thresholds']['Y']} points lost) on point estimates, but both intervals cross their thresholds, the test split looks easier for the small model than validation, and apportioning energy by item time gives {out['routing']['h3_saving_pct_wall_time_apportioned']:.1f}%, so offline support was tentative at best."
             if h3["supported_on_point_estimates"]
             else "That does not meet the thresholds."
         )
-        + " Routing energy is estimated by replaying measured per-cell energy over each policy's choices; no routed run was executed.",
+        + (
+            f" **Live check (measured):** run live on the Mac in 3 rounds against always-7B, the same policy saved {out['routing']['live']['saving_pct_mean']:.1f}% (rounds {', '.join(f'{x:.1f}' for x in out['routing']['live']['saving_pct_by_round'])}%) at {100 * (out['routing']['live']['policies']['cascade margin']['accuracy'] - out['routing']['live']['policies']['always qwen7b-q4']['accuracy']):+.1f} points, "
+            + (
+                f"below the {out['thresholds']['X']}% threshold in every round, so on measured energy H3 is not supported."
+                if max(out["routing"]["live"]["saving_pct_by_round"]) < out["thresholds"]["X"]
+                else "meeting the threshold."
+            )
+            if out["routing"].get("live")
+            else " Routing energy is estimated by replaying measured per-cell energy over each policy's choices; no routed run was executed."
+        ),
         "",
         *rows,
         "",
