@@ -1,5 +1,35 @@
 [
  {
+  "reference": "melt2024",
+  "id": "2403.12844",
+  "registered_title": "MELTing point: Mobile Evaluation of Language Transformers",
+  "status": "pass"
+ },
+ {
+  "reference": "husom2024",
+  "id": "2407.16893",
+  "registered_title": "The Price of Prompting: Profiling Energy Use in Large Language Models Inference",
+  "status": "pass"
+ },
+ {
+  "reference": "zeus2023",
+  "id": "2208.06102",
+  "registered_title": "Zeus: Understanding and Optimizing GPU Energy Consumption of DNN Training",
+  "status": "pass"
+ },
+ {
+  "reference": "wang2024firsttoken",
+  "id": "2402.14499",
+  "registered_title": "\"My Answer is C\": First-Token Probabilities Do Not Match Text Answers in Instruction-Tuned Language Models",
+  "status": "pass"
+ },
+ {
+  "reference": "geifman2017",
+  "id": "1705.08500",
+  "registered_title": "Selective Classification for Deep Neural Networks",
+  "status": "pass"
+ },
+ {
   "reference": "ding2022roadmap",
   "id": "2112.00616",
   "registered_title": "Roadmap for Edge AI: A Dagstuhl Perspective",

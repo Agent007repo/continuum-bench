@@ -1,7 +1,6 @@
 site_name: "ContinuumBench"
 exclude_docs: |
   protocols/2026-10-17-mac-v1.md
-  application/
 theme:
   name: material
 nav:

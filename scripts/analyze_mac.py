@@ -65,7 +65,7 @@ PWR = re.compile(r"^(CPU|GPU|ANE) Power:\s*([\d.]+)\s*mW", re.M)
 COMB = re.compile(r"Combined Power \(CPU \+ GPU \+ ANE\):\s*([\d.]+)\s*mW")
 
 
-def power_samples() -> list[dict]:
+def power_samples(shift_s: float = 0.0) -> list[dict]:
     """Parse powermetrics text into samples with reconstructed end times.
 
     Headers carry wall time at one-second resolution. We anchor the cumulative
@@ -89,7 +89,7 @@ def power_samples() -> list[dict]:
         samples.append({"hdr": t, "cum": cum, "dur": elapsed / 1000, "w": total, **rails})
     if not samples:
         return []
-    offset = st.median(s["hdr"] - s["cum"] for s in samples) + 0.5
+    offset = st.median(s["hdr"] - s["cum"] for s in samples) + 0.5 + shift_s
     for s in samples:
         s["end"] = offset + s["cum"]
         s["start"] = s["end"] - s["dur"]
@@ -243,6 +243,54 @@ def main() -> None:
             "reps": max(len(v) for v in per_item.values()),
         }
 
+    # paired accuracy difference, Mistral-7B minus Qwen2.5-1.5B, on the same items
+    acc_by = {
+        (r["config"], r["item_id"]): 1.0 if r["correct"] else 0.0
+        for r in rows
+        if r["tier"] == "device"
+    }
+    shared = sorted(i for (c, i) in acc_by if c == "mistral7b-q4" and ("qwen1.5b-q4", i) in acc_by)
+    md = [acc_by[("mistral7b-q4", i)] - acc_by[("qwen1.5b-q4", i)] for i in shared]
+    paired = {
+        "mistral7b_minus_qwen1.5b_pts": 100 * st.mean(md) if md else None,
+        "ci_pts": [100 * x for x in boot_ci(md)] if md else None,
+        "n": len(md),
+    }
+    # sensitivity: shift the power-sample clock by +/- 0.5 s (header resolution is 1 s)
+    clock = {}
+    for shift in (-0.5, 0.5):
+        ss = power_samples(shift)
+        for stem, m in mans.items():
+            c = cells[stem]
+            if not c["energy"] or c["swapped"]:
+                continue
+            t0, t1 = m["windows_epoch"]["main"]
+            p2, _ = mean_power(ss, t0, t1)
+            if p2 is None:
+                continue
+            j2 = (p2 - idle["w"]) * (t1 - t0) / m["n_items"]
+            ch = 100 * (j2 / c["energy"]["joules_per_request"] - 1)
+            clock.setdefault(stem, []).append(ch)
+    idle_sens = [
+        100 * abs(c["energy"][k] / c["energy"]["joules_per_request"] - 1)
+        for c in cells.values()
+        if c["energy"] and not c["swapped"]
+        for k in ("joules_per_request_idle_first30", "joules_per_request_idle_last30")
+        if c["energy"][k]
+    ]
+    sensitivity = {
+        "clock_shift_half_second_max_abs_pct": max(abs(x) for v in clock.values() for x in v)
+        if clock
+        else None,
+        "clock_shift_max_abs_pct_by_size": {
+            size: max(
+                (abs(x) for k, v in clock.items() if k.startswith(size) for x in v), default=None
+            )
+            for size in ("qwen0.5b", "qwen1.5b", "qwen7b", "mistral7b")
+        },
+        "idle_window_max_abs_pct": max(idle_sens) if idle_sens else None,
+    }
+
     routing = route(rows, cells, summary)
     sov = sovereignty()
     out = {
@@ -253,6 +301,8 @@ def main() -> None:
         "summary": summary,
         "replay": replay,
         "routing": routing,
+        "paired_accuracy": paired,
+        "energy_sensitivity": sensitivity,
         "sovereignty": sov,
         "thresholds": thresholds,
     }
@@ -312,6 +362,7 @@ def route(rows: list[dict], cells: dict, summary: dict) -> dict:
                 ej.append(sum(energy(c, i) for c in path))
         res = {
             "n": len(ids),
+            "escalation_rate": st.mean(1.0 if len(choice[i]) > 1 else 0.0 for i in ids),
             "accuracy": st.mean(acc),
             "accuracy_ci": boot_ci(acc),
             "latency_mean_s": st.mean(lt),
@@ -383,7 +434,7 @@ def route(rows: list[dict], cells: dict, summary: dict) -> dict:
 
     # constraint-aware optimiser: per domain, cheapest config whose validation accuracy clears the floor
     floor_drop = (thresholds.get("Y") or 0) / 100
-    chosen = {}
+    opt_choice: dict[str, str] = {}
     for d in doms:
         vids = [i for i in items if split[i] == "val" and dom_of[i] == d]
         bigacc = st.mean(1.0 if table[(big, i)]["correct"] else 0.0 for i in vids)
@@ -393,8 +444,8 @@ def route(rows: list[dict], cells: dict, summary: dict) -> dict:
             cost = st.mean((energy(c, i) if have_energy else lat(c, i)) for i in vids)
             if a >= bigacc - floor_drop:
                 cands.append((cost, c))
-        chosen[d] = min(cands)[1] if cands else big
-    policies["constraint-aware optimiser"] = {i: [chosen[dom_of[i]]] for i in items}
+        opt_choice[d] = min(cands)[1] if cands else big
+    policies["constraint-aware optimiser"] = {i: [opt_choice[dom_of[i]]] for i in items}
 
     # oracle upper bound (uses test labels; unattainable)
     order = sorted(
@@ -434,13 +485,19 @@ def route(rows: list[dict], cells: dict, summary: dict) -> dict:
             if dacc >= -thresholds["Y"]:
                 cands[n] = (sav, dacc)
         if cands:
-            chosen = max(cands, key=lambda n: cands[n][0])
-            b = results[chosen]
+            h3_choice = max(cands, key=lambda n: cands[n][0])
+            b = results[h3_choice]
+            base_j = results[f"always {big}"]["joules_mean"]
+            sav_pct_ci = [100 * x / base_j for x in b["saving_j_ci"]]
             h3 = {
                 "selected_on": "validation split",
-                "policy": chosen,
-                "validation_saving_pct": cands[chosen][0],
-                "validation_accuracy_diff_pts": cands[chosen][1],
+                "candidate_set": "non-oracle routing policies (cascades, learned router, optimiser, static rule); single-configuration baselines are reported separately",
+                "policy": h3_choice,
+                "validation_saving_pct": cands[h3_choice][0],
+                "validation_accuracy_diff_pts": cands[h3_choice][1],
+                "test_escalation_rate": b["escalation_rate"],
+                "test_saving_pct_ci": sav_pct_ci,
+                "energy_ci_meets_X": sav_pct_ci[0] >= thresholds["X"],
                 "test_saving_pct": b["energy_saving_vs_big_pct"],
                 "test_saving_j_ci": b["saving_j_ci"],
                 "test_accuracy_diff_pts": b["accuracy_diff_vs_big_pts"],
@@ -451,13 +508,44 @@ def route(rows: list[dict], cells: dict, summary: dict) -> dict:
             }
         else:
             h3 = {"selected_on": "validation split", "policy": None}
+
+    def acc_on(cfg_or_policy: dict[str, list[str]], subset: str) -> float:
+        ids = [i for i in items if split[i] == subset]
+        return st.mean(1.0 if table[(cfg_or_policy[i][-1], i)]["correct"] else 0.0 for i in ids)
+
+    split_deltas = {}
+    for name in ("always qwen1.5b-q4", h3["policy"] if h3 and h3.get("policy") else None):
+        if name:
+            split_deltas[name] = {
+                sub: 100 * (acc_on(policies[name], sub) - acc_on(policies[f"always {big}"], sub))
+                for sub in ("train", "val", "test")
+            }
+    # sensitivity: apportion each cell's energy by item wall time instead of evenly
+    wall_share = {}
+    for c in configs:
+        for d in doms:
+            ids_d = [i for i in items if dom_of[i] == d]
+            tot = sum(lat(c, i) for i in ids_d)
+            e = energy(c, ids_d[0])
+            for i in ids_d:
+                wall_share[(c, i)] = None if e is None else e * len(ids_d) * lat(c, i) / tot
+    wall_sens = None
+    if h3 and h3.get("policy") and have_energy:
+        tids = [i for i in items if split[i] == "test"]
+
+        def jmean(pol: dict[str, list[str]]) -> float:
+            return st.mean(sum(wall_share[(c, i)] for c in pol[i]) for i in tids)
+
+        wall_sens = 100 * (1 - jmean(policies[h3["policy"]]) / jmean(policies[f"always {big}"]))
     return {
+        "split_deltas_vs_big_pts": split_deltas,
+        "h3_saving_pct_wall_time_apportioned": wall_sens,
         "split_counts": {s: sum(v == s for v in split.values()) for s in ("train", "val", "test")},
         "tuned": {
             "cascade_p_max_tau": tau_p,
             "cascade_margin_tau": tau_m,
             "router_threshold": th_lr,
-            "optimiser_choice": chosen,
+            "optimiser_choice": opt_choice,
         },
         "policies": results,
         "H3": h3,
@@ -497,6 +585,7 @@ def sovereignty() -> dict:
 
 # ---------------------------------------------------------------- outputs
 def figures(summary: dict, routing: dict) -> None:
+    """Left: every configuration on all 450 items. Right: policies on the 135 test items."""
     try:
         import matplotlib
 
@@ -509,7 +598,6 @@ def figures(summary: dict, routing: dict) -> None:
     ]
     if not pts:
         return
-    fig, ax = plt.subplots(figsize=(5, 3.6))
     short = {
         "qwen0.5b-q4": "Q0.5/4",
         "qwen0.5b-q8": "Q0.5/8",
@@ -518,48 +606,94 @@ def figures(summary: dict, routing: dict) -> None:
         "qwen7b-q4": "Q7/4",
         "mistral7b-q4": "M7/4",
     }
+    fig, (a1, a2) = plt.subplots(1, 2, figsize=(7.2, 3.3), sharey=False)
     for k, v in pts:
         cfg, tier = k.split("|")
         x, y = v["joules_per_request_mean_over_domains"], 100 * v["accuracy"]
-        ax.scatter(
+        dev = tier == "device"
+        a1.scatter(
             x,
             y,
-            marker="o" if tier == "device" else "s",
-            s=28,
-            color="#1f6f8b" if tier == "device" else "#b5651d",
+            marker="o" if dev else "s",
+            s=30,
+            color="#1f6f8b" if dev else "#b5651d",
             zorder=3,
+            label="GPU (device)" if dev else "CPU (emulated edge)",
         )
-        ax.annotate(
-            short.get(cfg, cfg) + ("" if tier == "device" else " edge"),
-            (x, y),
-            fontsize=6.5,
-            xytext=(4, -10 if tier == "edge" else 4),
-            textcoords="offset points",
+        dy = {"qwen1.5b-q8": -9, "qwen0.5b-q4": -9}.get(cfg, 4) if dev else -10
+        a1.annotate(
+            short.get(cfg, cfg), (x, y), fontsize=6.5, xytext=(4, dy), textcoords="offset points"
         )
+    h, lab = a1.get_legend_handles_labels()
+    uniq = dict(zip(lab, h, strict=True))
+    a1.legend(uniq.values(), uniq.keys(), fontsize=6.5, loc="lower right", frameon=False)
+    a1.set_xscale("log")
+    a1.set_xlabel("Measured energy per request (J, log)", fontsize=7.5)
+    a1.set_ylabel("Accuracy (%)", fontsize=7.5)
+    a1.set_title("Configurations, all 450 items", fontsize=8)
     code = {
         "static sensitivity rule": "S",
         "cascade p_max": "Cp",
         "cascade margin": "Cm",
         "learned router": "R",
-        "constraint-aware optimiser": "O",
+        "constraint-aware optimiser": "Opt",
         "oracle (upper bound, uses labels)": "oracle",
     }
+    offs = {
+        "Cp": (4, 4),
+        "Cm": (4, -9),
+        "R": (-10, 4),
+        "Opt": (4, -9),
+        "S": (4, 2),
+        "oracle": (4, -9),
+    }
     for name, r in routing["policies"].items():
-        if name.startswith("always") or "joules_mean" not in r:
+        if "joules_mean" not in r:
             continue
-        ax.scatter(r["joules_mean"], 100 * r["accuracy"], marker="^", s=30, color="#555", zorder=3)
-        ax.annotate(
+        x, y = r["joules_mean"], 100 * r["accuracy"]
+        if name.startswith("always"):
+            cfg = name.split(" ", 1)[1]
+            a2.scatter(
+                x, y, marker="o", s=22, color="#9bbfcc", zorder=2, label="single configuration"
+            )
+            if cfg in ("qwen7b-q4", "qwen1.5b-q4"):
+                a2.annotate(
+                    short.get(cfg, cfg),
+                    (x, y),
+                    fontsize=6,
+                    xytext=(4, 4 if cfg == "qwen1.5b-q4" else 6),
+                    textcoords="offset points",
+                    color="#557",
+                )
+            continue
+        oracle = "oracle" in name
+        a2.scatter(
+            x,
+            y,
+            marker="^",
+            s=32,
+            zorder=3,
+            facecolors="none" if oracle else "#444",
+            edgecolors="#444",
+            label="oracle (unattainable)" if oracle else "routing policy",
+        )
+        a2.annotate(
             code.get(name, name),
-            (r["joules_mean"], 100 * r["accuracy"]),
+            (x, y),
             fontsize=6.5,
-            xytext=(4, 2),
+            xytext=offs.get(code.get(name, ""), (4, 2)),
             textcoords="offset points",
             color="#333",
         )
-    ax.set_xscale("log")
-    ax.set_xlabel("Measured incremental energy per request (J, log scale)")
-    ax.set_ylabel("Accuracy (%)")
-    ax.grid(alpha=0.3)
+    h, lab = a2.get_legend_handles_labels()
+    uniq = dict(zip(lab, h, strict=True))
+    a2.legend(uniq.values(), uniq.keys(), fontsize=6.5, loc="lower right", frameon=False)
+    a2.set_xscale("log")
+    a2.set_xlabel("Estimated energy per request (J, log)", fontsize=7.5)
+    a2.set_title("Policies, 135 test items (device tier)", fontsize=8)
+    for ax in (a1, a2):
+        ax.grid(alpha=0.3)
+        ax.tick_params(labelsize=7)
     fig.tight_layout()
     fig.savefig(FIG / "pareto_energy_accuracy.png", dpi=200)
     plt.close(fig)
@@ -628,14 +762,15 @@ def prose(out: dict) -> None:
         f"Table~\\ref{{tab:mac}} and Figure~\\ref{{fig:pareto}} summarise RQ1. Qwen2.5-7B (4-bit, GPU) was the most accurate configuration at {pct(big['accuracy'])} {ci(big['accuracy_ci'])} and cost "
         f"{big['joules_per_request_mean_over_domains']:.1f}\\,J of measured incremental energy per request. Qwen2.5-1.5B (4-bit, GPU) reached {pct(q15['accuracy'])} at "
         f"{q15['joules_per_request_mean_over_domains']:.1f}\\,J, about {big['joules_per_request_mean_over_domains'] / q15['joules_per_request_mean_over_domains']:.0f} times less energy for {100 * (big['accuracy'] - q15['accuracy']):.1f} points lower accuracy. "
-        f"Mistral-7B (4-bit) was less accurate than Qwen2.5-1.5B ({pct(s['mistral7b-q4|device']['accuracy'])}) at a cost similar to Qwen2.5-7B. "
+        f"Mistral-7B (4-bit) scored {pct(s['mistral7b-q4|device']['accuracy'])}, indistinguishable from Qwen2.5-1.5B (paired difference {out['paired_accuracy']['mistral7b_minus_qwen1.5b_pts']:+.1f} points, 95\\% interval {out['paired_accuracy']['ci_pts'][0]:+.1f} to {out['paired_accuracy']['ci_pts'][1]:+.1f}), at an energy cost similar to Qwen2.5-7B. "
         f"The 0.5B models were close to chance on several subjects ({pct(q05['accuracy'])}). 8-bit quantisation did not improve accuracy over 4-bit at 1.5B "
         f"({pct(s['qwen1.5b-q8|device']['accuracy'])} vs {pct(q15['accuracy'])}) and did not cost more energy ({s['qwen1.5b-q8|device']['joules_per_request_mean_over_domains']:.1f} vs {q15['joules_per_request_mean_over_domains']:.1f}\\,J). "
         f"Domain matters: Qwen2.5-7B scored {pct(big['accuracy_by_domain']['general_control'])} on the general-science control but {pct(big['accuracy_by_domain']['healthcare'])} on healthcare, where Qwen2.5-1.5B did slightly better ({pct(q15['accuracy_by_domain']['healthcare'])}). "
-        f"On the emulated CPU edge tier, the same 0.5B model gave the same accuracy but took {e05['latency_median_s'] / q05['latency_median_s']:.1f} times longer per request (median {e05['latency_median_s'] * 1000:.0f} vs {q05['latency_median_s'] * 1000:.0f}\\,ms) and "
-        f"{e05['joules_per_request_mean_over_domains'] / q05['joules_per_request_mean_over_domains']:.1f} times the energy: on this laptop the GPU is both faster and more frugal than the CPU for the same model. "
-        f"Idle power was {idle['w']:.2f}\\,W ({idle['first30_w']:.2f} and {idle['last30_w']:.2f}\\,W in the first and last 30\\,s), small against mean cell power of {min(pw):.0f} to {max(pw):.0f}\\,W, so the idle choice changes energy figures by a few percent at most. "
-        f"{len(excl)} of {len(out['cells'])} cells recorded memory page-outs and are excluded from latency and energy by the pre-registered rule ({', '.join(e.split('__')[0] + ' ' + e.split('__')[1] + ' ' + e.split('__')[2].replace('_', ' ') for e in excl)}); their accuracy is kept. "
+        f"On the emulated CPU edge tier (4 of the chip's 10 CPU cores), the same 0.5B 4-bit model gave the same accuracy but took {e05['latency_median_s'] / q05['latency_median_s']:.1f} times longer per request (median {e05['latency_median_s'] * 1000:.0f} vs {q05['latency_median_s'] * 1000:.0f}\\,ms) and "
+        f"{e05['joules_per_request_mean_over_domains'] / q05['joules_per_request_mean_over_domains']:.1f} times the energy: the 8-bit 0.5B model showed the same pattern, so on this laptop and with this thread count the GPU was both faster and more frugal than the CPU. "
+        f"Idle power was {idle['w']:.2f}\\,W ({idle['first30_w']:.2f} and {idle['last30_w']:.2f}\\,W in the first and last 30\\,s), small against mean cell power of {min(pw):.0f} to {max(pw):.0f}\\,W, so the choice of idle window changes cell energy by at most {out['energy_sensitivity']['idle_window_max_abs_pct']:.1f}\\%. "
+        f"Clock alignment matters more for short cells: power-sample timestamps have one-second resolution, and shifting them by half a second changes energy by up to {out['energy_sensitivity']['clock_shift_max_abs_pct_by_size']['qwen0.5b']:.1f}\\% for the 0.5B cells, {out['energy_sensitivity']['clock_shift_max_abs_pct_by_size']['qwen1.5b']:.1f}\\% for 1.5B and under {max(out['energy_sensitivity']['clock_shift_max_abs_pct_by_size']['qwen7b'], out['energy_sensitivity']['clock_shift_max_abs_pct_by_size']['mistral7b']) + 0.05:.0f}\\% for the 7B models. "
+        f"{len(excl)} of {len(out['cells'])} cells recorded system-wide memory page-outs during the cell and are excluded from latency and energy by the pre-registered rule ({', '.join(e.split('__')[0] + ' ' + e.split('__')[1] + ' ' + e.split('__')[2].replace('_', ' ') for e in excl)}); their accuracy is kept. "
         f"Repeated timings were stable (median coefficient of variation {100 * statistics_median([v['median_cv'] for v in out['replay'].values() if v['median_cv'] is not None]):.1f}\\%).\n"
     )
     sv = out["sovereignty"]
@@ -651,37 +786,66 @@ def prose(out: dict) -> None:
     )
     cm = rt[h3["policy"]] if h3 and h3.get("policy") else None
     lr = rt["learned router"]
+    tq = out["routing"]["tuned"]
+    sd = out["routing"]["split_deltas_vs_big_pts"]
+    wall = out["routing"]["h3_saving_pct_wall_time_apportioned"]
+    a15 = rt["always qwen1.5b-q4"]
     (GEN / "routing_text.tex").write_text(
+        "Routing energy is estimated, not measured: each item is priced at the measured mean energy per request of its configuration and domain, and a cascade pays for both models on escalated items. "
         f"Table~\\ref{{tab:routing}} reports all policies on the {out['routing']['split_counts']['test']} test items. "
-        f"Always using Qwen2.5-1.5B saved {rt['always qwen1.5b-q4']['energy_saving_vs_big_pct']:.0f}\\% of energy at {rt['always qwen1.5b-q4']['accuracy_diff_vs_big_pts']:+.1f} points. "
+        f"Always using Qwen2.5-1.5B saved {a15['energy_saving_vs_big_pct']:.0f}\\% of energy at {a15['accuracy_diff_vs_big_pts']:+.1f} points. "
         f"The confidence cascades and the learned router sat in between: the margin cascade saved {rt['cascade margin']['energy_saving_vs_big_pct']:.0f}\\% at {rt['cascade margin']['accuracy_diff_vs_big_pts']:+.1f} points, the $p_{{\\max}}$ cascade {rt['cascade p_max']['energy_saving_vs_big_pct']:.0f}\\% at {rt['cascade p_max']['accuracy_diff_vs_big_pts']:+.1f}, and the learned router {lr['energy_saving_vs_big_pct']:.0f}\\% at {lr['accuracy_diff_vs_big_pts']:+.1f}. "
-        f"The tuned cascade thresholds were high ($\\tau={out['routing']['tuned']['cascade_p_max_tau']:.2f}$ and {out['routing']['tuned']['cascade_margin_tau']:.2f}), because the small model is confidently wrong on many items, which the pilot had already suggested. "
+        f"The tuned cascade thresholds were high ($\\tau={tq['cascade_p_max_tau']:.2f}$ and {tq['cascade_margin_tau']:.2f}), and the cascades escalated {100 * rt['cascade p_max']['escalation_rate']:.0f}\\% and {100 * rt['cascade margin']['escalation_rate']:.0f}\\% of test items, because the small model is often confidently wrong. "
+        f"Compared with always using the small model, the cascades buy back about {rt['cascade margin']['accuracy_diff_vs_big_pts'] - a15['accuracy_diff_vs_big_pts']:.0f} points of accuracy for about {a15['energy_saving_vs_big_pct'] - rt['cascade margin']['energy_saving_vs_big_pct']:.0f} percentage points of the saving. "
         f"The constraint-aware optimiser chose Qwen2.5-7B in every domain: no cheaper single configuration stayed within {th['Y']} points of it on validation. "
         f"The static sensitivity rule, which keeps sensitive items on the EU-origin model, saved {rt['static sensitivity rule']['energy_saving_vs_big_pct']:.0f}\\% and lost {abs(rt['static sensitivity rule']['accuracy_diff_vs_big_pts']):.1f} points: here sovereignty preferences cost accuracy rather than energy. "
-        f"An oracle that knew which model would be right reached {pct(rt['oracle (upper bound, uses labels)']['accuracy'])} at {rt['oracle (upper bound, uses labels)']['energy_saving_vs_big_pct']:.0f}\\% saving, showing how much headroom better confidence signals could unlock.\n\n"
+        f"An oracle that knew which model would be right reached {pct(rt['oracle (upper bound, uses labels)']['accuracy'])} at {rt['oracle (upper bound, uses labels)']['energy_saving_vs_big_pct']:.0f}\\% saving; it is unattainable, but it shows the headroom that better confidence signals could unlock.\n\n"
         + (
-            f"\\textbf{{H3.}} Selected on validation, the {h3['policy'].replace('_', chr(92) + '_')} policy saved {h3['test_saving_pct']:.1f}\\% of energy per request on test (paired saving {h3['test_saving_j_ci'][0]:.1f} to {h3['test_saving_j_ci'][1]:.1f}\\,J per request, 95\\% interval) "
+            f"\\textbf{{H3.}} The learned router's weights were fit on train; every threshold was tuned on validation, and the H3 policy was then selected on the same validation split, so validation was used twice and test once. "
+            f"Selected this way, the {h3['policy'].replace('_', chr(92) + '_')} policy saved {h3['test_saving_pct']:.1f}\\% of estimated energy per request on test (95\\% interval {h3['test_saving_pct_ci'][0]:.0f} to {h3['test_saving_pct_ci'][1]:.0f}\\%) "
             f"with an accuracy change of {h3['test_accuracy_diff_pts']:+.1f} points [{h3['test_accuracy_diff_ci_pts'][0]:+.1f}, {h3['test_accuracy_diff_ci_pts'][1]:+.1f}]. "
             + (
-                "Both point estimates meet the pre-registered thresholds, so H3 is supported on point estimates. "
+                "Both point estimates meet the thresholds set before confirmatory data, so H3 is supported on point estimates. "
                 if h3["supported_on_point_estimates"]
                 else "H3 is not supported. "
             )
             + (
-                "The accuracy interval stays within the tolerance."
-                if h3["accuracy_ci_within_tolerance"]
-                else f"However, the lower end of the accuracy interval exceeds the {th['Y']}-point tolerance, so with {out['routing']['split_counts']['test']} test items we cannot rule out a loss larger than we said we would accept. We read this as tentative support."
+                ""
+                if h3["accuracy_ci_within_tolerance"] and h3["energy_ci_meets_X"]
+                else f"Neither interval clears its threshold: the saving interval reaches below {th['X']}\\% and the accuracy interval past the {th['Y']}-point tolerance. "
             )
+            + f"Two further checks point the same way. The test split appears easier for the small model than the others (relative to Qwen2.5-7B, always Qwen2.5-1.5B scored {sd['always qwen1.5b-q4']['train']:+.1f}, {sd['always qwen1.5b-q4']['val']:+.1f} and {sd['always qwen1.5b-q4']['test']:+.1f} points on train, validation and test; the selected cascade {sd[h3['policy']]['train']:+.1f}, {sd[h3['policy']]['val']:+.1f} and {sd[h3['policy']]['test']:+.1f}), so the test loss is probably an underestimate. "
+            + f"And if each cell's energy is apportioned by item wall time instead of evenly, the saving becomes {wall:.1f}\\%. "
+            + "We therefore read H3 as tentative support at best, and as a calibrated estimate of what this kind of cascade is worth rather than a confirmed effect."
             if cm
             else "\\textbf{H3.} No non-oracle policy met the accuracy tolerance on validation."
         )
         + "\n"
     )
     (GEN / "abstract_results.tex").write_text(
-        f"Qwen2.5-7B on the GPU was most accurate ({pct(big['accuracy'])}) at {big['joules_per_request_mean_over_domains']:.1f}\\,J of measured incremental energy per request; Qwen2.5-1.5B gave {pct(q15['accuracy'])} at {q15['joules_per_request_mean_over_domains']:.1f}\\,J. "
-        f"The CPU edge tier was slower and used more energy than the GPU for the same model. "
-        f"A margin-based cascade, chosen on validation, cut energy by {h3['test_saving_pct']:.0f}\\% on held-out items at {h3['test_accuracy_diff_pts']:+.1f} accuracy points, meeting the pre-registered thresholds on point estimates, though the accuracy interval reaches past the tolerance. "
-        "Under our rubric, self-hosted options dominated a hosted EU API on every weighting."
+        f"Qwen2.5-7B on the GPU was most accurate ({pct(big['accuracy'])}) at {big['joules_per_request_mean_over_domains']:.1f}\\,J of measured incremental energy per request; Qwen2.5-1.5B gave {pct(q15['accuracy'])} at {q15['joules_per_request_mean_over_domains']:.1f}\\,J, and Mistral-7B matched the 1.5B model's accuracy at the 7B energy cost. "
+        "On this laptop the CPU tier was slower and used more energy than the GPU for the same small model. "
+        f"A margin-based cascade, chosen on validation, saved an estimated {h3['test_saving_pct']:.0f}\\% of energy on held-out items at {h3['test_accuracy_diff_pts']:+.1f} accuracy points, meeting the thresholds on point estimates, but both intervals cross their thresholds, so support is tentative. "
+        "Under our rubric, self-hosted options dominated a hosted EU API on every weighting.%"
+    )
+    esc = 100 * rt["cascade margin"]["escalation_rate"]
+    (GEN / "discussion.tex").write_text(
+        "\\textbf{What an SME can take from this.} On one laptop, the choice of model moved energy per request by more than an order of magnitude "
+        f"({min(v['joules_per_request_mean_over_domains'] for v in s.values() if v['joules_per_request_mean_over_domains']):.1f} to {max(v['joules_per_request_mean_over_domains'] for v in s.values() if v['joules_per_request_mean_over_domains']):.1f}\\,J across configuration means) while moving accuracy by tens of points, and the two did not move together in a simple way: "
+        "the EU-origin 7B model cost as much as the most accurate model but was no more accurate than a model a fifth of its size. "
+        "Measured energy, not parameter count, is what separates these options. Placement mattered too: moving the 0.5B models from the laptop GPU to four CPU cores, a stand-in for a modest on-premise server, made them slower and costlier at the same accuracy. "
+        "``Running it at the edge'' is therefore not automatically the frugal choice; it depends on the hardware the edge actually has.\n\n"
+        "\\textbf{Why routing helped only modestly.} Routing pays off when a cheap model knows when it is likely to be wrong. "
+        f"Here the small model was often confidently wrong, so to stay near the large model's accuracy the margin cascade had to escalate {esc:.0f}\\% of items and still pay for the small model on each of them, and its estimated saving shrank from the {a15['energy_saving_vs_big_pct']:.0f}\\% the small model alone offers to {rt['cascade margin']['energy_saving_vs_big_pct']:.0f}\\%. "
+        "The gap between the cascades and the oracle shows where the leverage is: better confidence estimation, task-aware routing features or a verifier would convert more of that headroom into savings \\cite{guo2017,kadavath2022,hybridllm}. "
+        "For an SME the practical reading is that routing is worth a meaningful fraction of energy, not most of it, at today's small-model calibration, and that simply using the small model may be the better trade when a few points of accuracy are affordable.\n\n"
+        "\\textbf{Sovereignty as a design decision.} The scorecard's stable ranking came from the rubric, not from the data: once self-hosting is scored as the organisation's own control, every local option beats any hosted one regardless of weights, and the EU-origin model is not favoured. "
+        "A different organisation could reasonably score publisher jurisdiction, training-data transparency or supply-chain origin more finely and reach a different ranking. "
+        "We think this is the right way to use such an instrument: as a transparent statement of which dimensions an organisation chooses to value, with evidence attached, rather than as a single objective number. "
+        "The static sensitivity rule makes the trade-off concrete: honouring a preference for an EU-origin model on sensitive items cost accuracy without saving much energy.\n\n"
+        "\\textbf{What one laptop cannot show.} The continuum in this study is short: one GPU, its own CPU and a documented but unexecuted cloud tier. "
+        "The figures say nothing about data-centre efficiency, batching servers or network energy, and the edge tier shares the chip with the device tier. "
+        "The contribution is a method and a calibrated first data point that a larger study can extend to real edge hardware and hosted tiers.\n"
     )
 
 
@@ -709,20 +873,17 @@ def readme_block(out: dict) -> None:
         )
     lines = [
         "<!-- results:start (generated by scripts/analyze_mac.py; do not edit by hand) -->",
-        f"**Routing (H3, pre-registered).** Chosen on validation, the `{h3['policy']}` policy saved **{h3['test_saving_pct']:.0f}%** of measured energy per request on {out['routing']['split_counts']['test']} held-out items at **{h3['test_accuracy_diff_pts']:+.1f} accuracy points** (95% CI {h3['test_accuracy_diff_ci_pts'][0]:+.1f} to {h3['test_accuracy_diff_ci_pts'][1]:+.1f}) versus always using Qwen2.5-7B. "
+        f"**Routing (H3).** Chosen on validation, the `{h3['policy']}` policy saved an estimated **{h3['test_saving_pct']:.0f}%** of energy per request (95% CI {h3['test_saving_pct_ci'][0]:.0f} to {h3['test_saving_pct_ci'][1]:.0f}%) on {out['routing']['split_counts']['test']} held-out items at **{h3['test_accuracy_diff_pts']:+.1f} accuracy points** (95% CI {h3['test_accuracy_diff_ci_pts'][0]:+.1f} to {h3['test_accuracy_diff_ci_pts'][1]:+.1f}) versus always using Qwen2.5-7B. "
         + (
-            "That meets the thresholds (at least 25% saved, at most 5 points lost) on point estimates; the accuracy interval reaches past the tolerance, so support is tentative."
-            if h3["supported_on_point_estimates"] and not h3["accuracy_ci_within_tolerance"]
-            else (
-                "That meets the thresholds."
-                if h3["supported_on_point_estimates"]
-                else "That does not meet the thresholds."
-            )
-        ),
+            f"That meets the thresholds set before confirmatory data (at least {out['thresholds']['X']}% saved, at most {out['thresholds']['Y']} points lost) on point estimates, but both intervals cross their thresholds, the test split looks easier for the small model than validation, and apportioning energy by item time gives {out['routing']['h3_saving_pct_wall_time_apportioned']:.1f}%. Support is tentative at best."
+            if h3["supported_on_point_estimates"]
+            else "That does not meet the thresholds."
+        )
+        + " Routing energy is estimated by replaying measured per-cell energy over each policy's choices; no routed run was executed.",
         "",
         *rows,
         "",
-        f"Energy is measured incremental CPU+GPU+ANE energy from `powermetrics` on one M1 Max (idle {out['idle']['w']:.2f} W subtracted). The edge tier is the same Mac's CPU, an emulation of a small server. Cells with memory page-outs are excluded from latency and energy.",
+        f"Energy is measured incremental CPU+GPU+ANE energy from `powermetrics` on one M1 Max (idle {out['idle']['w']:.2f} W subtracted). The edge tier is the same Mac's CPU, an emulation of a small server. Cells with system-wide memory page-outs during the run are excluded from latency and energy.",
         "<!-- results:end -->",
     ]
     block = "\n".join(lines)

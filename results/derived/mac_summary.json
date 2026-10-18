@@ -775,6 +775,19 @@
   }
  },
  "routing": {
+  "split_deltas_vs_big_pts": {
+   "always qwen1.5b-q4": {
+    "train": -9.333333333333337,
+    "val": -14.444444444444448,
+    "test": -4.444444444444439
+   },
+   "cascade margin": {
+    "train": -3.5555555555555562,
+    "val": -4.444444444444451,
+    "test": -2.2222222222222254
+   }
+  },
+  "h3_saving_pct_wall_time_apportioned": 24.640046081006407,
   "split_counts": {
    "train": 225,
    "val": 90,
@@ -784,11 +797,16 @@
    "cascade_p_max_tau": 0.99,
    "cascade_margin_tau": 0.98,
    "router_threshold": 0.6599999999999999,
-   "optimiser_choice": "cascade margin"
+   "optimiser_choice": {
+    "digital_industries": "qwen7b-q4",
+    "general_control": "qwen7b-q4",
+    "healthcare": "qwen7b-q4"
+   }
   },
   "policies": {
    "always mistral7b-q4": {
     "n": 135,
+    "escalation_rate": 0.0,
     "accuracy": 0.6518518518518519,
     "accuracy_ci": [
      0.5703703703703704,
@@ -813,6 +831,7 @@
    },
    "always qwen0.5b-q4": {
     "n": 135,
+    "escalation_rate": 0.0,
     "accuracy": 0.3851851851851852,
     "accuracy_ci": [
      0.3037037037037037,
@@ -837,6 +856,7 @@
    },
    "always qwen0.5b-q8": {
     "n": 135,
+    "escalation_rate": 0.0,
     "accuracy": 0.4148148148148148,
     "accuracy_ci": [
      0.3333333333333333,
@@ -861,6 +881,7 @@
    },
    "always qwen1.5b-q4": {
     "n": 135,
+    "escalation_rate": 0.0,
     "accuracy": 0.7185185185185186,
     "accuracy_ci": [
      0.6444444444444445,
@@ -885,6 +906,7 @@
    },
    "always qwen1.5b-q8": {
     "n": 135,
+    "escalation_rate": 0.0,
     "accuracy": 0.6962962962962963,
     "accuracy_ci": [
      0.6222222222222222,
@@ -909,6 +931,7 @@
    },
    "always qwen7b-q4": {
     "n": 135,
+    "escalation_rate": 0.0,
     "accuracy": 0.762962962962963,
     "accuracy_ci": [
      0.6888888888888889,
@@ -933,6 +956,7 @@
    },
    "static sensitivity rule": {
     "n": 135,
+    "escalation_rate": 0.0,
     "accuracy": 0.6814814814814815,
     "accuracy_ci": [
      0.6,
@@ -957,6 +981,7 @@
    },
    "cascade p_max": {
     "n": 135,
+    "escalation_rate": 0.45185185185185184,
     "accuracy": 0.7481481481481481,
     "accuracy_ci": [
      0.674074074074074,
@@ -981,6 +1006,7 @@
    },
    "cascade margin": {
     "n": 135,
+    "escalation_rate": 0.43703703703703706,
     "accuracy": 0.7407407407407407,
     "accuracy_ci": [
      0.6666666666666666,
@@ -1005,6 +1031,7 @@
    },
    "learned router": {
     "n": 135,
+    "escalation_rate": 0.4740740740740741,
     "accuracy": 0.7333333333333333,
     "accuracy_ci": [
      0.6592592592592592,
@@ -1029,6 +1056,7 @@
    },
    "constraint-aware optimiser": {
     "n": 135,
+    "escalation_rate": 0.0,
     "accuracy": 0.762962962962963,
     "accuracy_ci": [
      0.6888888888888889,
@@ -1053,6 +1081,7 @@
    },
    "oracle (upper bound, uses labels)": {
     "n": 135,
+    "escalation_rate": 0.0,
     "accuracy": 0.8814814814814815,
     "accuracy_ci": [
      0.8222222222222222,
@@ -1078,9 +1107,16 @@
   },
   "H3": {
    "selected_on": "validation split",
+   "candidate_set": "non-oracle routing policies (cascades, learned router, optimiser, static rule); single-configuration baselines are reported separately",
    "policy": "cascade margin",
    "validation_saving_pct": 33.48731263340369,
    "validation_accuracy_diff_pts": -4.444444444444451,
+   "test_escalation_rate": 0.43703703703703706,
+   "test_saving_pct_ci": [
+    20.413738830979067,
+    38.37543482224751
+   ],
+   "energy_ci_meets_X": false,
    "test_saving_pct": 29.317158202886194,
    "test_saving_j_ci": [
     3.725574456098203,
@@ -1095,6 +1131,24 @@
    "accuracy_ci_within_tolerance": false
   },
   "energy_available": true
+ },
+ "paired_accuracy": {
+  "mistral7b_minus_qwen1.5b_pts": -0.4444444444444444,
+  "ci_pts": [
+   -5.111111111111112,
+   4.222222222222222
+  ],
+  "n": 450
+ },
+ "energy_sensitivity": {
+  "clock_shift_half_second_max_abs_pct": 8.264881494386922,
+  "clock_shift_max_abs_pct_by_size": {
+   "qwen0.5b": 8.264881494386922,
+   "qwen1.5b": 3.3418824243067413,
+   "qwen7b": 0.9345201407244486,
+   "mistral7b": 0.8856763152989222
+  },
+  "idle_window_max_abs_pct": 2.2231241791825562
  },
  "sovereignty": {
   "equal_weights": {

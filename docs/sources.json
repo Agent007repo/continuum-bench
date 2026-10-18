@@ -1,23 +1,5 @@
 [
   {
-    "id": "tue-vacancy",
-    "url": "https://www.academictransfer.com/en/jobs/364211/phd-in-trustworthy-llm-enabled-ecosystems-from-requirements-to-architecture",
-    "claim": "TU/e vacancy: deadline 24 October 2026; requirements-to-architecture and empirical/design-oriented research.",
-    "status": "verified",
-    "checked_date": "2026-10-13",
-    "access": "browser_open",
-    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
-  },
-  {
-    "id": "delft-vacancy",
-    "url": "https://www.academictransfer.com/en/jobs/364287/phd-position-sustainable-generative-ai-for-digital-sovereignty",
-    "claim": "TU Delft vacancy: deadline 1 November 2026; three named application domains; MSc thesis requested. Acceptance of a substitute is unconfirmed.",
-    "status": "verified",
-    "checked_date": "2026-10-14",
-    "access": "browser_open",
-    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
-  },
-  {
     "id": "f-inference",
     "url": "https://cordis.europa.eu/project/id/101298393",
     "claim": "Public project objective describes foundation-model deployment across cloud, edge and IoT tiers.",
