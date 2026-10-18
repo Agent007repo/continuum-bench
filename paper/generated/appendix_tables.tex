@@ -1,0 +1,46 @@
+\begin{table}[h]\centering\footnotesize
+\caption{Accuracy (\%) by domain and configuration, 150 items per domain.}\label{tab:domain}
+\begin{tabular}{@{}llrrr@{}}\toprule
+Config & Tier & Health & Digital ind. & Control\\\midrule
+mistral7b-q4 & device & 61.3 & 60.0 & 74.7\\
+qwen0.5b-q4 & device & 24.0 & 43.3 & 44.7\\
+qwen0.5b-q4 & edge & 24.0 & 43.3 & 44.7\\
+qwen0.5b-q8 & device & 26.7 & 50.0 & 47.3\\
+qwen0.5b-q8 & edge & 27.3 & 48.0 & 46.0\\
+qwen1.5b-q4 & device & 62.7 & 58.7 & 76.0\\
+qwen1.5b-q4 & edge & 62.7 & 58.7 & 76.0\\
+qwen1.5b-q8 & device & 62.0 & 56.0 & 75.3\\
+qwen7b-q4 & device & 58.7 & 74.0 & 91.3\\
+\bottomrule\end{tabular}\end{table}
+\begin{table}[h]\centering\footnotesize
+\caption{Energy per request (J) by cell, with the idle-window alternatives (first and last 30\,s of the baseline). Swapped cells are excluded.}\label{tab:cells}
+\begin{tabular}{@{}lrrrr@{}}\toprule
+Cell & Power (W) & J/req & idle first & idle last\\\midrule
+mistral7b-q4 d digi & 47.8 & 12.26 & 12.32 & 12.20\\
+mistral7b-q4 d gene & 48.5 & 11.97 & 12.02 & 11.91\\
+mistral7b-q4 d heal & 51.1 & 33.20 & 33.36 & 33.05\\
+qwen0.5b-q4 d digi & 29.3 & 0.84 & 0.84 & 0.83\\
+qwen0.5b-q4 d gene & 28.4 & 0.79 & 0.80 & 0.78\\
+qwen0.5b-q4 d heal & 36.1 & 1.80 & 1.81 & 1.78\\
+qwen0.5b-q4 e digi & 12.9 & 1.82 & 1.86 & 1.78\\
+qwen0.5b-q4 e gene & 13.4 & 1.89 & 1.92 & 1.85\\
+qwen0.5b-q4 e heal & 15.4 & 3.80 & 3.86 & 3.74\\
+qwen0.5b-q8 d digi & 28.7 & 0.73 & 0.74 & 0.73\\
+qwen0.5b-q8 d gene & 27.1 & 0.67 & 0.68 & 0.66\\
+qwen0.5b-q8 d heal & 37.7 & 1.66 & 1.68 & 1.65\\
+qwen0.5b-q8 e digi & 11.8 & 1.58 & 1.61 & 1.55\\
+qwen0.5b-q8 e gene & 12.3 & 1.67 & 1.70 & 1.63\\
+qwen0.5b-q8 e heal & 15.2 & 3.73 & 3.79 & 3.67\\
+qwen1.5b-q4 d digi & 38.9 & 2.72 & 2.74 & 2.70\\
+qwen1.5b-q4 d gene & 38.6 & 2.59 & 2.60 & 2.57\\
+qwen1.5b-q4 d heal & 44.9 & 6.19 & 6.23 & 6.16\\
+qwen1.5b-q4 e digi & \multicolumn{4}{c}{excluded (page-outs)}\\
+qwen1.5b-q4 e gene & 14.1 & 6.09 & 6.20 & 5.98\\
+qwen1.5b-q4 e heal & \multicolumn{4}{c}{excluded (page-outs)}\\
+qwen1.5b-q8 d digi & 38.5 & 2.37 & 2.38 & 2.35\\
+qwen1.5b-q8 d gene & 38.7 & 2.28 & 2.30 & 2.27\\
+qwen1.5b-q8 d heal & 46.4 & 5.63 & 5.66 & 5.60\\
+qwen7b-q4 d digi & 47.2 & 12.71 & 12.77 & 12.64\\
+qwen7b-q4 d gene & 47.2 & 12.24 & 12.30 & 12.18\\
+qwen7b-q4 d heal & 50.6 & 29.81 & 29.95 & 29.67\\
+\bottomrule\end{tabular}\end{table}

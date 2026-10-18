@@ -93,6 +93,11 @@ Closer to our setting, MELT measures LLM inference on phones and edge boards \ci
 \section{Future work}\label{sec:future}
 A PhD-scale version of this study would (i) meter real edge hardware and a hosted tier with wall-plug instruments, so device, edge and cloud energy share one method; (ii) move from multiple-choice probes to open-ended tasks with calibrated evaluation in the digital-industry, automotive and healthcare settings named in the f-inference project; (iii) treat placement as an online decision across many devices and providers, where routing must also respect data-sharing agreements between organisations; and (iv) test the sovereignty instrument with SMEs and policy experts, asking which dimensions they actually trade against energy and quality.
 
+\clearpage
+\appendix
+\section{Additional tables}
+\input{generated/appendix_tables.tex}
+
 \section*{Reproducibility}
 Items, protocol, model pins, raw per-request rows, cell manifests, the \texttt{powermetrics} log and analysis code are committed. \texttt{python scripts/analyze\_mac.py} regenerates every table, the figure and every generated paragraph in this report (results, routing, sovereignty, discussion and the abstract's results sentence) from those records; the method and related-work text is written by hand. The Mac run script and its log are included.
 

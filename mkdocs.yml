@@ -8,6 +8,7 @@ nav:
   - Research questions: research-questions.md
   - Method: method.md
   - Results: results.md
+  - Explorer: explorer.html
   - Architecture: architecture.md
   - Mac protocol v1 (frozen): https://github.com/Agent007repo/continuum-bench/blob/main/docs/protocols/2026-10-17-mac-v1.md
   - Candidate shortlist: protocols/2026-10-14-shortlist.md
