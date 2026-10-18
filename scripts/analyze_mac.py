@@ -875,7 +875,7 @@ def appendix(out: dict) -> None:
         r"\begin{tabular}{@{}lrrrr@{}}\toprule",
         r"Cell & Power (W) & J/req & idle first & idle last\\\midrule",
     ]
-    for stem, c in sorted(cells.items()):
+    for _stem, c in sorted(cells.items()):
         e = c["energy"]
         name = f"{c['config']} {c['tier'][0]} {c['domain'][:4]}"
         if not e or c["swapped"]:
