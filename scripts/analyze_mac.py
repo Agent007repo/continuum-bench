@@ -65,12 +65,12 @@ PWR = re.compile(r"^(CPU|GPU|ANE) Power:\s*([\d.]+)\s*mW", re.M)
 COMB = re.compile(r"Combined Power \(CPU \+ GPU \+ ANE\):\s*([\d.]+)\s*mW")
 
 
-def power_samples(shift_s: float = 0.0) -> list[dict]:
+def power_samples(shift_s: float = 0.0, path: Path | None = None) -> list[dict]:
     """Parse powermetrics text into samples with reconstructed end times.
 
     Headers carry wall time at one-second resolution. We anchor the cumulative
     'elapsed' sum to the headers (median offset plus 0.5 s) to get sub-second end times."""
-    p = R / "powermetrics.txt"
+    p = path or R / "powermetrics.txt"
     if not p.exists():
         return []
     text = p.read_text(errors="ignore")
@@ -292,6 +292,7 @@ def main() -> None:
     }
 
     routing = route(rows, cells, summary)
+    routing["live"] = live()
     sov = sovereignty()
     out = {
         "status": "complete",
@@ -824,6 +825,23 @@ def prose(out: dict) -> None:
         )
         + "\n"
     )
+    lv = out["routing"].get("live")
+    if lv:
+        big_l, cas_l = lv["policies"]["always qwen7b-q4"], lv["policies"]["cascade margin"]
+        (GEN / "live_text.tex").write_text(
+            f"\\textbf{{Live validation.}} To check the offline replay, the H3 policy was run live on the Mac the next day: both models loaded on the GPU, the {cm['n'] if cm else 135} test items routed in real time with the validation-tuned $\\tau={lv['tau']:.2f}$, alternating with always-7B blocks over {lv['rounds']} rounds under a fresh {lv['idle_w']:.2f}\\,W idle baseline. "
+            f"Measured energy per request was {big_l['joules_per_request_mean']:.1f}\\,J for always-7B and {cas_l['joules_per_request_mean']:.1f}\\,J for the cascade, a measured saving of {lv['saving_pct_mean']:.1f}\\% "
+            f"(per round {', '.join(f'{x:.1f}' for x in lv['saving_pct_by_round'])}\\%), against {h3['test_saving_pct']:.1f}\\% estimated offline. "
+            f"The cascade escalated {100 * cas_l['escalation_rate']:.0f}\\% of items live and scored {100 * cas_l['accuracy']:.1f}\\% against {100 * big_l['accuracy']:.1f}\\% for always-7B. "
+            + (
+                "Memory page-outs were recorded during the live run, so these energy figures should be read with care."
+                if lv["swapped"]
+                else ""
+            )
+            + "\n"
+        )
+    else:
+        (GEN / "live_text.tex").write_text("%\n")
     (GEN / "abstract_results.tex").write_text(
         f"Qwen2.5-7B on the GPU was most accurate ({pct(big['accuracy'])}) at {big['joules_per_request_mean_over_domains']:.1f}\\,J of measured incremental energy per request; Qwen2.5-1.5B gave {pct(q15['accuracy'])} at {q15['joules_per_request_mean_over_domains']:.1f}\\,J, and Mistral-7B matched the 1.5B model's accuracy at the 7B energy cost. "
         "On this laptop the CPU tier was slower and used more energy than the GPU for the same small model. "
@@ -849,6 +867,65 @@ def prose(out: dict) -> None:
         "The figures say nothing about data-centre efficiency, batching servers or network energy, and the edge tier shares the chip with the device tier. "
         "The contribution is a method and a calibrated first data point that a larger study can extend to real edge hardware and hosted tiers.\n"
     )
+
+
+def live() -> dict | None:
+    """Live routing validation (results/mac/live): measured energy of each policy block."""
+    L = R / "live"
+    mpath = L / "live_manifest.json"
+    if not mpath.exists():
+        return None
+    man = json.loads(mpath.read_text())
+    ss = power_samples(path=L / "powermetrics.txt")
+    mk = {}
+    for line in (L / "markers.txt").read_text().splitlines():
+        name, t = line.split()
+        mk[name] = float(t)
+    idle_w, _ = mean_power(ss, mk["idle_start"] + 2, mk["idle_end"] - 2)
+    blocks = []
+    for b in man["blocks"]:
+        t0, t1 = b["window_epoch"]
+        p, n = mean_power(ss, t0, t1)
+        rows = [json.loads(x) for x in (L / b["rows"]).read_text().splitlines() if x]
+        blocks.append(
+            {
+                **{
+                    k: b[k]
+                    for k in ("round", "block", "policy", "n", "accuracy", "escalation_rate")
+                },
+                "window_s": t1 - t0,
+                "mean_power_w": p,
+                "samples": n,
+                "joules_per_request": (p - idle_w) * (t1 - t0) / b["n"],
+                "latency_mean_s": st.mean(r["wall_s"] for r in rows),
+            }
+        )
+    rounds = sorted({b["round"] for b in blocks})
+    savings = []
+    for r in rounds:
+        a_ = next(b for b in blocks if b["round"] == r and b["block"] == "A")
+        b_ = next(b for b in blocks if b["round"] == r and b["block"] == "B")
+        savings.append(100 * (1 - b_["joules_per_request"] / a_["joules_per_request"]))
+    pol = {}
+    for name in ("A", "B"):
+        bs = [b for b in blocks if b["block"] == name]
+        pol[bs[0]["policy"]] = {
+            "joules_per_request_mean": st.mean(b["joules_per_request"] for b in bs),
+            "accuracy": st.mean(b["accuracy"] for b in bs),
+            "escalation_rate": st.mean(b["escalation_rate"] for b in bs),
+            "latency_mean_s": st.mean(b["latency_mean_s"] for b in bs),
+        }
+    return {
+        "provenance": "measured (live routed runs, device tier)",
+        "tau": man["tau"],
+        "rounds": len(rounds),
+        "idle_w": idle_w,
+        "swapped": man["swapped"],
+        "blocks": blocks,
+        "policies": pol,
+        "saving_pct_by_round": savings,
+        "saving_pct_mean": st.mean(savings),
+    }
 
 
 def appendix(out: dict) -> None:
