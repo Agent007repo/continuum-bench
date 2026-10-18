@@ -1,0 +1,112 @@
+{
+  "identity": "ContinuumBench/shortlist/2026-10-14/v0.1",
+  "collection_enabled": false,
+  "models": [
+    {
+      "id": "Qwen/Qwen2.5-0.5B-Instruct",
+      "family": "qwen2",
+      "card_url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct",
+      "declared_licence": "apache-2.0",
+      "revision": null,
+      "licence_terms_verified": false,
+      "licence_url": "https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct/blob/main/LICENSE",
+      "runtime_verified": false,
+      "quantization": null,
+      "artifact_sha256": null,
+      "checked_date": "2026-10-14",
+      "status": "candidate-card-verified-not-execution-eligible"
+    },
+    {
+      "id": "Qwen/Qwen2.5-1.5B-Instruct",
+      "family": "qwen2",
+      "card_url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct",
+      "declared_licence": "apache-2.0",
+      "revision": "989aa7980e4cf806f80c7fef2b1adb7bc71aa306",
+      "licence_terms_verified": true,
+      "licence_url": "https://huggingface.co/Qwen/Qwen2.5-1.5B-Instruct/blob/989aa7980e4cf806f80c7fef2b1adb7bc71aa306/LICENSE",
+      "runtime_verified": false,
+      "quantization": null,
+      "artifact_sha256": null,
+      "checked_date": "2026-10-14",
+      "status": "candidate-card-verified-not-execution-eligible"
+    },
+    {
+      "id": "Qwen/Qwen2.5-7B-Instruct",
+      "family": "qwen2",
+      "card_url": "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct",
+      "declared_licence": "apache-2.0",
+      "revision": null,
+      "licence_terms_verified": false,
+      "licence_url": "https://huggingface.co/Qwen/Qwen2.5-7B-Instruct/blob/main/LICENSE",
+      "runtime_verified": false,
+      "quantization": null,
+      "artifact_sha256": null,
+      "checked_date": "2026-10-14",
+      "status": "candidate-card-verified-not-execution-eligible"
+    },
+    {
+      "id": "Qwen/Qwen2.5-14B-Instruct",
+      "family": "qwen2",
+      "card_url": "https://huggingface.co/Qwen/Qwen2.5-14B-Instruct",
+      "declared_licence": "apache-2.0",
+      "revision": null,
+      "licence_terms_verified": false,
+      "licence_url": "https://huggingface.co/Qwen/Qwen2.5-14B-Instruct/blob/main/LICENSE",
+      "runtime_verified": false,
+      "quantization": null,
+      "artifact_sha256": null,
+      "checked_date": "2026-10-14",
+      "status": "candidate-card-verified-not-execution-eligible"
+    },
+    {
+      "id": "Qwen/Qwen2.5-32B-Instruct",
+      "family": "qwen2",
+      "card_url": "https://huggingface.co/Qwen/Qwen2.5-32B-Instruct",
+      "declared_licence": "apache-2.0",
+      "revision": null,
+      "licence_terms_verified": false,
+      "licence_url": "https://huggingface.co/Qwen/Qwen2.5-32B-Instruct/blob/main/LICENSE",
+      "runtime_verified": false,
+      "quantization": null,
+      "artifact_sha256": null,
+      "checked_date": "2026-10-14",
+      "status": "candidate-card-verified-not-execution-eligible"
+    },
+    {
+      "id": "mistralai/Mistral-7B-Instruct-v0.3",
+      "family": "mistral",
+      "card_url": "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3",
+      "declared_licence": "apache-2.0",
+      "revision": "c170c708c41dac9275d15a8fff4eca08d52bab71",
+      "licence_terms_verified": false,
+      "licence_url": "https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.3/blob/c170c708c41dac9275d15a8fff4eca08d52bab71/README.md",
+      "runtime_verified": false,
+      "quantization": null,
+      "artifact_sha256": null,
+      "checked_date": "2026-10-14",
+      "status": "candidate-card-verified-not-execution-eligible"
+    }
+  ],
+  "datasets": [
+    {
+      "id": "rajpurkar/squad",
+      "url": "https://huggingface.co/datasets/rajpurkar/squad",
+      "owner_homepage": "https://rajpurkar.github.io/SQuAD-explorer/",
+      "task": "general-control-extractive-qa",
+      "declared_licence": "cc-by-sa-4.0",
+      "revision": null,
+      "source_sha256": null,
+      "status": "card-and-owner-page-opened; complete-reuse-and-split-freeze-pending"
+    },
+    {
+      "id": "EdinburghNLP/xsum",
+      "url": "https://huggingface.co/datasets/EdinburghNLP/xsum",
+      "task": "summarisation",
+      "declared_licence": "unknown",
+      "revision": null,
+      "source_sha256": null,
+      "status": "excluded-pending-rights-verification"
+    }
+  ],
+  "domain_corpora_status": "digital-industries, automotive and healthcare sets pending; no data imported"
+}

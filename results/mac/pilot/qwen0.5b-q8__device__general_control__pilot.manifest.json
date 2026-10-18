@@ -1,0 +1,73 @@
+{
+ "stem": "qwen0.5b-q8__device__general_control__pilot",
+ "protocol_identity": "ContinuumBench/mac/2026-10-17/v1",
+ "config": {
+  "id": "qwen0.5b-q8",
+  "model": "Qwen2.5-0.5B-Instruct",
+  "origin_jurisdiction": "CN",
+  "upstream_repo": "Qwen/Qwen2.5-0.5B-Instruct",
+  "artifact_repo": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+  "artifact_revision": "9217f5db79a29953eb74d5343926648285ec7e67",
+  "artifact_publisher": "model owner (Qwen)",
+  "files": [
+   "qwen2.5-0.5b-instruct-q8_0.gguf"
+  ],
+  "sha256": {
+   "qwen2.5-0.5b-instruct-q8_0.gguf": "ca59ca7f13d0e15a8cfa77bd17e65d24f6844b554a7b6c12e07a5f89ff76844e"
+  },
+  "size_bytes": 675710816,
+  "quantization": "Q8_0",
+  "licence": "Apache-2.0 (declared on the model card; see THIRD_PARTY.md)",
+  "tiers": [
+   "device",
+   "edge"
+  ]
+ },
+ "tier": {
+  "name": "device",
+  "threads": 8,
+  "n_gpu_layers": -1,
+  "represents": "an SME laptop with a capable integrated GPU: the whole Mac, Metal offload of every layer",
+  "energy": "measured"
+ },
+ "domain": "general_control",
+ "phase": "pilot",
+ "n_items": 15,
+ "model_sha256": {
+  "qwen2.5-0.5b-instruct-q8_0.gguf": "ca59ca7f13d0e15a8cfa77bd17e65d24f6844b554a7b6c12e07a5f89ff76844e"
+ },
+ "load": {
+  "wall_s": 0.213,
+  "cpu_s": 0.201,
+  "t_start_epoch": 1792256124.279,
+  "t_end_epoch": 1792256124.492
+ },
+ "windows_epoch": {
+  "main": [
+   1792256126.311124,
+   1792256126.720674
+  ],
+  "replay": [
+   null,
+   null
+  ]
+ },
+ "pageouts_before": 665,
+ "pageouts_after": 665,
+ "swapped": false,
+ "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+ "peak_rss_raw": 883654656,
+ "peak_rss_unit": "bytes",
+ "llama_cpp_python": "0.3.16",
+ "host": {
+  "machine": "arm64",
+  "python": "3.12.2",
+  "nproc": 10,
+  "cpu_model": "Apple M1 Max",
+  "mem_total_bytes": 68719476736,
+  "macos": "27.0.1",
+  "hw_model": "MacBookPro18,2"
+ },
+ "rows_sha256": "82930b9f695abac86a40d0fdc1b3d5bb0ebb7e1dafbe0c8a22f2463f4ce56990",
+ "finished_utc": "2026-10-17T16:55:26Z"
+}

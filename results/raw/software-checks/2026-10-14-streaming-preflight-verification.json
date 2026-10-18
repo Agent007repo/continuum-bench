@@ -1,0 +1,83 @@
+{
+  "timestamp": "2026-10-14T11:38:53.263419+00:00",
+  "scope": "software verification only; synthetic HTTP fixtures and Linux preflight rejection",
+  "code_commit": "80bad8728e7bc666e4d362f21395df991704dfc3",
+  "python": "Python 3.12.14",
+  "install_scope": "existing venv with UV_NO_SYNC=1; fresh frozen install must pass hosted CI",
+  "checks": [
+    {
+      "command": [
+        "make",
+        "test"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "command": [
+        "make",
+        "analyze"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "command": [
+        "make",
+        "docs"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--exit-code",
+        "--",
+        "results/derived"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "command": [
+        "../tools/gitleaks",
+        "git",
+        "--redact",
+        "--no-banner",
+        "--log-opts=--all"
+      ],
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "command": [
+        ".venv/bin/python",
+        "scripts/mac_preflight.py"
+      ],
+      "exit_code": 2,
+      "expected_exit_code": 2
+    }
+  ],
+  "test_count": 51,
+  "failures": 0,
+  "errors": 0,
+  "initial_protocol_sha256": "d9a157260a83abbf698f81f17a8281a2f22c59db14fbe66dab4fed28828286cf",
+  "evidence_sha256": {
+    "2026-10-14-streaming-preflight-junit.xml": "d60dd8bb964fe31415479014a32589077ee7ab894cf033141ce9ffda6022796a",
+    "2026-10-14-streaming-preflight-coverage.xml": "009fe5e0239f6e9d27813f8f6dff8268138e5b955bacf0d003044859fbc4b00b",
+    "2026-10-14-streaming-preflight-quality.log": "fd1ae627caeb089c4bc190d209db38611b9c21fc9c0bdd1bee21f3ad0ebe8da1"
+  },
+  "model_calls": 0,
+  "mac_measurements": 0
+}

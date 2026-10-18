@@ -1,4 +1,6 @@
-site_name: "ContinuumBench (independent foundation)"
+site_name: "ContinuumBench"
+exclude_docs: |
+  protocols/2026-10-17-mac-v1.md
 theme:
   name: material
 nav:
@@ -6,7 +8,13 @@ nav:
   - Research questions: research-questions.md
   - Method: method.md
   - Results: results.md
+  - Explorer: explorer.html
   - Architecture: architecture.md
+  - Mac protocol v1 (frozen): https://github.com/Agent007repo/continuum-bench/blob/main/docs/protocols/2026-10-17-mac-v1.md
+  - Candidate shortlist: protocols/2026-10-14-shortlist.md
+  - Pre-pilot decisions: protocols/2026-10-14-pre-pilot-decisions.md
+  - Streaming and preflight: protocols/2026-10-14-streaming-preflight-v0.2.md
+  - Mac runbook: RUNBOOK_full_benchmark.md
   - Reproduce: reproduce.md
   - Limitations: limitations.md
   - Related work: related-work.md

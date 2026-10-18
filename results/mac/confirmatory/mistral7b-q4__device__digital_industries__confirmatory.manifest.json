@@ -1,0 +1,72 @@
+{
+ "stem": "mistral7b-q4__device__digital_industries__confirmatory",
+ "protocol_identity": "ContinuumBench/mac/2026-10-17/v1",
+ "config": {
+  "id": "mistral7b-q4",
+  "model": "Mistral-7B-Instruct-v0.3",
+  "origin_jurisdiction": "FR",
+  "upstream_repo": "mistralai/Mistral-7B-Instruct-v0.3",
+  "artifact_repo": "bartowski/Mistral-7B-Instruct-v0.3-GGUF",
+  "artifact_revision": "61fd4167fff3ab01ee1cfe0da183fa27a944db48",
+  "artifact_publisher": "third party (bartowski); conversion from the upstream revision is declared by the converter, not independently verified",
+  "files": [
+   "Mistral-7B-Instruct-v0.3-Q4_K_M.gguf"
+  ],
+  "sha256": {
+   "Mistral-7B-Instruct-v0.3-Q4_K_M.gguf": "1270d22c0fbb3d092fb725d4d96c457b7b687a5f5a715abe1e818da303e562b6"
+  },
+  "size_bytes": 4372812000,
+  "quantization": "Q4_K_M",
+  "licence": "Apache-2.0 (declared on the model card; see THIRD_PARTY.md)",
+  "tiers": [
+   "device"
+  ]
+ },
+ "tier": {
+  "name": "device",
+  "threads": 8,
+  "n_gpu_layers": -1,
+  "represents": "an SME laptop with a capable integrated GPU: the whole Mac, Metal offload of every layer",
+  "energy": "measured"
+ },
+ "domain": "digital_industries",
+ "phase": "confirmatory",
+ "n_items": 150,
+ "model_sha256": {
+  "Mistral-7B-Instruct-v0.3-Q4_K_M.gguf": "1270d22c0fbb3d092fb725d4d96c457b7b687a5f5a715abe1e818da303e562b6"
+ },
+ "load": {
+  "wall_s": 0.25,
+  "cpu_s": 0.228,
+  "t_start_epoch": 1792256848.733,
+  "t_end_epoch": 1792256848.984
+ },
+ "windows_epoch": {
+  "main": [
+   1792257007.856576,
+   1792257047.557543
+  ],
+  "replay": [
+   1792257055.853485,
+   1792257069.702063
+  ]
+ },
+ "pageouts_before": 665,
+ "pageouts_after": 665,
+ "swapped": false,
+ "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+ "peak_rss_raw": 4842373120,
+ "peak_rss_unit": "bytes",
+ "llama_cpp_python": "0.3.16",
+ "host": {
+  "machine": "arm64",
+  "python": "3.12.2",
+  "nproc": 10,
+  "cpu_model": "Apple M1 Max",
+  "mem_total_bytes": 68719476736,
+  "macos": "27.0.1",
+  "hw_model": "MacBookPro18,2"
+ },
+ "rows_sha256": "9605f291780be644a14df246c7d8110891b03be2bb61ff65d65158a830b27436",
+ "finished_utc": "2026-10-17T17:11:09Z"
+}

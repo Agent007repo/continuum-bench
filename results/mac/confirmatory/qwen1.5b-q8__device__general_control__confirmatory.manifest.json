@@ -1,0 +1,72 @@
+{
+ "stem": "qwen1.5b-q8__device__general_control__confirmatory",
+ "protocol_identity": "ContinuumBench/mac/2026-10-17/v1",
+ "config": {
+  "id": "qwen1.5b-q8",
+  "model": "Qwen2.5-1.5B-Instruct",
+  "origin_jurisdiction": "CN",
+  "upstream_repo": "Qwen/Qwen2.5-1.5B-Instruct",
+  "artifact_repo": "Qwen/Qwen2.5-1.5B-Instruct-GGUF",
+  "artifact_revision": "91cad51170dc346986eccefdc2dd33a9da36ead9",
+  "artifact_publisher": "model owner (Qwen)",
+  "files": [
+   "qwen2.5-1.5b-instruct-q8_0.gguf"
+  ],
+  "sha256": {
+   "qwen2.5-1.5b-instruct-q8_0.gguf": "d7efb072e7724d25048a4fda0a3e10b04bdef5d06b1403a1c93bd9f1240a63c8"
+  },
+  "size_bytes": 1894532128,
+  "quantization": "Q8_0",
+  "licence": "Apache-2.0 (declared on the model card; see THIRD_PARTY.md)",
+  "tiers": [
+   "device"
+  ]
+ },
+ "tier": {
+  "name": "device",
+  "threads": 8,
+  "n_gpu_layers": -1,
+  "represents": "an SME laptop with a capable integrated GPU: the whole Mac, Metal offload of every layer",
+  "energy": "measured"
+ },
+ "domain": "general_control",
+ "phase": "confirmatory",
+ "n_items": 150,
+ "model_sha256": {
+  "qwen2.5-1.5b-instruct-q8_0.gguf": "d7efb072e7724d25048a4fda0a3e10b04bdef5d06b1403a1c93bd9f1240a63c8"
+ },
+ "load": {
+  "wall_s": 0.259,
+  "cpu_s": 0.242,
+  "t_start_epoch": 1792256511.985,
+  "t_end_epoch": 1792256512.244
+ },
+ "windows_epoch": {
+  "main": [
+   1792256557.246883,
+   1792256566.450388
+  ],
+  "replay": [
+   1792256568.2953758,
+   1792256571.3720279
+  ]
+ },
+ "pageouts_before": 665,
+ "pageouts_after": 665,
+ "swapped": false,
+ "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+ "peak_rss_raw": 2158690304,
+ "peak_rss_unit": "bytes",
+ "llama_cpp_python": "0.3.16",
+ "host": {
+  "machine": "arm64",
+  "python": "3.12.2",
+  "nproc": 10,
+  "cpu_model": "Apple M1 Max",
+  "mem_total_bytes": 68719476736,
+  "macos": "27.0.1",
+  "hw_model": "MacBookPro18,2"
+ },
+ "rows_sha256": "c204ac1bed01950642fa0dc1629340797bab0056b6f3d345f0e5d37a69e67c2e",
+ "finished_utc": "2026-10-17T17:02:51Z"
+}

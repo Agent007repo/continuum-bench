@@ -2,12 +2,14 @@
 
 Status: preparation only. `make bench-full` currently refuses to run. No overnight duration or model-download footprint has been measured. We will estimate these from a pilot after choosing verified model configurations.
 
-Run these read-only commands on your Mac and return the output. They contain no serial-number or identity query.
+On the new tooling branch, run `uv run python scripts/mac_preflight.py` from the repository root. It saves a dated JSON inventory in `results/local/` and refuses to run on Linux or overwrite a record. Return that JSON after reviewing paths for privacy. It does not collect power or load a model. The equivalent manual commands below contain no serial-number query.
 
 ```bash
 sw_vers
 df -h "$HOME"
 sysctl -n hw.memsize
+sysctl -n hw.model
+sysctl -n machdep.cpu.brand_string
 command -v powermetrics
 powermetrics --help
 ```
@@ -19,3 +21,5 @@ After adapter validation, a local operator can run powermetrics with sudo using 
 For a pilot, plug into power, record battery/power mode, close unrelated workloads, record thermal conditions, establish a timed idle baseline, and preserve raw samples. Exclude and log swapping rather than reporting a configuration that paged through disk. Validate request-clock alignment and gaps before trusting joules. If a wall-plug meter exists, prepare an independent validation window; otherwise state the component-energy limitation.
 
 The final runbook will provide native and emulated-edge commands, a frozen configuration, resumption semantics, expected duration from measured pilot timings and calibration tasks. Those instructions cannot be claimed complete now.
+
+See the [streaming and preflight supplement](protocols/2026-10-14-streaming-preflight-v0.2.md) for timing definitions and implementation limits. Native backend validation is still required before a pilot.

@@ -9,10 +9,11 @@ test:
 	uv run python scripts/integrity.py
 analyze:
 	uv run python scripts/analyze.py
+	uv run python scripts/analyze_mac.py
 docs:
 	uv run mkdocs build --strict
 report:
-	cd paper && pdflatex -interaction=nonstopmode -halt-on-error report.tex
+	cd paper && pdflatex -interaction=nonstopmode -halt-on-error report.tex && pdflatex -interaction=nonstopmode -halt-on-error report.tex
 bench-smoke:
 	uv run pytest tests/scenarios -q
 bench-full:

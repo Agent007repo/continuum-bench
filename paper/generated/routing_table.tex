@@ -1,0 +1,17 @@
+\begin{table}[t]\centering\footnotesize
+\caption{Routing policies on the 135 held-out test items, device tier. $\Delta$: accuracy change in points versus always Qwen2.5-7B. Saving: mean energy per request saved versus the same baseline.}\label{tab:routing}
+\begin{tabular}{@{}lrrr@{}}\toprule
+Policy & Acc. & $\Delta$ & Saving\\\midrule
+always mistral7b-q4 & 65.2 & -11.1 & -5\%\\
+always qwen0.5b-q4 & 38.5 & -37.8 & 94\%\\
+always qwen0.5b-q8 & 41.5 & -34.8 & 94\%\\
+always qwen1.5b-q4 & 71.9 & -4.4 & 79\%\\
+always qwen1.5b-q8 & 69.6 & -6.7 & 81\%\\
+always qwen7b-q4 & 76.3 & +0.0 & 0\%\\
+static sensitivity rule & 68.1 & -8.1 & 12\%\\
+cascade p\_max & 74.8 & -1.5 & 28\%\\
+cascade margin & 74.1 & -2.2 & 29\%\\
+learned router & 73.3 & -3.0 & 34\%\\
+constraint-aware optimiser & 76.3 & +0.0 & 0\%\\
+oracle (upper bound, uses labels) & 88.1 & +11.9 & 68\%\\
+\bottomrule\end{tabular}\end{table}

@@ -1,0 +1,73 @@
+{
+ "stem": "qwen0.5b-q4__edge__general_control__confirmatory",
+ "protocol_identity": "ContinuumBench/mac/2026-10-17/v1",
+ "config": {
+  "id": "qwen0.5b-q4",
+  "model": "Qwen2.5-0.5B-Instruct",
+  "origin_jurisdiction": "CN",
+  "upstream_repo": "Qwen/Qwen2.5-0.5B-Instruct",
+  "artifact_repo": "Qwen/Qwen2.5-0.5B-Instruct-GGUF",
+  "artifact_revision": "9217f5db79a29953eb74d5343926648285ec7e67",
+  "artifact_publisher": "model owner (Qwen)",
+  "files": [
+   "qwen2.5-0.5b-instruct-q4_k_m.gguf"
+  ],
+  "sha256": {
+   "qwen2.5-0.5b-instruct-q4_k_m.gguf": "74a4da8c9fdbcd15bd1f6d01d621410d31c6fc00986f5eb687824e7b93d7a9db"
+  },
+  "size_bytes": 491400032,
+  "quantization": "Q4_K_M",
+  "licence": "Apache-2.0 (declared on the model card; see THIRD_PARTY.md)",
+  "tiers": [
+   "device",
+   "edge"
+  ]
+ },
+ "tier": {
+  "name": "edge",
+  "threads": 4,
+  "n_gpu_layers": 0,
+  "represents": "a small CPU-only on-premise server, emulated on the same Mac with 4 CPU threads and no GPU",
+  "energy": "measured on the Mac CPU rail; the tier itself is an emulation, not separate hardware"
+ },
+ "domain": "general_control",
+ "phase": "confirmatory",
+ "n_items": 150,
+ "model_sha256": {
+  "qwen2.5-0.5b-instruct-q4_k_m.gguf": "74a4da8c9fdbcd15bd1f6d01d621410d31c6fc00986f5eb687824e7b93d7a9db"
+ },
+ "load": {
+  "wall_s": 0.209,
+  "cpu_s": 0.195,
+  "t_start_epoch": 1792257130.459,
+  "t_end_epoch": 1792257130.667
+ },
+ "windows_epoch": {
+  "main": [
+   1792257231.803095,
+   1792257255.581522
+  ],
+  "replay": [
+   1792257260.349813,
+   1792257268.50678
+  ]
+ },
+ "pageouts_before": 665,
+ "pageouts_after": 665,
+ "swapped": false,
+ "thermal_before": "Note: No thermal warning level has been recorded\nNote: No performance warning level has been recorded\nNote: No CPU power status has been recorded",
+ "peak_rss_raw": 835158016,
+ "peak_rss_unit": "bytes",
+ "llama_cpp_python": "0.3.16",
+ "host": {
+  "machine": "arm64",
+  "python": "3.12.2",
+  "nproc": 10,
+  "cpu_model": "Apple M1 Max",
+  "mem_total_bytes": 68719476736,
+  "macos": "27.0.1",
+  "hw_model": "MacBookPro18,2"
+ },
+ "rows_sha256": "feee67ac9cd1f5a5881c3eba8e961c04a57d40d326b1754173ed0482cd10da10",
+ "finished_utc": "2026-10-17T17:14:28Z"
+}
