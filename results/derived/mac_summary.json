@@ -1131,7 +1131,117 @@
    "accuracy_ci_within_tolerance": false
   },
   "energy_available": true,
-  "live": null
+  "live": {
+   "provenance": "measured (live routed runs, device tier)",
+   "tau": 0.98,
+   "rounds": 3,
+   "idle_w": 1.1260256133446096,
+   "swapped": true,
+   "pageouts": [
+    1531,
+    1532
+   ],
+   "blocks": [
+    {
+     "round": 0,
+     "block": "A",
+     "policy": "always qwen7b-q4",
+     "n": 135,
+     "accuracy": 0.762962962962963,
+     "escalation_rate": 0.0,
+     "window_s": 54.94287896156311,
+     "mean_power_w": 49.90628110203039,
+     "samples": 261,
+     "joules_per_request": 19.8527975779925,
+     "latency_mean_s": 0.4069106074074074
+    },
+    {
+     "round": 0,
+     "block": "B",
+     "policy": "cascade margin",
+     "n": 135,
+     "accuracy": 0.7407407407407407,
+     "escalation_rate": 0.43703703703703706,
+     "window_s": 43.16485905647278,
+     "mean_power_w": 48.715775515047156,
+     "samples": 205,
+     "joules_per_request": 15.216332200294666,
+     "latency_mean_s": 0.3196518666666667
+    },
+    {
+     "round": 1,
+     "block": "A",
+     "policy": "always qwen7b-q4",
+     "n": 135,
+     "accuracy": 0.762962962962963,
+     "escalation_rate": 0.0,
+     "window_s": 54.475605964660645,
+     "mean_power_w": 49.05315330227329,
+     "samples": 259,
+     "joules_per_request": 19.3396986888893,
+     "latency_mean_s": 0.4034470962962963
+    },
+    {
+     "round": 1,
+     "block": "B",
+     "policy": "cascade margin",
+     "n": 135,
+     "accuracy": 0.7407407407407407,
+     "escalation_rate": 0.43703703703703706,
+     "window_s": 43.31872892379761,
+     "mean_power_w": 47.359130054813384,
+     "samples": 205,
+     "joules_per_request": 14.8352542118934,
+     "latency_mean_s": 0.32078806666666665
+    },
+    {
+     "round": 2,
+     "block": "A",
+     "policy": "always qwen7b-q4",
+     "n": 135,
+     "accuracy": 0.762962962962963,
+     "escalation_rate": 0.0,
+     "window_s": 55.37187600135803,
+     "mean_power_w": 49.98415443012474,
+     "samples": 263,
+     "joules_per_request": 20.03975000371205,
+     "latency_mean_s": 0.41009505925925926
+    },
+    {
+     "round": 2,
+     "block": "B",
+     "policy": "cascade margin",
+     "n": 135,
+     "accuracy": 0.7407407407407407,
+     "escalation_rate": 0.43703703703703706,
+     "window_s": 43.428394079208374,
+     "mean_power_w": 47.94257993235198,
+     "samples": 206,
+     "joules_per_request": 15.060502002937163,
+     "latency_mean_s": 0.32160356296296294
+    }
+   ],
+   "policies": {
+    "always qwen7b-q4": {
+     "joules_per_request_mean": 19.74408209019795,
+     "accuracy": 0.762962962962963,
+     "escalation_rate": 0.0,
+     "latency_mean_s": 0.406817587654321
+    },
+    "cascade margin": {
+     "joules_per_request_mean": 15.037362805041743,
+     "accuracy": 0.7407407407407407,
+     "escalation_rate": 0.43703703703703706,
+     "latency_mean_s": 0.32068116543209874
+    }
+   },
+   "saving_pct_by_round": [
+    23.35421675198821,
+    23.291182295325598,
+    24.846856871231225
+   ],
+   "saving_pct_mean": 23.830751972848343
+  }
  },
  "paired_accuracy": {
   "mistral7b_minus_qwen1.5b_pts": -0.4444444444444444,
