@@ -313,5 +313,23 @@
     "checked_date": "2026-10-14",
     "access": "browser_open",
     "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "httpx-streaming",
+    "url": "https://www.python-httpx.org/quickstart/",
+    "claim": "Official HTTPX documentation describes response streaming and line iteration; consulted for client implementation, not backend measurement validation.",
+    "status": "verified",
+    "checked_date": "2026-10-14",
+    "access": "primary_page_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
+  },
+  {
+    "id": "llamacpp-server-stream-reference",
+    "url": "https://github.com/ggml-org/llama.cpp/blob/master/tools/server/README.md",
+    "claim": "Official server documentation consulted for the chat-completion streaming interface; exact runtime version and compatibility remain unverified.",
+    "status": "reference_opened_runtime_unverified",
+    "checked_date": "2026-10-14",
+    "access": "primary_page_open",
+    "rights": "link-and-original-paraphrase-only; no full-text redistributed"
   }
 ]
