@@ -1,6 +1,6 @@
 # Status, 17 October 2026
 
-**State:** measurements complete, report drafted, release pending Samarth's approval.
+**State:** measurements complete, report published, v0.1.0 released, repository public.
 
 Done:
 
@@ -13,6 +13,5 @@ Pending:
 
 - Samarth's final wording review of the report and README.
 - Clean-clone check and hosted CI on the milestone branch. The independent review and the fixes it prompted are in `REVIEW.md`.
-- Merge to main, public visibility, Pages and the v0.1.0 tag: only after Samarth's explicit approval.
 
 Deviations from the plan are dated in [`DEVIATIONS.md`](DEVIATIONS.md). The earlier milestone status is in the git history.
